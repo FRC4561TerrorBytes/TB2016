@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 import org.usfirst.frc.team4561.robot.commands.ArcadeDrive;
+import org.usfirst.frc.team4561.robot.commands.LoadBall;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -49,7 +50,11 @@ public class OI {
 			RobotMap.FRONT_RIGHT_MOTOR_BUTTON);
 	private JoystickButton driveRearRight = new JoystickButton(rightStick,
 			RobotMap.REAR_RIGHT_MOTOR_BUTTON);
-	
+	private JoystickButton loaderButton = new JoystickButton(leftStick,
+			RobotMap.LOADER_BUTTON);
+	public OI(){
+		loaderButton.whenPressed(new LoadBall());
+	}
 	public static double RIGHT_STICK_DEAD_ZONE = 0.1; //TODO: Change based on tests
     public static double RIGHT_STICK_REDUCTION = 0;
     

@@ -7,6 +7,8 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import org.usfirst.frc.team4561.robot.commands.ArcadeDrive;
 import org.usfirst.frc.team4561.robot.subsystems.DriveTrain;
+import org.usfirst.frc.team4561.robot.subsystems.Loader;
+
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -21,6 +23,7 @@ public class Robot extends IterativeRobot {
 
 	public static final DriveTrain driveTrain = new DriveTrain();
 	public static OI oi;
+	public static Loader loader; 
 
     Command autonomousCommand;
     SendableChooser chooser;
@@ -35,6 +38,7 @@ public class Robot extends IterativeRobot {
         chooser.addDefault("Default Auto", new ArcadeDrive());
 //        chooser.addObject("My Auto", new MyAutoCommand());
         SmartDashboard.putData("Auto mode", chooser);
+        loader = new Loader();
     }
 	
 	/**

@@ -18,4 +18,5 @@ public class RobotMap {
     public static int FRONT_RIGHT_MOTOR_BUTTON = 8;
     public static int REAR_LEFT_MOTOR_BUTTON = 7;
     public static int REAR_RIGHT_MOTOR_BUTTON = 6;
+    public static int LOADER_BUTTON = 10;
 }
