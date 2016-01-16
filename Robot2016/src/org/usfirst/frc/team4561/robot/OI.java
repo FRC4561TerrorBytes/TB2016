@@ -37,45 +37,111 @@ public class OI {
     // Start the command when the button is released  and let it run the command
     // until it is finished as determined by it's isFinished method.
     // button.whenReleased(new ExampleCommand());
-	private static Joystick driveStick = new Joystick(RobotMap.DRIVE_JOYSTICK);
-	private static Joystick rotationStick = new Joystick(RobotMap.ROTATION_JOYSTICK);
-	private JoystickButton driveFrontLeft = new JoystickButton(driveStick,
+	
+	private static Joystick rightStick = new Joystick(RobotMap.RIGHT_JOYSTICK);
+	private static Joystick leftStick = new Joystick(RobotMap.LEFT_JOYSTICK);
+	
+	private JoystickButton driveFrontLeft = new JoystickButton(rightStick,
 			RobotMap.FRONT_LEFT_MOTOR_BUTTON);
-	private JoystickButton driveRearLeft = new JoystickButton(driveStick,
+	private JoystickButton driveRearLeft = new JoystickButton(rightStick,
 			RobotMap.REAR_LEFT_MOTOR_BUTTON);
-	private JoystickButton driveFrontRight = new JoystickButton(driveStick,
+	private JoystickButton driveFrontRight = new JoystickButton(rightStick,
 			RobotMap.FRONT_RIGHT_MOTOR_BUTTON);
-	private JoystickButton driveRearRight = new JoystickButton(driveStick,
+	private JoystickButton driveRearRight = new JoystickButton(rightStick,
 			RobotMap.REAR_RIGHT_MOTOR_BUTTON);
-	public static int DRIVE_DEAD_ZONE = 0; //TODO: it probably isn't actually zero
-    public static int DRIVE_STICK_REDUCTION = 0;
-	public static double getDrive() {
+	
+	public static double RIGHT_STICK_DEAD_ZONE = 0.1; //TODO: Change based on tests
+    public static double RIGHT_STICK_REDUCTION = 0;
+    
+    public static double LEFT_STICK_DEAD_ZONE = 0.1; //TODO: Change based on tests
+    public static double LEFT_STICK_REDUCTION = 0;
+    
+	public double getRightStickY() {
+		double rightStickY = rightStick.getY();
 		// Dead zone management
-		double driveStickY = driveStick.getY();
-		if(Math.abs(driveStickY) < DRIVE_DEAD_ZONE) {
-			driveStickY = 0;
+		if(Math.abs(rightStickY) < RIGHT_STICK_DEAD_ZONE) {
+			rightStickY = 0;
 		}
-		if(driveStickY > 0) {
-			driveStickY = driveStickY - DRIVE_STICK_REDUCTION;
+		// Reductions
+		if(rightStickY > 0) {
+			rightStickY = rightStickY - RIGHT_STICK_REDUCTION;
+			if(rightStickY < 0) {
+				rightStickY = 0;
+			}
 		}
-		else if(driveStickY < 0) {
-			driveStickY = driveStickY + DRIVE_STICK_REDUCTION;
+		else if(rightStickY < 0) {
+			rightStickY = rightStickY + RIGHT_STICK_REDUCTION;
+			if(rightStickY > 0) {
+				rightStickY = 0;
+			}
 		}
-		return driveStickY;
-		// return xBoxDriveStick.getX();
+		return rightStickY;
 	}
-	public static int getTurn() {
-		double driveStickX = rotationStick.getX();
-		if(Math.abs(driveStickX) < DRIVE_DEAD_ZONE) {
-			driveStickX = 0;
+	
+	public double getRightStickX() {
+		double rightStickX = rightStick.getX();
+		// Dead zone management
+		if(Math.abs(rightStickX) < RIGHT_STICK_DEAD_ZONE) {
+			rightStickX = 0;
 		}
-		if(driveStickX > 0) {
-			driveStickX = driveStickX - DRIVE_STICK_REDUCTION;
+		// Reductions
+		if(rightStickX > 0) {
+			rightStickX = rightStickX - RIGHT_STICK_REDUCTION;
+			if(rightStickX < 0) {
+				rightStickX = 0;
+			}
 		}
-		else if(driveStickX < 0) {
-			driveStickX = driveStickX + DRIVE_STICK_REDUCTION;
+		else if(rightStickX < 0) {
+			rightStickX = rightStickX + RIGHT_STICK_REDUCTION;
+			if(rightStickX > 0) {
+				rightStickX = 0;
+			}
 		}
-		return (int) driveStickX;
+		return rightStickX;
+	}
+	
+	public double getLeftStickY() {
+		double leftStickY = leftStick.getY();
+		// Dead zone management
+		if(Math.abs(leftStickY) < LEFT_STICK_DEAD_ZONE) {
+			leftStickY = 0;
+		}
+		// Reductions
+		if(leftStickY > 0) {
+			leftStickY = leftStickY - RIGHT_STICK_REDUCTION;
+			if(leftStickY < 0) {
+				leftStickY = 0;
+			}
+		}
+		else if(leftStickY < 0) {
+			leftStickY = leftStickY + RIGHT_STICK_REDUCTION;
+			if(leftStickY > 0) {
+				leftStickY = 0;
+			}
+		}
+		return leftStickY;
+	}
+	
+	public double getLeftStickX() {
+		double leftStickX = leftStick.getX();
+		// Dead zone management
+		if(Math.abs(leftStickX) < LEFT_STICK_DEAD_ZONE) {
+			leftStickX = 0;
+		}
+		// Reductions
+		if(leftStickX > 0) {
+			leftStickX = leftStickX - RIGHT_STICK_REDUCTION;
+			if(leftStickX < 0) {
+				leftStickX = 0;
+			}
+		}
+		else if(leftStickX < 0) {
+			leftStickX = leftStickX + RIGHT_STICK_REDUCTION;
+			if(leftStickX > 0) {
+				leftStickX = 0;
+			}
+		}
+		return leftStickX;
 	}
 }
 

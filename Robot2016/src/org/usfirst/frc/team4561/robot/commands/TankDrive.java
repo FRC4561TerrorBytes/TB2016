@@ -1,4 +1,3 @@
-
 package org.usfirst.frc.team4561.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -8,9 +7,9 @@ import org.usfirst.frc.team4561.robot.Robot;
 /**
  *
  */
-public class ArcadeDrive extends Command {
+public class TankDrive extends Command {
 
-    public ArcadeDrive() {
+    public TankDrive() {
         // Use requires() here to declare subsystem dependencies
         requires(Robot.driveTrain);
     }
@@ -21,7 +20,7 @@ public class ArcadeDrive extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.driveTrain.driveArcade(Robot.oi.getLeftStickY(), Robot.oi.getRightStickX());
+    	Robot.driveTrain.driveTank(Robot.oi.getLeftStickY(), Robot.oi.getRightStickY());
     }
 
     // Make this return true when this Command no longer needs to run execute()
