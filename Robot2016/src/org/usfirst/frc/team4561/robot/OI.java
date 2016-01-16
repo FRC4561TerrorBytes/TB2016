@@ -1,7 +1,10 @@
 package org.usfirst.frc.team4561.robot;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
-import org.usfirst.frc.team4561.robot.commands.ExampleCommand;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
+
+import org.usfirst.frc.team4561.robot.commands.ArcadeDrive;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -34,5 +37,45 @@ public class OI {
     // Start the command when the button is released  and let it run the command
     // until it is finished as determined by it's isFinished method.
     // button.whenReleased(new ExampleCommand());
+	private static Joystick driveStick = new Joystick(RobotMap.DRIVE_JOYSTICK);
+	private static Joystick rotationStick = new Joystick(RobotMap.ROTATION_JOYSTICK);
+	private JoystickButton driveFrontLeft = new JoystickButton(driveStick,
+			RobotMap.FRONT_LEFT_MOTOR_BUTTON);
+	private JoystickButton driveRearLeft = new JoystickButton(driveStick,
+			RobotMap.REAR_LEFT_MOTOR_BUTTON);
+	private JoystickButton driveFrontRight = new JoystickButton(driveStick,
+			RobotMap.FRONT_RIGHT_MOTOR_BUTTON);
+	private JoystickButton driveRearRight = new JoystickButton(driveStick,
+			RobotMap.REAR_RIGHT_MOTOR_BUTTON);
+	public static int DRIVE_DEAD_ZONE = 0; //TODO: it probably isn't actually zero
+    public static int DRIVE_STICK_REDUCTION = 0;
+	public static double getDrive() {
+		// Dead zone management
+		double driveStickY = driveStick.getY();
+		if(Math.abs(driveStickY) < DRIVE_DEAD_ZONE) {
+			driveStickY = 0;
+		}
+		if(driveStickY > 0) {
+			driveStickY = driveStickY - DRIVE_STICK_REDUCTION;
+		}
+		else if(driveStickY < 0) {
+			driveStickY = driveStickY + DRIVE_STICK_REDUCTION;
+		}
+		return driveStickY;
+		// return xBoxDriveStick.getX();
+	}
+	public static int getTurn() {
+		double driveStickX = rotationStick.getX();
+		if(Math.abs(driveStickX) < DRIVE_DEAD_ZONE) {
+			driveStickX = 0;
+		}
+		if(driveStickX > 0) {
+			driveStickX = driveStickX - DRIVE_STICK_REDUCTION;
+		}
+		else if(driveStickX < 0) {
+			driveStickX = driveStickX + DRIVE_STICK_REDUCTION;
+		}
+		return (int) driveStickX;
+	}
 }
 

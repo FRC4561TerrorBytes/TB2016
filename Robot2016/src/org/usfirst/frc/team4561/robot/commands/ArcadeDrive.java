@@ -3,24 +3,33 @@ package org.usfirst.frc.team4561.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 
+import org.usfirst.frc.team4561.robot.OI;
 import org.usfirst.frc.team4561.robot.Robot;
 
 /**
  *
  */
-public class ExampleCommand extends Command {
+public class ArcadeDrive extends Command {
 
-    public ExampleCommand() {
+    public ArcadeDrive() {
         // Use requires() here to declare subsystem dependencies
-        requires(Robot.exampleSubsystem);
+        requires(Robot.driveTrain);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	Robot.driveTrain.ahead(OI.getDrive());
+    	if (OI.getTurn() > 0){
+    		Robot.driveTrain.right(OI.getTurn());
+    	}
+    	else if (OI.getTurn() < 0){
+    		Robot.driveTrain.left(OI.getTurn());
+    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()
