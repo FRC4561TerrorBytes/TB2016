@@ -10,7 +10,8 @@ public class RobotMap {
     public static int FRONT_RIGHT_MOTOR_CAN = 1;
     public static int BACK_LEFT_MOTOR_CAN = 2;
     public static int BACK_RIGHT_MOTOR_CAN = 3;
-    
+    public static int FLY_ONE = 0; //TODO: do these ports correctly
+	public static int FLY_TWO = 1;
     public static int LEFT_JOYSTICK = 0; //TODO: Verify
     public static int RIGHT_JOYSTICK = 1;
     
