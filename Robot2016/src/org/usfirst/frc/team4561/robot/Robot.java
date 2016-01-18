@@ -11,6 +11,7 @@ import org.usfirst.frc.team4561.robot.commands.StartCameraStream;
 import org.usfirst.frc.team4561.robot.subsystems.Camera;
 import org.usfirst.frc.team4561.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team4561.robot.subsystems.Loader;
+import org.usfirst.frc.team4561.robot.subsystems.Shooter;
 
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -28,6 +29,7 @@ public class Robot extends IterativeRobot {
 	public static final DriveTrain driveTrain = new DriveTrain();
 	public static final Loader loader = new Loader();
 	public static final Camera camera = new Camera();
+	public static Shooter shooter = new Shooter(); 
 
     Command autonomousCommand;
     SendableChooser chooser;
