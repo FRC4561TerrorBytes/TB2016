@@ -1,18 +1,17 @@
-
 package org.usfirst.frc.team4561.robot.commands;
 
+import org.usfirst.frc.team4561.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
-import org.usfirst.frc.team4561.robot.Robot;
-
 /**
- * Activates arcade drive. In arcade drive, the left 
- * stick controls the forward/backward speed, and the 
- * right stick controls turns.
+ * Tests the four motors of the DriveTrain individually.
  */
-public class ArcadeDrive extends Command {
+public class IndividualMotorDrive extends Command {
+	
+	private int motorID;
 
-    public ArcadeDrive() {
+    public IndividualMotorDrive(int motorID) {
+    	this.motorID = motorID;
         requires(Robot.driveTrain);
     }
 
@@ -22,7 +21,7 @@ public class ArcadeDrive extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.driveTrain.driveArcade(Robot.oi.getLeftStickY(), Robot.oi.getRightStickX());
+    	Robot.driveTrain.driveSingleMotor(motorID);
     }
 
     // Make this return true when this Command no longer needs to run execute()

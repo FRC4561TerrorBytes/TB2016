@@ -5,12 +5,13 @@ import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc.team4561.robot.Robot;
 
 /**
- *
+ * Activates tank drive. In tank drive, the left 
+ * stick controls the left wheels, and the 
+ * right stick controls the right wheels.
  */
 public class TankDrive extends Command {
 
     public TankDrive() {
-        // Use requires() here to declare subsystem dependencies
         requires(Robot.driveTrain);
     }
 

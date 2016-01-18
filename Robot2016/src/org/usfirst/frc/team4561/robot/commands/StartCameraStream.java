@@ -1,19 +1,16 @@
-
 package org.usfirst.frc.team4561.robot.commands;
-
-import edu.wpi.first.wpilibj.command.Command;
 
 import org.usfirst.frc.team4561.robot.Robot;
 
-/**
- * Activates arcade drive. In arcade drive, the left 
- * stick controls the forward/backward speed, and the 
- * right stick controls turns.
- */
-public class ArcadeDrive extends Command {
+import edu.wpi.first.wpilibj.command.Command;
 
-    public ArcadeDrive() {
-        requires(Robot.driveTrain);
+/**
+ * Begins capturing and sending the camera stream.
+ */
+public class StartCameraStream extends Command {
+
+    public StartCameraStream() {
+        requires(Robot.camera);
     }
 
     // Called just before this Command runs the first time
@@ -22,7 +19,7 @@ public class ArcadeDrive extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.driveTrain.driveArcade(Robot.oi.getLeftStickY(), Robot.oi.getRightStickX());
+    	Robot.camera.update();
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -32,7 +29,6 @@ public class ArcadeDrive extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.driveTrain.stop();
     }
 
     // Called when another command which requires one or more of the same
