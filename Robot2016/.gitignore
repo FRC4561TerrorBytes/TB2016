@@ -1,1 +1,3 @@
 /sysProps.xml
+*.class
+*.jar

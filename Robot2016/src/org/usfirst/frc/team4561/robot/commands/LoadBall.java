@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class LoadBall extends Command {
 
     public LoadBall() {
-          requires(Robot.loader);
+          //requires(Robot.loader);
     }
 
     // Called just before this Command runs the first time

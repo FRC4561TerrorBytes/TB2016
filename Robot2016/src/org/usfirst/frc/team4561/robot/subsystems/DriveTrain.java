@@ -23,7 +23,7 @@ public class DriveTrain extends Subsystem {
 	private static String DRIVE_TYPE = "tank";
 	
 	// "talon" for TalonSRs, "victor" for Victors, "cantalon" for CANTalons or CANTalonSRXs
-	private static String MOTOR_TYPE = "cantalon";
+	private static String MOTOR_TYPE = "victor";
 	
 	// Squares the input values, such that 0.5 power becomes 0.25, etc.
 	private static boolean squaredInputs = true;
@@ -64,6 +64,7 @@ public class DriveTrain extends Subsystem {
     				rightFront, rightRear);
     	}
     	else if(MOTOR_TYPE == "victor") {
+    		System.out.println("VICTORS ACTIVATIND");
     		leftFront = new Victor(RobotMap.FRONT_LEFT_MOTOR_CAN);
     		leftRear = new Victor(RobotMap.REAR_LEFT_MOTOR_CAN);
     		rightFront = new Victor(RobotMap.FRONT_RIGHT_MOTOR_CAN);
@@ -71,6 +72,7 @@ public class DriveTrain extends Subsystem {
     		
     		robotDrive = new RobotDrive(leftFront, leftRear,
     				rightFront, rightRear);
+    		System.out.println("ACTIVATED");
     	}
     	else if(MOTOR_TYPE == "cantalon") {
     		leftFront = new CANTalon(RobotMap.FRONT_LEFT_MOTOR_CAN);

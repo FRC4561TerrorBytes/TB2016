@@ -7,8 +7,8 @@ import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 
 public class Shooter extends PIDSubsystem {
-	private Talon fly1 = new Talon(RobotMap.FLY_ONE);
-	private Talon fly2 = new Talon(RobotMap.FLY_TWO);
+	//private Talon fly1 = new Talon(RobotMap.FLY_ONE);
+	//private Talon fly2 = new Talon(RobotMap.FLY_TWO);
 	public Shooter() {
 		super(0,0,0);// TODO: Kaiz do this PID black magic
 	}
@@ -21,8 +21,8 @@ public class Shooter extends PIDSubsystem {
 
 	@Override
 	protected void usePIDOutput(double output) {
-		fly1.set(output);
-		fly2.set(output);
+		//fly1.set(output);
+		//fly2.set(output);
 	}
 
 	@Override
@@ -31,7 +31,7 @@ public class Shooter extends PIDSubsystem {
 		
 	}
 	protected void stop(){
-		fly1.set(0);
-		fly2.set(0);
+		//fly1.set(0);
+		//fly2.set(0);
 	}
 }

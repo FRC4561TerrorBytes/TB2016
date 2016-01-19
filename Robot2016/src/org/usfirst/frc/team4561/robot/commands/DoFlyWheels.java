@@ -9,7 +9,7 @@ public class DoFlyWheels extends Command {
 	@Override
 	protected void initialize() {
 		// TODO Auto-generated method stub
-		requires(Robot.shooter);
+		//requires(Robot.shooter);
 	}
 
 	@Override
