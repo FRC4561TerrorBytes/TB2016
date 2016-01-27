@@ -6,31 +6,30 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class DoFlyWheels extends Command {
 
-	@Override
+	
 	protected void initialize() {
 		// TODO Auto-generated method stub
 		//requires(Robot.shooter);
+		//set both fly wheel setpoints to desired speeeeeeed
 	}
 
-	@Override
-	protected void execute() {
-		//TODO: do something with this later
-		
+	
+	protected void execute() {		
 	}
 
-	@Override
+	
 	protected boolean isFinished() {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
-	@Override
+	
 	protected void end() {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
+	
 	protected void interrupted() {
 		// TODO Auto-generated method stub
 		

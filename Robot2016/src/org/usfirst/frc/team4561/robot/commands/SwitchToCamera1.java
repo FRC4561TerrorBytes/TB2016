@@ -14,7 +14,7 @@ public class SwitchToCamera1 extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.camera.switchCam(Robot.camera.cam1);
+    	Robot.camera.switchCam(Robot.camera.cam0);
     }
 
     // Called repeatedly when this Command is scheduled to run

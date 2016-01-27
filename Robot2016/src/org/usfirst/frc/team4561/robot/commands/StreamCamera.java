@@ -7,9 +7,9 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  * Begins capturing and sending the camera stream.
  */
-public class StartCameraStream extends Command {
+public class StreamCamera extends Command {
 
-    public StartCameraStream() {
+    public StreamCamera() {
         requires(Robot.camera);
     }
 

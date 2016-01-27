@@ -52,21 +52,21 @@ public class OI {
 	private static Joystick leftStick = new Joystick(RobotMap.LEFT_JOYSTICK);
 	
 	// Individual motor drive buttons
-	private JoystickButton driveFrontLeft = new JoystickButton(rightStick,
+	private JoystickButton driveFrontLeft = new JoystickButton(leftStick,
 			RobotMap.FRONT_LEFT_MOTOR_BUTTON);
-	private JoystickButton driveRearLeft = new JoystickButton(rightStick,
+	private JoystickButton driveRearLeft = new JoystickButton(leftStick,
 			RobotMap.REAR_LEFT_MOTOR_BUTTON);
-	private JoystickButton driveFrontRight = new JoystickButton(rightStick,
+	private JoystickButton driveFrontRight = new JoystickButton(leftStick,
 			RobotMap.FRONT_RIGHT_MOTOR_BUTTON);
-	private JoystickButton driveRearRight = new JoystickButton(rightStick,
+	private JoystickButton driveRearRight = new JoystickButton(leftStick,
 			RobotMap.REAR_RIGHT_MOTOR_BUTTON);
 	
 	// Loader buttons
-	private JoystickButton loaderButton = new JoystickButton(leftStick,
-			RobotMap.LOADER_BUTTON);
+//	private JoystickButton loaderButton = new JoystickButton(leftStick,
+//			RobotMap.LOADER_BUTTON);
 
 	// Camera buttons
-	private JoystickButton cameraToggleButton = new JoystickButton(rightStick, RobotMap.CAMERA_TOGGLE_BUTTON);
+	private JoystickButton cameraToggleButton = new JoystickButton(leftStick, RobotMap.CAMERA_TOGGLE_BUTTON);
 	
 	// SmartDashboard triggers
 	private DSButton0Trigger dsButton0 = new DSButton0Trigger();

@@ -48,10 +48,10 @@ public class DriveTrain extends Subsystem {
     	}
     	else {
     		System.out.println("The specified drive type is unidentifiable.");
-    		System.out.println("The DriveTrain will not function as intended.");
-    		System.out.println("Reference the \"DRIVE_TYPE\" variable in the DriveTrain subsystem to fix.");
-    	}
-    }
+	    		System.out.println("The DriveTrain will not function as intended.");
+	    		System.out.println("Reference the \"DRIVE_TYPE\" variable in the DriveTrain subsystem to fix.");
+	    	}
+	    }
 
     public void constructMotorControllers() {
     	if(MOTOR_TYPE == "talon") {
@@ -64,15 +64,13 @@ public class DriveTrain extends Subsystem {
     				rightFront, rightRear);
     	}
     	else if(MOTOR_TYPE == "victor") {
-    		System.out.println("VICTORS ACTIVATIND");
-    		leftFront = new Victor(RobotMap.FRONT_LEFT_MOTOR_CAN);
+    		leftFront = new Talon(RobotMap.FRONT_LEFT_MOTOR_CAN);
     		leftRear = new Victor(RobotMap.REAR_LEFT_MOTOR_CAN);
-    		rightFront = new Victor(RobotMap.FRONT_RIGHT_MOTOR_CAN);
+    		rightFront = new Talon(RobotMap.FRONT_RIGHT_MOTOR_CAN);
     		rightRear = new Victor(RobotMap.REAR_RIGHT_MOTOR_CAN);
     		
     		robotDrive = new RobotDrive(leftFront, leftRear,
     				rightFront, rightRear);
-    		System.out.println("ACTIVATED");
     	}
     	else if(MOTOR_TYPE == "cantalon") {
     		leftFront = new CANTalon(RobotMap.FRONT_LEFT_MOTOR_CAN);
@@ -105,16 +103,16 @@ public class DriveTrain extends Subsystem {
 	
 	public void driveSingleMotor(int motorID) {
 		if(motorID == RobotMap.FRONT_LEFT_MOTOR_CAN) {
-			leftFront.set(0.5);
+			leftFront.set(0.2);
 		}
 		else if(motorID == RobotMap.REAR_LEFT_MOTOR_CAN) {
-			leftRear.set(0.5);
+			leftRear.set(0.2);
 		}
 		else if(motorID == RobotMap.FRONT_RIGHT_MOTOR_CAN) {
-			rightFront.set(0.5);
+			rightFront.set(0.2);
 		}
 		else if(motorID == RobotMap.REAR_RIGHT_MOTOR_CAN) {
-			rightRear.set(0.5);
+			rightRear.set(0.2);
 		}
 	}
 	

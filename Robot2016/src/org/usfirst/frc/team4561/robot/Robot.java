@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 import org.usfirst.frc.team4561.robot.commands.ArcadeDrive;
-import org.usfirst.frc.team4561.robot.commands.StartCameraStream;
+import org.usfirst.frc.team4561.robot.commands.StreamCamera;
 import org.usfirst.frc.team4561.robot.subsystems.Camera;
 import org.usfirst.frc.team4561.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team4561.robot.subsystems.Loader;
