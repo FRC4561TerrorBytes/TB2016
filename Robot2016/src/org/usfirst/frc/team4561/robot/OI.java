@@ -209,5 +209,11 @@ public class OI {
 		}
 		return leftStickX;
 	}
+	public double getLeftThrottle(){
+		return(leftStick.getThrottle());
+	}
+	public double getRightThrottle(){
+		return(rightStick.getThrottle());
+	}
 }
 
