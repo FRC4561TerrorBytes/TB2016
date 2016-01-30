@@ -1,32 +1,32 @@
 package org.usfirst.frc.team4561.robot.commands;
 
-import org.usfirst.frc.team4561.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.DigitalInput;
+
+import org.usfirst.frc.team4561.robot.Robot;
+
 /**
  *
  */
-public class LoadBall extends Command {
+public class LowerArms extends Command {
 
-    public LoadBall() {
-          requires(Robot.loader);
+    public LowerArms() {
+        // Use requires() here to declare subsystem dependencies
+        // eg. requires(chassis);
+    	requires(Robot.loader);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	//TODO: Define what motor for belt, Loader team input required.
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.loader.rollerMotor.set(1); //TODO: find speed values
+    	Robot.loader.leftArmMotor.set(1); //TODO: find speed values
+    	Robot.loader.rightArmMotor.set(1);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	if(Robot.loader.loadFinishedSwitch.get()){
-    		return true;
-    	}
         return false;
     }
 
@@ -37,6 +37,5 @@ public class LoadBall extends Command {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	end();
     }
 }

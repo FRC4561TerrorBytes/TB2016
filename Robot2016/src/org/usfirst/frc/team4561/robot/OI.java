@@ -62,8 +62,9 @@ public class OI {
 			RobotMap.REAR_RIGHT_MOTOR_BUTTON);
 	
 	// Loader buttons
-//	private JoystickButton loaderButton = new JoystickButton(leftStick,
-//			RobotMap.LOADER_BUTTON);
+	private JoystickButton loaderButton = new JoystickButton(leftStick,
+			RobotMap.LOADER_BUTTON);
+	
 
 	// Camera buttons
 	private JoystickButton cameraToggleButton = new JoystickButton(leftStick, RobotMap.CAMERA_TOGGLE_BUTTON);
@@ -75,7 +76,7 @@ public class OI {
 	
 	public OI(){
 		// Loader button command assignment
-		//loaderButton.whenPressed(new LoadBall());
+		loaderButton.whenPressed(new LoadBall());
 		
 		// SmartDashboard trigger preparation
 		SmartDashboard.putBoolean("DB/Button 0", false);
@@ -95,6 +96,7 @@ public class OI {
 		driveRearLeft.whileHeld(new IndividualMotorDrive(RobotMap.REAR_LEFT_MOTOR_CAN));
 		driveRearRight.whileHeld(new IndividualMotorDrive(RobotMap.REAR_RIGHT_MOTOR_CAN));
 		driveFrontRight.whileHeld(new IndividualMotorDrive(RobotMap.FRONT_RIGHT_MOTOR_CAN));
+		
 	}
 	
 	// Joystick config
