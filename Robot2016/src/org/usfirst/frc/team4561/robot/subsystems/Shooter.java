@@ -1,83 +1,80 @@
 package org.usfirst.frc.team4561.robot.subsystems;
 
-import org.usfirst.frc.team4561.robot.OI;
-import org.usfirst.frc.team4561.robot.Robot;
 import org.usfirst.frc.team4561.robot.RobotMap;
+import org.usfirst.frc.team4561.robot.commands.FlyWheels;
 
-import edu.wpi.first.wpilibj.CANSpeedController.ControlMode;
-import edu.wpi.first.wpilibj.CANTalon.TalonControlMode;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.PIDController;
-import edu.wpi.first.wpilibj.PIDOutput;
-import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.PIDSourceType;
-import edu.wpi.first.wpilibj.SpeedController;
-import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
-import edu.wpi.first.wpilibj.command.Subsystem;
+
 import java.lang.Math;
 
 public class Shooter extends PIDSubsystem {
-	static CANTalon shooterMotorLeft = new CANTalon(4); //RobotMap.LEFT_SHOOTER_MOTOR); //TODO: DO ROBOT MAP KAIZ
-	static CANTalon shooterMotorRight = new CANTalon(5); //RobotMap.RIGHT_SHOOTER_MOTOR); //TODO: DO ROBOT MAP KAIZ
 	
-	private final int THROTTLE_MULTIPLIER = 1;
-	//TODO: WHEEL CALCULATIONS
+	private CANTalon leftMotor = new CANTalon(RobotMap.LEFT_SHOOTER_MOTOR);
+	private CANTalon rightMotor = new CANTalon(RobotMap.RIGHT_SHOOTER_MOTOR);
 	
-	//private Talon fly1 = new Talon(RobotMap.FLY_ONE);
-	//private Talon fly2 = new Talon(RobotMap.FLY_TWO);
+	private static Encoder shooterEncoder = new Encoder(RobotMap.SHOOTER_ENCODER_A_SOURCE,
+												 RobotMap.SHOOTER_ENCODER_B_SOURCE);
 	
+	private static final double PERIOD = 0.05;
+
+	private final double WHEEL_RADIUS = 2; // TODO: Verify
+	private final double WHEEL_CIRCUMFERENCE = 2 * Math.PI * WHEEL_RADIUS;
+	private final double ENCODER_TICKS = 2048; // TODO: Verify
+	private final double DISTANCE_PER_PULSE = WHEEL_CIRCUMFERENCE / ENCODER_TICKS;
 	
-	private static Encoder encoder = new Encoder(0,1);//RobotMap.ENCODER_A_CHANNEL, RobotMap.ENCODER_B_CHANNEL);	
-									//TODO: DO ROBOT MAP KAIZ
 	public Shooter() {
-		super(0,0,0,0);
+		super(0, 0, 0, 0, PERIOD); // TODO: Tune PDF values, I term is obsolete in velocity mode.
 		
-		encoder.setPIDSourceType(PIDSourceType.kRate);
-		
-//		shooterMotorLeft.changeControlMode(TalonControlMode.Speed);
-//		shooterMotorRight.changeControlMode(TalonControlMode.Speed);
-
-		
+		shooterEncoder.setPIDSourceType(PIDSourceType.kRate);
+		shooterEncoder.setDistancePerPulse(DISTANCE_PER_PULSE);
 	}
 
-	@Override
 	protected void initDefaultCommand() {
-		// TODO: Consider what to put here, most likely nothing. 
-		
-	}
-//	protected void set(double setPoint){
-//		shooterMotorLeft.set(setPoint);
-//		shooterMotorRight.set(setPoint);
-//	}
-	protected void stop(){
-		//shooterMotorLeft.set(0);
-		//shooterMotorRight.set(0);
-		
-		//fly1.set(0);
-		//fly2.set(0);
+		setDefaultCommand(new FlyWheels());
 	}
 
-	@Override
-	protected double returnPIDInput() {
-		// TODO Auto-generated method stub
-		return 0;
+	public void stop(){
+		leftMotor.set(0);
+		rightMotor.set(0);
 	}
 
-	@Override
-	protected void usePIDOutput(double output) {
-		shooterMotorLeft.set(output);
-		shooterMotorRight.set(output);
-		// TODO Auto-generated method stub
-		
-	}
-	public void setVelocityFromThrottle(double throttleValue){
-		
-		double throttleSetPointValue = (Math.abs(throttleValue) * THROTTLE_MULTIPLIER); 
-		Robot.shooter.setSetpoint(throttleSetPointValue);
-		//set(throttleSetPointValue);
-		
+	public void setInchesPerSecond(double inchesPerSecond) {
+		setSetpoint(inchesPerSecond);
 	}
 	
+	public void setRPM(double rpm) {
+		double inchesPerSecond = (rpm * WHEEL_CIRCUMFERENCE) / 60;
+		setSetpoint(inchesPerSecond);
+	}
+	
+	public void setRPS(double rps) {
+		double inchesPerSecond = rps * WHEEL_CIRCUMFERENCE;
+		setSetpoint(inchesPerSecond);
+	}
+	
+	public double getRPM() {
+		double rpm = (shooterEncoder.pidGet() / WHEEL_CIRCUMFERENCE) * 60;
+		return rpm;
+	}
+	
+	public double getRPS() {
+		double rps = shooterEncoder.pidGet() * WHEEL_CIRCUMFERENCE;
+		return rps;
+	}
+	
+	public double getInchesPerSecond() {
+		return shooterEncoder.pidGet();
+	}
+	
+	protected double returnPIDInput() {
+		return shooterEncoder.pidGet(); //TODO: Test to see if this is the correct method.
+	}
+	
+	protected void usePIDOutput(double output) {
+		leftMotor.set(output);
+		rightMotor.set(output);
+	}
 }

@@ -20,13 +20,13 @@ public class DriveTrain extends Subsystem {
     // here. Call these from Commands.
 	
 	// "tank" for TankDrive, "arcade" for ArcadeDrive
-	private static String DRIVE_TYPE = "tank";
+	private static String DRIVE_TYPE = "arcade";
 	
 	// "talon" for TalonSRs, "victor" for Victors, "cantalon" for CANTalons or CANTalonSRXs
 	private static String MOTOR_TYPE = "victor";
 	
 	// Squares the input values, such that 0.5 power becomes 0.25, etc.
-	private static boolean squaredInputs = true;
+	private static boolean squaredInputs = false;
 	
 	private SpeedController leftFront;
 	private SpeedController leftRear;
@@ -68,6 +68,12 @@ public class DriveTrain extends Subsystem {
     		leftRear = new Victor(RobotMap.REAR_LEFT_MOTOR_CAN);
     		rightFront = new Talon(RobotMap.FRONT_RIGHT_MOTOR_CAN);
     		rightRear = new Victor(RobotMap.REAR_RIGHT_MOTOR_CAN);
+    		
+    		leftFront.setInverted(true);
+    		leftRear.setInverted(true);
+    		rightFront.setInverted(true);
+    		rightRear.setInverted(true);
+    		
     		
     		robotDrive = new RobotDrive(leftFront, leftRear,
     				rightFront, rightRear);

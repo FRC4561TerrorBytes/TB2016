@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 public class LoadBall extends Command {
 
     public LoadBall() {
-          requires(Robot.loader);
+          requires(Robot.rollers);
     }
 
     // Called just before this Command runs the first time
@@ -19,12 +19,12 @@ public class LoadBall extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.loader.rollerMotor.set(1); //TODO: find speed values
+    	Robot.rollers.rollerMotor.set(1); //TODO: find speed values
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	if(Robot.loader.loadFinishedSwitch.get()){
+    	if(Robot.rollers.loadFinishedSwitch.get()){
     		return true;
     	}
         return false;
@@ -32,6 +32,7 @@ public class LoadBall extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
+    	Robot.rollers.stop();
     }
 
     // Called when another command which requires one or more of the same

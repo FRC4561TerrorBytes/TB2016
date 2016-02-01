@@ -7,6 +7,7 @@ import com.ni.vision.NIVision.Image;
 
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
 
 import java.util.ArrayList;
 
@@ -35,6 +36,8 @@ public class Camera extends Subsystem {
 	private Image frame;
 	
 	private CameraServer server;
+	
+	private NetworkTable contours;
     
     public Camera() {
     	camList = new ArrayList<Integer>();
@@ -70,8 +73,8 @@ public class Camera extends Subsystem {
 	        server = CameraServer.getInstance();
 	        // Set stream quality
 	        server.setQuality(CAMERA_QUALITY);
-	        // Begin streaming cam1
-	        switchCam(cam0);
+	        // Begin streaming first camera
+	        switchCam(camList.get(0));
     	}
     }
     
@@ -108,6 +111,24 @@ public class Camera extends Subsystem {
 	    	NIVision.IMAQdxGrab(currentCam, frame, 1);
 	        server.setImage(frame);
     	}
+    }
+    
+    public int goalsBeingSeen() {
+    	contours = NetworkTable.getTable("GRIP/contours");
+    	int numberOfGoals = 0;
+    	double[] defaultArray = {0.0};
+    	double[] heights = contours.getNumberArray("height", defaultArray);
+    	double[] widths = contours.getNumberArray("width", defaultArray);
+    	for(int i = 0; i < heights.length; i++) {
+    		try {
+    			if(heights[i] > widths[i]) {
+    				numberOfGoals++;
+    			}
+    		}
+    		catch(ArrayIndexOutOfBoundsException aioobe) {
+    		}
+    	}
+    	return numberOfGoals;
     }
 }
 

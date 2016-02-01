@@ -7,10 +7,10 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 import org.usfirst.frc.team4561.robot.commands.ArcadeDrive;
-import org.usfirst.frc.team4561.robot.commands.StreamCamera;
+import org.usfirst.frc.team4561.robot.subsystems.Arm;
 import org.usfirst.frc.team4561.robot.subsystems.Camera;
 import org.usfirst.frc.team4561.robot.subsystems.DriveTrain;
-import org.usfirst.frc.team4561.robot.subsystems.Loader;
+import org.usfirst.frc.team4561.robot.subsystems.Rollers;
 import org.usfirst.frc.team4561.robot.subsystems.Shooter;
 
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -27,9 +27,10 @@ public class Robot extends IterativeRobot {
 
 	public static OI oi;
 	public static final DriveTrain driveTrain = new DriveTrain();
-	public static final Loader loader = new Loader();
+	public static final Rollers rollers = new Rollers();
+	public static final Arm arm = new Arm();
 	public static final Camera camera = new Camera();
-	public static Shooter shooter = new Shooter(); 
+	public static final Shooter shooter = new Shooter(); 
 
     Command autonomousCommand;
     SendableChooser chooser;
@@ -106,6 +107,10 @@ public class Robot extends IterativeRobot {
      */
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
+        SmartDashboard.putString("DB/String 0", "Goals: " + Integer.toString(camera.goalsBeingSeen()));
+        SmartDashboard.putString("DB/String 1", "RPM: " + Integer.toString((int)shooter.getRPM()));
+        SmartDashboard.putString("DB/String 2", "RPS: " + Integer.toString((int)shooter.getRPS()));
+        SmartDashboard.putString("DB/String 3", "in/s: " + Integer.toString((int)shooter.getInchesPerSecond()));
     }
     
     /**

@@ -12,7 +12,7 @@ public class RaiseArms extends Command {
     public RaiseArms() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.loader);
+    	requires(Robot.arm);
     }
 
     // Called just before this Command runs the first time
@@ -21,8 +21,8 @@ public class RaiseArms extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.loader.leftArmMotor.set(1); //TODO: find speed values
-    	Robot.loader.rightArmMotor.set(1);
+    	Robot.arm.leftArmMotor.set(1); //TODO: find speed values
+    	Robot.arm.rightArmMotor.set(1);
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -32,10 +32,12 @@ public class RaiseArms extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
+    	Robot.arm.stop();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	end();
     }
 }

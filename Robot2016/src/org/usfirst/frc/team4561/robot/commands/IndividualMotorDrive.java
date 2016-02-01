@@ -11,8 +11,8 @@ public class IndividualMotorDrive extends Command {
 	private int motorID;
 
     public IndividualMotorDrive(int motorID) {
+    	requires(Robot.driveTrain);
     	this.motorID = motorID;
-        requires(Robot.driveTrain);
     }
 
     // Called just before this Command runs the first time
