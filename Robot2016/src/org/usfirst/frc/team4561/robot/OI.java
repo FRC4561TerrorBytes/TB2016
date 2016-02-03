@@ -210,8 +210,11 @@ public class OI {
 		return leftStickX;
 	}
 	
-	public double getLeftStickThrottle() {
+	public double getLeftStickThrottle(){
 		return leftStick.getThrottle();
+	}
+	public double getCorrectedLeftStickThrottle(){
+		return ((leftStick.getThrottle()+1)*.5);
 	}
 }
 

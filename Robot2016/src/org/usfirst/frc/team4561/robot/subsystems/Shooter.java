@@ -1,5 +1,6 @@
 package org.usfirst.frc.team4561.robot.subsystems;
 
+import org.usfirst.frc.team4561.robot.Robot;
 import org.usfirst.frc.team4561.robot.RobotMap;
 import org.usfirst.frc.team4561.robot.commands.FlyWheels;
 
@@ -19,6 +20,8 @@ public class Shooter extends PIDSubsystem {
 												 RobotMap.SHOOTER_ENCODER_B_SOURCE);
 	
 	private static final double PERIOD = 0.05;
+	
+	private static final boolean USEPID = true;//TODO:  THIS NEEDS TO BE A BUTTON
 
 	private final double WHEEL_RADIUS = 2; // TODO: Verify
 	private final double WHEEL_CIRCUMFERENCE = 2 * Math.PI * WHEEL_RADIUS;
@@ -74,7 +77,15 @@ public class Shooter extends PIDSubsystem {
 	}
 	
 	protected void usePIDOutput(double output) {
-		leftMotor.set(output);
-		rightMotor.set(output);
+		if(USEPID){
+			leftMotor.set(output);
+			rightMotor.set(output);
+		}
+		else{
+			double correctedThrottle = (Robot.oi.getCorrectedLeftStickThrottle());
+			leftMotor.set(correctedThrottle); 
+			rightMotor.set(correctedThrottle);
+		}
+		
 	}
 }

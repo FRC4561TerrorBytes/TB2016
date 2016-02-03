@@ -16,7 +16,7 @@ public class FlyWheels extends Command {
 	}
 	
 	protected void execute() {
-		double correctedThrottle = (Robot.oi.getLeftStickThrottle() + 1) * 0.5;
+		double correctedThrottle = (Robot.oi.getCorrectedLeftStickThrottle());
 		double rpm = correctedThrottle * MAXIMUM_RPM;
 		Robot.shooter.setRPM(rpm);
 	}
