@@ -8,10 +8,10 @@ package org.usfirst.frc.team4561.robot;
 public class RobotMap {
 	// Motors (PWM)
 	// DriveTrain
-    public static int FRONT_LEFT_MOTOR_CAN = 3;
-    public static int FRONT_RIGHT_MOTOR_CAN = 1;
-    public static int REAR_LEFT_MOTOR_CAN = 2;
-    public static int REAR_RIGHT_MOTOR_CAN = 0;
+    public static int FRONT_LEFT_MOTOR_CAN = 3; // TODO: Verify
+    public static int FRONT_RIGHT_MOTOR_CAN = 1; // TODO: Verify
+    public static int REAR_LEFT_MOTOR_CAN = 2; // TODO: Verify
+    public static int REAR_RIGHT_MOTOR_CAN = 0; // TODO: Verify
     // Shooter
     public static int LEFT_SHOOTER_MOTOR = 4; // TODO: Verify
     public static int RIGHT_SHOOTER_MOTOR = 5; // TODO: Verify
@@ -25,24 +25,29 @@ public class RobotMap {
     public static int LEFT_JOYSTICK = 0;
     public static int RIGHT_JOYSTICK = 1;
     
+    // Camera buttons (Left Stick)
+    public static int CAMERA_TOGGLE_BUTTON = 1;
+    
+    // Arm buttons (Left Stick)
+    public static int LOADER_BUTTON = 6;
+    
+    // DriveTrain buttons (Left Stick)
+    public static int REVERSE_DIRECTION_BUTTON = 7;
+    
     // Individual Motor Drive buttons (Left Stick)
     public static int FRONT_LEFT_MOTOR_BUTTON = 9;
     public static int FRONT_RIGHT_MOTOR_BUTTON = 10;
     public static int REAR_LEFT_MOTOR_BUTTON = 11;
     public static int REAR_RIGHT_MOTOR_BUTTON = 12;
     
-    // Arm buttons (Left Stick)
-    public static int LOADER_BUTTON = 6;
-    
-    // Camera buttons (Left Stick)
-    public static int CAMERA_TOGGLE_BUTTON = 1;
-    
     // Encoders (DIO)
     public static int SHOOTER_ENCODER_A_SOURCE = 0; // TODO: Verify
     public static int SHOOTER_ENCODER_B_SOURCE = 1; // TODO: Verify
-    public static int ARM_ENCODER_A_SOURCE = 2; // TODO: Verify
-    public static int ARM_ENCODER_B_SOURCE = 3; // TODO: Verify
+    public static int ARM_LEFT_ENCODER_A_SOURCE = 2; // TODO: Verify
+    public static int ARM_LEFT_ENCODER_B_SOURCE = 3; // TODO: Verify
+    public static int ARM_RIGHT_ENCODER_A_SOURCE = 4; // TODO: Verify
+    public static int ARM_RIGHT_ENCODER_B_SOURCE = 5; //TODO: Verify
     
     // Limit Switches (DIO)
-    public static int ROLLER_LIMIT_SWITCH = 4; // TODO: Verify
+    public static int ROLLER_LIMIT_SWITCH = 6; // TODO: Verify
 }

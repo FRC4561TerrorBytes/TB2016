@@ -1,5 +1,6 @@
 package org.usfirst.frc.team4561.robot.subsystems;
 
+import org.usfirst.frc.team4561.robot.Robot;
 import org.usfirst.frc.team4561.robot.RobotMap;
 import org.usfirst.frc.team4561.robot.commands.FlyWheels;
 
@@ -20,13 +21,18 @@ public class Shooter extends PIDSubsystem {
 	
 	private static final double PERIOD = 0.05;
 
-	private final double WHEEL_RADIUS = 2; // TODO: Verify
-	private final double WHEEL_CIRCUMFERENCE = 2 * Math.PI * WHEEL_RADIUS;
+	private final double WHEEL_RADIUS = 2; // Inches
+	private final double WHEEL_CIRCUMFERENCE = 2 * Math.PI * WHEEL_RADIUS; // Inches
 	private final double ENCODER_TICKS = 2048; // TODO: Verify
-	private final double DISTANCE_PER_PULSE = WHEEL_CIRCUMFERENCE / ENCODER_TICKS;
+	private final double DISTANCE_PER_PULSE = WHEEL_CIRCUMFERENCE / ENCODER_TICKS; // Inches per tick
+	
+	private boolean usePID = true;
 	
 	public Shooter() {
 		super(0, 0, 0, 0, PERIOD); // TODO: Tune PDF values, I term is obsolete in velocity mode.
+		
+		leftMotor.enableBrakeMode(true);
+		rightMotor.enableBrakeMode(true);
 		
 		shooterEncoder.setPIDSourceType(PIDSourceType.kRate);
 		shooterEncoder.setDistancePerPulse(DISTANCE_PER_PULSE);
@@ -74,7 +80,13 @@ public class Shooter extends PIDSubsystem {
 	}
 	
 	protected void usePIDOutput(double output) {
-		leftMotor.set(output);
-		rightMotor.set(output);
+		if(usePID) {
+			leftMotor.set(output);
+			rightMotor.set(output);
+		} else {
+			leftMotor.set(Robot.oi.getCorrectedLeftStickThrottle());
+			rightMotor.set(Robot.oi.getCorrectedLeftStickThrottle());
+		}
+		
 	}
 }

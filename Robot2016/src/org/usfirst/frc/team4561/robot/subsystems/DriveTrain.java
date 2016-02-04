@@ -35,6 +35,8 @@ public class DriveTrain extends Subsystem {
 	
 	private RobotDrive robotDrive;
 	
+	private boolean reversed = false;
+	
 	public DriveTrain() {
 		constructMotorControllers();
 	}
@@ -120,6 +122,14 @@ public class DriveTrain extends Subsystem {
 		else if(motorID == RobotMap.REAR_RIGHT_MOTOR_CAN) {
 			rightRear.set(0.2);
 		}
+	}
+	
+	public void reverseDriveDirection() {
+		reversed = !reversed;
+	}
+	
+	public boolean isReversed() {
+		return reversed;
 	}
 	
 	public void stop() {

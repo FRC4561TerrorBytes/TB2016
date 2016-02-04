@@ -7,7 +7,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team4561.robot.commands.ArcadeDrive;
 import org.usfirst.frc.team4561.robot.commands.IndividualMotorDrive;
-import org.usfirst.frc.team4561.robot.commands.LoadBall;
+import org.usfirst.frc.team4561.robot.commands.ReverseDriveDirection;
+import org.usfirst.frc.team4561.robot.commands.RollersIn;
 import org.usfirst.frc.team4561.robot.commands.SwitchToCamera1;
 import org.usfirst.frc.team4561.robot.commands.SwitchToCamera2;
 import org.usfirst.frc.team4561.robot.commands.ToggleCamera;
@@ -64,6 +65,9 @@ public class OI {
 	// Loader buttons
 	private JoystickButton loaderButton = new JoystickButton(leftStick,
 			RobotMap.LOADER_BUTTON);
+	
+	private JoystickButton reverseDirectionButton = new JoystickButton(leftStick,
+			RobotMap.REVERSE_DIRECTION_BUTTON);
 
 	// Camera buttons
 	private JoystickButton cameraToggleButton = new JoystickButton(leftStick, RobotMap.CAMERA_TOGGLE_BUTTON);
@@ -75,7 +79,7 @@ public class OI {
 	
 	public OI(){
 		// Loader button command assignment
-		loaderButton.whenPressed(new LoadBall());
+		loaderButton.whenPressed(new RollersIn());
 		
 		// SmartDashboard trigger preparation
 		SmartDashboard.putBoolean("DB/Button 0", false);
@@ -90,6 +94,8 @@ public class OI {
 		// Camera button command assignments
 		cameraToggleButton.whenPressed(new ToggleCamera());
 		
+		reverseDirectionButton.whenPressed(new ReverseDriveDirection());
+		
 		// Individual Motor Drive command assignments
 		driveFrontLeft.whileHeld(new IndividualMotorDrive(RobotMap.FRONT_LEFT_MOTOR_CAN));
 		driveRearLeft.whileHeld(new IndividualMotorDrive(RobotMap.REAR_LEFT_MOTOR_CAN));
@@ -99,11 +105,11 @@ public class OI {
 	
 	// Joystick config
 	// Right stick config
-	public static double RIGHT_STICK_DEAD_ZONE = 0.1; //TODO: Change based on tests
+	public static double RIGHT_STICK_DEAD_ZONE = 0.15; //TODO: Change based on tests
     public static double RIGHT_STICK_REDUCTION = 0;
     
     // Left stick config
-    public static double LEFT_STICK_DEAD_ZONE = 0.1; //TODO: Change based on tests
+    public static double LEFT_STICK_DEAD_ZONE = 0.15; //TODO: Change based on tests
     public static double LEFT_STICK_REDUCTION = 0;
     
     /**
@@ -113,7 +119,7 @@ public class OI {
 	public double getRightStickY() {
 		double rightStickY = rightStick.getY();
 		// Dead zone management
-		if(Math.abs(rightStickY) < RIGHT_STICK_DEAD_ZONE) {
+		if(Math.abs(rightStick.getMagnitude()) < RIGHT_STICK_DEAD_ZONE) {
 			rightStickY = 0;
 		}
 		// Reductions
@@ -139,7 +145,7 @@ public class OI {
 	public double getRightStickX() {
 		double rightStickX = rightStick.getX();
 		// Dead zone management
-		if(Math.abs(rightStickX) < RIGHT_STICK_DEAD_ZONE) {
+		if(Math.abs(rightStick.getMagnitude()) < RIGHT_STICK_DEAD_ZONE) {
 			rightStickX = 0;
 		}
 		// Reductions
@@ -165,7 +171,7 @@ public class OI {
 	public double getLeftStickY() {
 		double leftStickY = leftStick.getY();
 		// Dead zone management
-		if(Math.abs(leftStickY) < LEFT_STICK_DEAD_ZONE) {
+		if(Math.abs(leftStick.getMagnitude()) < LEFT_STICK_DEAD_ZONE) {
 			leftStickY = 0;
 		}
 		// Reductions
@@ -191,7 +197,7 @@ public class OI {
 	public double getLeftStickX() {
 		double leftStickX = leftStick.getX();
 		// Dead zone management
-		if(Math.abs(leftStickX) < LEFT_STICK_DEAD_ZONE) {
+		if(Math.abs(leftStick.getMagnitude()) < LEFT_STICK_DEAD_ZONE) {
 			leftStickX = 0;
 		}
 		// Reductions
@@ -212,6 +218,9 @@ public class OI {
 	
 	public double getLeftStickThrottle() {
 		return leftStick.getThrottle();
+	}
+	public double getCorrectedLeftStickThrottle() {
+		return (getLeftStickThrottle() + 1) * 0.5;
 	}
 }
 

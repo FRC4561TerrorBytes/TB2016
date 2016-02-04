@@ -1,16 +1,20 @@
 package org.usfirst.frc.team4561.robot.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
-
 import org.usfirst.frc.team4561.robot.Robot;
+
+import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class LowerArms extends Command {
+public class UseArmPIDOutput extends Command {
 
-    public LowerArms() {
-    	requires(Robot.arm);
+	private double distanceOutput;
+	private double rightAlignment;
+	private double leftAlignment;
+	
+    public UseArmPIDOutput() {
+        requires(Robot.arm);
     }
 
     // Called just before this Command runs the first time
@@ -19,8 +23,12 @@ public class LowerArms extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.arm.leftArmMotor.set(-0.9); //TODO: Find speed values
-    	Robot.arm.rightArmMotor.set(-0.9); //TODO: Find speed values
+    	distanceOutput = Robot.arm.distanceOutput;
+    	rightAlignment = Robot.arm.rightAlignmentOutput;
+    	leftAlignment = Robot.arm.leftAlignmentOutput;
+    	
+    	Robot.arm.leftArmMotor.set(distanceOutput + leftAlignment);
+    	Robot.arm.rightArmMotor.set(distanceOutput + rightAlignment);
     }
 
     // Make this return true when this Command no longer needs to run execute()

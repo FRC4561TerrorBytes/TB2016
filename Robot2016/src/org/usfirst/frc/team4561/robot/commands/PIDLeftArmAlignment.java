@@ -1,38 +1,34 @@
 package org.usfirst.frc.team4561.robot.commands;
 
+import edu.wpi.first.wpilibj.command.PIDCommand;
+
 import org.usfirst.frc.team4561.robot.Robot;
-import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.DigitalInput;
+
 /**
  *
  */
-public class LoadBall extends Command {
+public class PIDLeftArmAlignment extends PIDCommand {
 
-    public LoadBall() {
-          requires(Robot.rollers);
+    public PIDLeftArmAlignment() {
+    	super(0, 0, 0);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	//TODO: Define what motor for belt, Loader team input required.
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.rollers.rollerMotor.set(1); //TODO: find speed values
+    	setSetpoint(Robot.arm.armEncoderRight.getDistance());
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	if(Robot.rollers.loadFinishedSwitch.get()){
-    		return true;
-    	}
         return false;
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.rollers.stop();
     }
 
     // Called when another command which requires one or more of the same
@@ -40,4 +36,12 @@ public class LoadBall extends Command {
     protected void interrupted() {
     	end();
     }
+
+	protected double returnPIDInput() {
+		return Robot.arm.armEncoderLeft.getDistance();
+	}
+
+	protected void usePIDOutput(double output) {
+		Robot.arm.leftAlignmentOutput = output;
+	}
 }

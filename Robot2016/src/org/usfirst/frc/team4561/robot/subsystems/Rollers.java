@@ -8,19 +8,18 @@ import edu.wpi.first.wpilibj.DigitalInput;
 
 public class Rollers extends Subsystem {
 	
-	public SpeedController rollerMotor = new CANTalon(RobotMap.ROLLER_MOTOR);
+	public CANTalon rollerMotor = new CANTalon(RobotMap.ROLLER_MOTOR);
 	
 	public DigitalInput loadFinishedSwitch = new DigitalInput(RobotMap.ROLLER_LIMIT_SWITCH);
 	
 	public Rollers() {
+		rollerMotor.enableBrakeMode(true);
 	}
 	
 	public void initDefaultCommand() {
-        // Set the default command for a subsystem here.
-        //setDefaultCommand(new MySpecialCommand());
 	}
 	
-	public void setRoller(double power) {
+	public void setRollers(double power) {
 		rollerMotor.set(power);
 	}
 	

@@ -1,16 +1,17 @@
 package org.usfirst.frc.team4561.robot.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.PIDCommand;
 
 import org.usfirst.frc.team4561.robot.Robot;
 
 /**
  *
  */
-public class LowerArms extends Command {
+public class PIDArmDistance extends PIDCommand {
 
-    public LowerArms() {
-    	requires(Robot.arm);
+    public PIDArmDistance() {
+    	super(0, 0, 0);
+    	getPIDController().setOutputRange(0.9, 0.9);
     }
 
     // Called just before this Command runs the first time
@@ -19,8 +20,7 @@ public class LowerArms extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.arm.leftArmMotor.set(-0.9); //TODO: Find speed values
-    	Robot.arm.rightArmMotor.set(-0.9); //TODO: Find speed values
+    	setSetpoint(Robot.arm.setPoint);
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -30,7 +30,6 @@ public class LowerArms extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.arm.stop();
     }
 
     // Called when another command which requires one or more of the same
@@ -38,4 +37,12 @@ public class LowerArms extends Command {
     protected void interrupted() {
     	end();
     }
+
+	protected double returnPIDInput() {
+		return (Robot.arm.armEncoderLeft.getDistance() + Robot.arm.armEncoderRight.getDistance()) * 0.5;
+	}
+
+	protected void usePIDOutput(double output) {
+		Robot.arm.distanceOutput = output;
+	}
 }

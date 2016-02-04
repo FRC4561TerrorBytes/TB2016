@@ -22,7 +22,12 @@ public class ArcadeDrive extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.driveTrain.driveArcade(Robot.oi.getLeftStickY(), -Robot.oi.getRightStickX());
+    	if(Robot.driveTrain.isReversed()) {
+    		Robot.driveTrain.driveArcade(-Robot.oi.getLeftStickY(), Robot.oi.getRightStickX());
+    	}
+    	else {
+    		Robot.driveTrain.driveArcade(Robot.oi.getLeftStickY(), -Robot.oi.getRightStickX());
+    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()
