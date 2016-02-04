@@ -91,4 +91,7 @@ public class Shooter extends PIDSubsystem {
 		}
 		
 	}
+	public void flipPID(){
+		usePID = !usePID;
+	}
 }

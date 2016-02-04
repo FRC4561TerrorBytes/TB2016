@@ -9,6 +9,7 @@ import org.usfirst.frc.team4561.robot.commands.ArcadeDrive;
 import org.usfirst.frc.team4561.robot.commands.IndividualMotorDrive;
 import org.usfirst.frc.team4561.robot.commands.ReverseDriveDirection;
 import org.usfirst.frc.team4561.robot.commands.RollersIn;
+import org.usfirst.frc.team4561.robot.commands.ShooterPIDFlip;
 import org.usfirst.frc.team4561.robot.commands.SwitchToCamera1;
 import org.usfirst.frc.team4561.robot.commands.SwitchToCamera2;
 import org.usfirst.frc.team4561.robot.commands.ToggleCamera;
@@ -77,6 +78,9 @@ public class OI {
 	private DSButton1Trigger dsButton1 = new DSButton1Trigger();
 	private DSButton2Trigger dsButton2 = new DSButton2Trigger();
 	
+	//Shooter Buttons and Controls
+	private JoystickButton shooterPIDFlipButton = new JoystickButton(rightStick, RobotMap.SHOOTER_PID_FLIP_BUTTON);
+	
 	public OI(){
 		// Loader button command assignment
 		loaderButton.whenPressed(new RollersIn());
@@ -101,6 +105,9 @@ public class OI {
 		driveRearLeft.whileHeld(new IndividualMotorDrive(RobotMap.REAR_LEFT_MOTOR_CAN));
 		driveRearRight.whileHeld(new IndividualMotorDrive(RobotMap.REAR_RIGHT_MOTOR_CAN));
 		driveFrontRight.whileHeld(new IndividualMotorDrive(RobotMap.FRONT_RIGHT_MOTOR_CAN));
+		
+		// Shooter button comand assignment
+		shooterPIDFlipButton.whenActive(new ShooterPIDFlip());
 	}
 	
 	// Joystick config
