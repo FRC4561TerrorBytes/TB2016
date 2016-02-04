@@ -20,7 +20,7 @@ public class Shooter extends PIDSubsystem {
 												 RobotMap.SHOOTER_ENCODER_B_SOURCE);
 	
 	private static final double PERIOD = 0.05;
-
+	
 	private final double WHEEL_RADIUS = 2; // Inches
 	private final double WHEEL_CIRCUMFERENCE = 2 * Math.PI * WHEEL_RADIUS; // Inches
 	private final double ENCODER_TICKS = 2048; // TODO: Verify
@@ -80,12 +80,14 @@ public class Shooter extends PIDSubsystem {
 	}
 	
 	protected void usePIDOutput(double output) {
-		if(usePID) {
+		if(usePID){
 			leftMotor.set(output);
 			rightMotor.set(output);
-		} else {
-			leftMotor.set(Robot.oi.getCorrectedLeftStickThrottle());
-			rightMotor.set(Robot.oi.getCorrectedLeftStickThrottle());
+		}
+		else{
+			double correctedThrottle = (Robot.oi.getCorrectedLeftStickThrottle());
+			leftMotor.set(correctedThrottle); 
+			rightMotor.set(correctedThrottle);
 		}
 		
 	}
