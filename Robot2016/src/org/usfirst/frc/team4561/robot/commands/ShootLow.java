@@ -38,3 +38,15 @@ public class ShootLow extends Command {
     protected void interrupted() {
     }
 }
+
+//Additionally required code
+
+//OI
+//-private JoystickButton lowShotButton = new JoystickButton(leftStick,
+//			RobotMap.LOWSHOT_BUTTON); [under the Loader Button]
+//-lowShotButton.whileHeld(new ShootLow()); [in the Loader button command assignment]
+//-lowShotButton.whenReleased(Robot.rollers.setRoller(0)); [Same as above]
+//-import org.usfirst.frc.team4561.robot.commands.ShootLow; [You know where this goes]
+
+//RobotMap
+//-public static int LOWSHOT_BUTTON = 13; [Under the loader button] 
