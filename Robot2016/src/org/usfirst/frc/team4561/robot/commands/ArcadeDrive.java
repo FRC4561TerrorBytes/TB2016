@@ -26,7 +26,7 @@ public class ArcadeDrive extends Command {
     		Robot.driveTrain.driveArcade(-Robot.oi.getLeftStickY(), Robot.oi.getRightStickX());
     	}
     	else {
-    		Robot.driveTrain.driveArcade(Robot.oi.getLeftStickY(), -Robot.oi.getRightStickX());
+    		Robot.driveTrain.driveArcade(Robot.oi.getLeftStickY(), Robot.oi.getRightStickX());
     	}
     }
 

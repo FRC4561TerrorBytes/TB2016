@@ -89,9 +89,8 @@ public class Shooter extends PIDSubsystem {
 			leftMotor.set(correctedThrottle); 
 			rightMotor.set(correctedThrottle);
 		}
-		
 	}
-	public void flipPID(){
+	public void togglePID(){
 		usePID = !usePID;
 	}
 }
