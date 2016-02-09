@@ -9,7 +9,7 @@ import org.usfirst.frc.team4561.robot.commands.ArcadeDrive;
 import org.usfirst.frc.team4561.robot.commands.IndividualMotorDrive;
 import org.usfirst.frc.team4561.robot.commands.ReverseDriveDirection;
 import org.usfirst.frc.team4561.robot.commands.RollersIn;
-import org.usfirst.frc.team4561.robot.commands.ShooterPIDFlip;
+import org.usfirst.frc.team4561.robot.commands.ToggleShooterPID;
 import org.usfirst.frc.team4561.robot.commands.SwitchToCamera1;
 import org.usfirst.frc.team4561.robot.commands.SwitchToCamera2;
 import org.usfirst.frc.team4561.robot.commands.ToggleCamera;
@@ -107,7 +107,7 @@ public class OI {
 		driveFrontRight.whileHeld(new IndividualMotorDrive(RobotMap.FRONT_RIGHT_MOTOR_CAN));
 		
 		// Shooter button comand assignment
-		shooterPIDFlipButton.whenActive(new ShooterPIDFlip());
+		shooterPIDFlipButton.whenActive(new ToggleShooterPID());
 	}
 	
 	// Joystick config

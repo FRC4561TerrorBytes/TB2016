@@ -8,17 +8,15 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class ShooterPIDFlip extends Command {
+public class ToggleShooterPID extends Command {
 
-    public ShooterPIDFlip() {
+    public ToggleShooterPID() {
     	requires(Robot.shooter);
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.shooter.flipPID();
+    	Robot.shooter.togglePID();
     }
 
     // Called repeatedly when this Command is scheduled to run

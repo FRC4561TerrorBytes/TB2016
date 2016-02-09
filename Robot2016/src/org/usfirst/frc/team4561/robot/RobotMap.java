@@ -13,7 +13,7 @@ public class RobotMap {
     public static final int REAR_LEFT_MOTOR_CAN = 2; // TODO: Verify
     public static final int REAR_RIGHT_MOTOR_CAN = 0; // TODO: Verify
     // Shooter
-    public static int LEFT_SHOOTER_MOTOR = 4; // TODO: Verify
+    public static final int LEFT_SHOOTER_MOTOR = 4; // TODO: Verify
     public static final int RIGHT_SHOOTER_MOTOR = 5; // TODO: Verify
     // Arm
     public static final int LEFT_ARM_MOTOR = 6; // TODO: Verify
@@ -29,7 +29,7 @@ public class RobotMap {
     public static final int CAMERA_TOGGLE_BUTTON = 1;
     
     //Shooter buttons (Left Stick)
-    public static final int SHOOTER_PID_FLIP_BUTTON = 2; //TODO: CHOOSE BETTER BUTTON
+    public static final int SHOOTER_PID_FLIP_BUTTON = 2;
     
     // Arm buttons (Left Stick)
     public static final int LOADER_BUTTON = 6;
