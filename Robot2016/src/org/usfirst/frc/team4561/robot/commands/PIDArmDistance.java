@@ -1,6 +1,7 @@
 package org.usfirst.frc.team4561.robot.commands;
 
 import edu.wpi.first.wpilibj.command.PIDCommand;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 import org.usfirst.frc.team4561.robot.Robot;
 
@@ -16,6 +17,7 @@ public class PIDArmDistance extends PIDCommand {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+        LiveWindow.addActuator("Arm", "PIDController", getPIDController());
     }
 
     // Called repeatedly when this Command is scheduled to run
