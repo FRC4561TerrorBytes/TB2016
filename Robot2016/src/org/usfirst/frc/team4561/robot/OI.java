@@ -16,6 +16,7 @@ import org.usfirst.frc.team4561.robot.commands.ToggleCamera;
 import org.usfirst.frc.team4561.robot.triggers.DSButton0Trigger;
 import org.usfirst.frc.team4561.robot.triggers.DSButton1Trigger;
 import org.usfirst.frc.team4561.robot.triggers.DSButton2Trigger;
+import org.usfirst.frc.team4561.robot.commands.ShootLowCommandGroup;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -66,7 +67,8 @@ public class OI {
 	// Loader buttons
 	private JoystickButton loaderButton = new JoystickButton(leftStick,
 			RobotMap.LOADER_BUTTON);
-	
+	private JoystickButton lowShotButton = new JoystickButton(leftStick,
+			RobotMap.LOWSHOT_BUTTON);
 	private JoystickButton reverseDirectionButton = new JoystickButton(leftStick,
 			RobotMap.REVERSE_DIRECTION_BUTTON);
 
@@ -84,6 +86,7 @@ public class OI {
 	public OI(){
 		// Loader button command assignment
 		loaderButton.whenPressed(new RollersIn());
+		lowShotButton.whileHeld(new ShootLowCommandGroup()); 
 		
 		// SmartDashboard trigger preparation
 		SmartDashboard.putBoolean("DB/Button 0", false);

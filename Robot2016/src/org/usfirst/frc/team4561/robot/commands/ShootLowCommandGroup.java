@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class ShootLowCommandGroup extends CommandGroup {
     
     public  ShootLowCommandGroup() {
-    	addSequential(new LowShotArmPos());
+    	addSequential(new ShootLowArmPos());
     	addSequential(new ShootLow());
         // Add Commands here:
         // e.g. addSequential(new Command1());

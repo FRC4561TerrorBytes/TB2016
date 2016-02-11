@@ -33,6 +33,7 @@ public class RobotMap {
     
     // Arm buttons (Left Stick)
     public static final int LOADER_BUTTON = 6;
+    public static int LOWSHOT_BUTTON = 13;
     
     // DriveTrain buttons (Left Stick)
     public static final int REVERSE_DIRECTION_BUTTON = 7;
