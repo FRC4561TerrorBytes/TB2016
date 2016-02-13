@@ -2,7 +2,7 @@ package org.usfirst.frc.team4561.robot.subsystems;
 
 import org.usfirst.frc.team4561.robot.Robot;
 import org.usfirst.frc.team4561.robot.RobotMap;
-import org.usfirst.frc.team4561.robot.commands.FlyWheels;
+import org.usfirst.frc.team4561.robot.commands.SetShooterSpeed;
 
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.Encoder;
@@ -39,7 +39,7 @@ public class Shooter extends PIDSubsystem {
 	}
 
 	protected void initDefaultCommand() {
-		setDefaultCommand(new FlyWheels());
+		setDefaultCommand(new SetShooterSpeed());
 	}
 
 	public void stop(){

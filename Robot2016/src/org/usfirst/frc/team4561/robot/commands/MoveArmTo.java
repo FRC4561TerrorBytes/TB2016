@@ -5,28 +5,32 @@ import org.usfirst.frc.team4561.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- *
+ * Moves the arm to a position.
  */
-public class ShootLowArmPos extends Command {
+public class MoveArmTo extends Command {
 
-    public ShootLowArmPos() {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
-    	requires(Robot.arm);
+	double setPoint;
+	/**
+	 * Sets the setPoint of the arm to a position.
+	 * When moving to common positions use Robot.arm.presets.get("WhateverPositionYouWant")
+	 * @param setPoint
+	 */
+    public MoveArmTo(double setPoint) {
+    	this.setPoint = setPoint;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	Robot.arm.setPoint = setPoint;
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.arm.setPoint = Robot.arm.presets.get("Loader");
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return true;
     }
 
     // Called once after isFinished returns true
@@ -36,5 +40,6 @@ public class ShootLowArmPos extends Command {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	end();
     }
 }

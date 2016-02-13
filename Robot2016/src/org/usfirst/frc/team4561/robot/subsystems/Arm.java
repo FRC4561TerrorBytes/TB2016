@@ -53,6 +53,14 @@ public class Arm extends Subsystem {
     	presets.put(presetName, newPreset);
     }
     
+    public void setSetpoint(double setPoint) {
+    	this.setPoint = setPoint;
+    }
+    
+    public void setSetpointRelative(double deltaSetPoint) {
+    	setPoint += deltaSetPoint;
+    }
+    
     public void stop() {
     	leftArmMotor.set(0);
     	rightArmMotor.set(0);

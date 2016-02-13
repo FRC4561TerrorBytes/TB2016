@@ -10,8 +10,8 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class ShootLowCommandGroup extends CommandGroup {
     
     public  ShootLowCommandGroup() {
-    	addSequential(new ShootLowArmPos());
-    	addSequential(new ShootLow());
+    	addSequential(new MoveArmTo(Robot.arm.presets.get("Loader")));
+    	addSequential(new RollersOut());
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
