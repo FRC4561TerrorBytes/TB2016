@@ -12,6 +12,7 @@ import org.usfirst.frc.team4561.robot.subsystems.Camera;
 import org.usfirst.frc.team4561.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team4561.robot.subsystems.Rollers;
 import org.usfirst.frc.team4561.robot.subsystems.Shooter;
+import org.usfirst.frc.team4561.robot.commands.SpyLowbarAutoCommandGroup;
 
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -34,6 +35,7 @@ public class Robot extends IterativeRobot {
 
     Command autonomousCommand;
     SendableChooser chooser;
+    
 
     /**
      * This function is run when the robot is first started up and should be
@@ -45,6 +47,7 @@ public class Robot extends IterativeRobot {
         chooser.addDefault("Default Auto", new ArcadeDrive());
 //        chooser.addObject("My Auto", new MyAutoCommand());
         SmartDashboard.putData("Auto mode", chooser);
+        SmartDashboard.putData("loadFinishedSwitch", rollers.loadFinishedSwitch);
     }
 	
 	/**
@@ -70,7 +73,7 @@ public class Robot extends IterativeRobot {
 	 * or additional comparisons to the switch structure below with additional strings & commands.
 	 */
     public void autonomousInit() {
-        autonomousCommand = (Command) chooser.getSelected();
+        autonomousCommand = (SpyLowbarAutoCommandGroup) chooser.getSelected();
         
 		/* String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
 		switch(autoSelected) {
