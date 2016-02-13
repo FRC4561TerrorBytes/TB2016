@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team4561.robot.commands.ArcadeDrive;
 import org.usfirst.frc.team4561.robot.commands.IndividualMotorDrive;
 import org.usfirst.frc.team4561.robot.commands.ReverseDriveDirection;
-import org.usfirst.frc.team4561.robot.commands.RollersIn;
+import org.usfirst.frc.team4561.robot.commands.LoadBallCommandGroup;
 import org.usfirst.frc.team4561.robot.commands.ToggleShooterPID;
 import org.usfirst.frc.team4561.robot.commands.SwitchToCamera1;
 import org.usfirst.frc.team4561.robot.commands.SwitchToCamera2;
@@ -85,7 +85,7 @@ public class OI {
 	
 	public OI(){
 		// Loader button command assignment
-		loaderButton.whenPressed(new RollersIn());
+		loaderButton.whileHeld(new LoadBallCommandGroup());
 		lowShotButton.whileHeld(new ShootLowCommandGroup()); 
 		
 		// SmartDashboard trigger preparation
