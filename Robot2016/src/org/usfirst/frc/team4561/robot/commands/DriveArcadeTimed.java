@@ -7,13 +7,20 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class AutoDrive2 extends Command {
+public class DriveArcadeTimed extends Command {
 
-    public AutoDrive2() {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
-    	requires(Robot.driveTrain);
+	double drive;
+	double rot;
+	double seconds;
+	
+    public DriveArcadeTimed(double drive, double rot, double seconds) {
+        requires(Robot.driveTrain);
+        this.drive = drive;
+        this.rot = rot;
+        this.seconds = seconds;
+        setTimeout(seconds);
     }
+    
 
     // Called just before this Command runs the first time
     protected void initialize() {
@@ -21,16 +28,20 @@ public class AutoDrive2 extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.driveTrain.driveArcade(1, 0); //TODO: verify drive
+    	Robot.driveTrain.driveArcade(drive, rot);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return isTimedOut();
     }
 
     // Called once after isFinished returns true
     protected void end() {
+    	if(Robot.isVerbose()) {
+    		System.out.println("Stopping DriveArcadeTimed");
+    	}
+    	Robot.driveTrain.stop();
     }
 
     // Called when another command which requires one or more of the same

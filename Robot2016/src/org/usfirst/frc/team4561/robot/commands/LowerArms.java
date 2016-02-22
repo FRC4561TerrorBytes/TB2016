@@ -15,12 +15,27 @@ public class LowerArms extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	if(Robot.isVerbose()) {
+    		System.out.println("Starting LowerArms");
+    	}
+    	Robot.arm.pidMode = false;
+    	Robot.arm.armMotorOutput = 0;
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.arm.leftArmMotor.set(-0.9); //TODO: Find speed values
-    	Robot.arm.rightArmMotor.set(-0.9); //TODO: Find speed values
+    	if(!Robot.arm.bottomLimitSwitch.get()) {
+    		System.out.println("no power down");
+    		Robot.arm.leftMotor.set(0);
+        	Robot.arm.rightMotor.set(0);
+        	Robot.arm.armMotorOutput = 0;
+    	}
+    	else {
+    		System.out.println("yes power down");
+    		Robot.arm.leftMotor.set(-0.5); //TODO: Find speed values
+        	Robot.arm.rightMotor.set(-0.5); //TODO: Find speed values
+        	Robot.arm.armMotorOutput = -0.5;
+    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -31,6 +46,9 @@ public class LowerArms extends Command {
     // Called once after isFinished returns true
     protected void end() {
     	Robot.arm.stop();
+    	if(Robot.isVerbose()) {
+    		System.out.println("Stopping LowerArms");
+    	}
     }
 
     // Called when another command which requires one or more of the same

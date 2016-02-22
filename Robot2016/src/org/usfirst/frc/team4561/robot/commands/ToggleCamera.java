@@ -14,6 +14,9 @@ public class ToggleCamera extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	if(Robot.isVerbose()) {
+    		System.out.println("Starting ToggleCamera");
+    	}
     	Robot.camera.switchCam();
     }
 
@@ -28,6 +31,9 @@ public class ToggleCamera extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
+    	if(Robot.isVerbose()) {
+    		System.out.println("Stopping ToggleCamera");
+    	}
     }
 
     // Called when another command which requires one or more of the same

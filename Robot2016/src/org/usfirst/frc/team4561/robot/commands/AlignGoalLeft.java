@@ -3,17 +3,14 @@ package org.usfirst.frc.team4561.robot.commands;
 import org.usfirst.frc.team4561.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.networktables.NetworkTable;
 
 /**
  *
  */
-public class AutoAlignToGoal1 extends Command {
-
-    private int distanceFromGoal;
+public class AlignGoalLeft extends Command {
+	private int distanceFromGoal;
     public static int rots;
-
-	public AutoAlignToGoal1() {
+    public AlignGoalLeft() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.driveTrain);
@@ -34,7 +31,7 @@ public class AutoAlignToGoal1 extends Command {
     	}
     	if (Robot.camera.goalsBeingSeen() < 1) {
     		System.out.println("No target found");
-    		Robot.driveTrain.driveArcade(0, 45); //TODO: verify
+    		Robot.driveTrain.driveArcade(0, -45); //TODO: verify
     		rots++;
     	}
     	else {

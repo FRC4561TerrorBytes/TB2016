@@ -23,19 +23,25 @@ public class Shooter extends PIDSubsystem {
 	
 	private final double WHEEL_RADIUS = 2; // Inches
 	private final double WHEEL_CIRCUMFERENCE = 2 * Math.PI * WHEEL_RADIUS; // Inches
-	private final double ENCODER_TICKS = 2048; // TODO: Verify
+	private final double ENCODER_TICKS = 1024; // TODO: Verify
 	private final double DISTANCE_PER_PULSE = WHEEL_CIRCUMFERENCE / ENCODER_TICKS; // Inches per tick
 	
-	private boolean usePID = true;
+	private boolean usePID = false;
 	
 	public Shooter() {
-		super(0, 0, 0, 0, PERIOD); // TODO: Tune PDF values, I term is obsolete in velocity mode.
+		super("Shooter", 0, 0, 0, 0); // TODO: Tune PDF values, I term is obsolete in velocity mode.
 		
-		leftMotor.enableBrakeMode(true);
-		rightMotor.enableBrakeMode(true);
+		if(Robot.isVerbose()) {
+			System.out.println("Initializing Shooter Subsystem");
+		}
 		
-		shooterEncoder.setPIDSourceType(PIDSourceType.kRate);
-		shooterEncoder.setDistancePerPulse(DISTANCE_PER_PULSE);
+		leftMotor.setInverted(true);
+		rightMotor.setInverted(true);
+		
+		leftMotor.enableBrakeMode(false);
+		rightMotor.enableBrakeMode(false);
+		
+		shooterEncoder.setDistancePerPulse(1/1024);
 	}
 
 	protected void initDefaultCommand() {
@@ -62,33 +68,35 @@ public class Shooter extends PIDSubsystem {
 	}
 	
 	public double getRPM() {
-		double rpm = (shooterEncoder.pidGet() / WHEEL_CIRCUMFERENCE) * 60;
+		//double rpm = (shooterEncoder.getRate() / WHEEL_CIRCUMFERENCE) * 60;
+		double rpm = shooterEncoder.getRate();
 		return rpm;
 	}
 	
 	public double getRPS() {
-		double rps = shooterEncoder.pidGet() * WHEEL_CIRCUMFERENCE;
+		double rps = shooterEncoder.getRate() * WHEEL_CIRCUMFERENCE;
 		return rps;
 	}
 	
 	public double getInchesPerSecond() {
-		return shooterEncoder.pidGet();
+		return shooterEncoder.getRate();
 	}
 	
 	protected double returnPIDInput() {
-		return shooterEncoder.pidGet(); //TODO: Test to see if this is the correct method.
+		return shooterEncoder.getRate(); //TODO: Test to see if this is the correct method.
 	}
 	
 	protected void usePIDOutput(double output) {
-		if(usePID){
+		if(usePID) {
 			leftMotor.set(output);
 			rightMotor.set(output);
 		}
-		else{
+		else {
 			double correctedThrottle = (Robot.oi.getCorrectedLeftStickThrottle());
 			leftMotor.set(correctedThrottle); 
 			rightMotor.set(correctedThrottle);
 		}
+		System.out.println(shooterEncoder.getRate());
 	}
 	public void togglePID(){
 		usePID = !usePID;

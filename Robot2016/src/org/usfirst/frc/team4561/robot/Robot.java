@@ -1,6 +1,7 @@
 
 package org.usfirst.frc.team4561.robot;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -12,7 +13,6 @@ import org.usfirst.frc.team4561.robot.subsystems.Camera;
 import org.usfirst.frc.team4561.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team4561.robot.subsystems.Rollers;
 import org.usfirst.frc.team4561.robot.subsystems.Shooter;
-import org.usfirst.frc.team4561.robot.commands.SpyLowbarAutoCommandGroup;
 
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -27,22 +27,33 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends IterativeRobot {
 
 	public static OI oi;
-	public static final DriveTrain driveTrain = new DriveTrain();
-	public static final Rollers rollers = new Rollers();
-	public static final Arm arm = new Arm();
-	public static final Camera camera = new Camera();
-	public static final Shooter shooter = new Shooter(); 
+	public static DriveTrain driveTrain;
+	public static Rollers rollers;
+	public static Arm arm;
+	public static Camera camera;
+	public static Shooter shooter;
 
     Command autonomousCommand;
     SendableChooser chooser;
     
+    private static Robot robotSingleton;
+	
+	public static Robot getInstance() {
+		return robotSingleton;
+	}
 
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
      */
     public void robotInit() {
-		oi = new OI();
+    	driveTrain = new DriveTrain();
+    	rollers = new Rollers();
+    	arm = new Arm();
+    	camera = new Camera();
+    	shooter = new Shooter();
+    	oi = new OI();
+    	robotSingleton = this;
         chooser = new SendableChooser();
         chooser.addDefault("Default Auto", new ArcadeDrive());
 //        chooser.addObject("My Auto", new MyAutoCommand());
@@ -55,8 +66,9 @@ public class Robot extends IterativeRobot {
      * You can use it to reset any subsystem information you want to clear when
 	 * the robot is disabled.
      */
-    public void disabledInit(){
-
+    public void disabledInit() {
+    	arm.getPIDController().disable();
+    	shooter.getPIDController().disable();
     }
 	
 	public void disabledPeriodic() {
@@ -73,7 +85,7 @@ public class Robot extends IterativeRobot {
 	 * or additional comparisons to the switch structure below with additional strings & commands.
 	 */
     public void autonomousInit() {
-        autonomousCommand = (SpyLowbarAutoCommandGroup) chooser.getSelected();
+        autonomousCommand = (Command)chooser.getSelected();
         
 		/* String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
 		switch(autoSelected) {
@@ -88,6 +100,8 @@ public class Robot extends IterativeRobot {
     	
     	// schedule the autonomous command (example)
         if (autonomousCommand != null) autonomousCommand.start();
+        arm.getPIDController().enable();
+        shooter.getPIDController().enable();
     }
 
     /**
@@ -103,6 +117,8 @@ public class Robot extends IterativeRobot {
         // continue until interrupted by another command, remove
         // this line or comment it out.
         if (autonomousCommand != null) autonomousCommand.cancel();
+        arm.getPIDController().enable();
+        shooter.getPIDController().enable();
     }
 
     /**
@@ -114,6 +130,9 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putString("DB/String 1", "RPM: " + Integer.toString((int)shooter.getRPM()));
         SmartDashboard.putString("DB/String 2", "RPS: " + Integer.toString((int)shooter.getRPS()));
         SmartDashboard.putString("DB/String 3", "in/s: " + Integer.toString((int)shooter.getInchesPerSecond()));
+        if(DriverStation.getInstance().isBrownedOut()) {
+        	System.out.println("HALP ME IM BROWNED OUT PLS HALP");
+        }
     }
     
     /**
@@ -122,4 +141,13 @@ public class Robot extends IterativeRobot {
     public void testPeriodic() {
         LiveWindow.run();
     }
+    
+	private static boolean verbose = true;
+	
+	public static void setVerbose(boolean verboseness) {
+		verbose = verboseness;
+	}
+	public static boolean isVerbose() {
+		return verbose;
+	}
 }

@@ -7,21 +7,22 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class IntakeArmPos extends Command {
+public class RollersCompensate extends Command {
 
-    public IntakeArmPos() {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
-    	requires(Robot.arm);
+    public RollersCompensate() {
+        requires(Robot.rollers);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	if(Robot.isVerbose()) {
+    		System.out.println("Starting RollersCompensate");
+    	}
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.arm.setPoint = Robot.arm.presets.get("Intake");
+    	Robot.rollers.setRollers(Robot.arm.armMotorOutput * 0.359);
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -31,6 +32,10 @@ public class IntakeArmPos extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
+    	Robot.rollers.stop();
+    	if(Robot.isVerbose()) {
+    		System.out.println("Stopping RollersCompensate");
+    	}
     }
 
     // Called when another command which requires one or more of the same

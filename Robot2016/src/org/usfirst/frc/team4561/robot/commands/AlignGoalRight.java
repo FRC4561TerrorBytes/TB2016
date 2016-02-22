@@ -1,40 +1,43 @@
 package org.usfirst.frc.team4561.robot.commands;
 
 import org.usfirst.frc.team4561.robot.Robot;
-import org.usfirst.frc.team4561.robot.commands.AutoAlignToGoal1;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
 
 /**
  *
  */
-public class AutoDrive1 extends Command {
+public class AlignGoalRight extends Command {
 
-    public AutoDrive1() {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
+    private int distanceFromGoal;
+    public static int fortyfivedegreeincrement;
+
+	public AlignGoalRight() {
     	requires(Robot.driveTrain);
+    	requires(Robot.camera);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	//activate in automode after command AutoPIDShootHigh
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if (AutoAlignToGoal1.rots == 1) {
-    		Robot.driveTrain.driveArcade(0, -45); 
+		//Take values from networkTables to autoalign to goal if not aligned already
+    	fortyfivedegreeincrement = 0;
+    	if (Robot.camera.goalsBeingSeen() >= 1 & distanceFromGoal < 6) {
+    		System.out.println("Target too close");
+    		Robot.driveTrain.driveArcade(-1, 0); //TODO: Verify
     	}
-    	if (AutoAlignToGoal1.rots == 2) {
-    		Robot.driveTrain.driveArcade(0, -90);
+    	if (Robot.camera.goalsBeingSeen() < 1) {
+    		System.out.println("No target found");
+    		Robot.driveTrain.driveArcade(0, 1); //TODO: Verify
+    		fortyfivedegreeincrement++;
     	}
-    	
-    	Robot.driveTrain.driveArcade(-1, 0); //TODO: verify drive
-    	
-    	//Rotate so the robot can drive backwards through lowbar
-    	//drive backwards through lowbar
-    	//20 points in auto, beat that
+    	else {
+    		System.out.println("On target, ready to fire!");
+    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()

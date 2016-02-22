@@ -17,6 +17,9 @@ public class IndividualMotorDrive extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	if(Robot.isVerbose()) {
+    		System.out.println("Starting Individual Motor Drive for motor ID " + motorID);
+    	}
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -32,6 +35,9 @@ public class IndividualMotorDrive extends Command {
     // Called once after isFinished returns true
     protected void end() {
     	Robot.driveTrain.stop();
+    	if(Robot.isVerbose()) {
+    		System.out.println("Stopping Individual Motor Drive for motor ID " + motorID);
+    	}
     }
 
     // Called when another command which requires one or more of the same

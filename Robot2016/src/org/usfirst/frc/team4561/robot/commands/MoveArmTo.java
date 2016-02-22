@@ -21,7 +21,11 @@ public class MoveArmTo extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.arm.setPoint = setPoint;
+    	if(Robot.isVerbose()) {
+    		System.out.println("Starting MoveArmTo for setpoint "  + setPoint);
+    	}
+    	Robot.arm.pidMode = true;
+    	Robot.arm.setSetpoint(setPoint);
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -30,11 +34,14 @@ public class MoveArmTo extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return true;
+        return Robot.arm.getPIDController().onTarget();
     }
 
     // Called once after isFinished returns true
     protected void end() {
+    	if(Robot.isVerbose()) {
+    		System.out.println("Stopping MoveArmTo for setpoint " + setPoint);
+    	}
     }
 
     // Called when another command which requires one or more of the same

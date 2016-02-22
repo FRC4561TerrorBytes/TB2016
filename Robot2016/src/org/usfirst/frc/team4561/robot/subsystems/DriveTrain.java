@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
+import org.usfirst.frc.team4561.robot.Robot;
 import org.usfirst.frc.team4561.robot.RobotMap;
 import org.usfirst.frc.team4561.robot.commands.ArcadeDrive;
 import org.usfirst.frc.team4561.robot.commands.TankDrive;
@@ -23,10 +24,10 @@ public class DriveTrain extends Subsystem {
 	private static String DRIVE_TYPE = "arcade";
 	
 	// "talon" for TalonSRs, "victor" for Victors, "cantalon" for CANTalons or CANTalonSRXs
-	private static String MOTOR_TYPE = "victor";
+	private static String MOTOR_TYPE = "cantalon";
 	
 	// Squares the input values, such that 0.5 power becomes 0.25, etc.
-	private static boolean squaredInputs = false;
+	private static boolean squaredInputs = true;
 	
 	private SpeedController leftFront;
 	private SpeedController leftRear;
@@ -39,6 +40,9 @@ public class DriveTrain extends Subsystem {
 	
 	public DriveTrain() {
 		constructMotorControllers();
+		if(Robot.isVerbose()) {
+			System.out.println("Initializing DriveTrain Subsystem");
+		}
 	}
 	 
     public void initDefaultCommand() {
@@ -91,6 +95,11 @@ public class DriveTrain extends Subsystem {
     		((CANTalon)rightFront).enableBrakeMode(true);
     		((CANTalon)rightRear).enableBrakeMode(true);
     		
+    		((CANTalon)leftFront).setInverted(true);
+    		((CANTalon)leftRear).setInverted(true);
+    		((CANTalon)rightFront).setInverted(true);
+    		((CANTalon)rightRear).setInverted(true);
+    		
     		robotDrive = new RobotDrive(leftFront, leftRear,
     				rightFront, rightRear);
     	}
@@ -130,6 +139,10 @@ public class DriveTrain extends Subsystem {
 	
 	public boolean isReversed() {
 		return reversed;
+	}
+	
+	public boolean isTouringMode() {
+		return Robot.oi.isTouringMode();
 	}
 	
 	public void stop() {

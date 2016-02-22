@@ -10,15 +10,26 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class MoveArmDelta extends Command {
 
-	double deltaSetPoint;
+	private static final double INCREMENT = RobotMap.ARM_DELTA_INCREMENT;
 	
-    public MoveArmDelta(double delta) {
-    	this.deltaSetPoint = delta;
+	boolean up;
+	
+    public MoveArmDelta(boolean up) {
+    	this.up = up;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.arm.setSetpointRelative(deltaSetPoint);
+    	if(Robot.isVerbose()) {
+    		System.out.println("Starting MoveArmDelta");
+    	}
+    	Robot.arm.pidMode = true;
+    	if(up) {
+    		Robot.arm.setSetpointRelative(INCREMENT);
+    	}
+    	else {
+    		Robot.arm.setSetpointRelative(-INCREMENT);
+    	}
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -32,6 +43,7 @@ public class MoveArmDelta extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
+    	System.out.println("Stopping MoveArmDelta");
     }
 
     // Called when another command which requires one or more of the same

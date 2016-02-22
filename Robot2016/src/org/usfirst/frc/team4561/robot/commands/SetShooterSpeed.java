@@ -13,6 +13,9 @@ public class SetShooterSpeed extends Command {
 	}
 
 	protected void initialize() {
+		if(Robot.isVerbose()) {
+			System.out.println("Starting SetShooterSpeed");
+		}
 	}
 
 	protected void execute() {
@@ -26,6 +29,9 @@ public class SetShooterSpeed extends Command {
 
 	protected void end() {
 		Robot.shooter.stop();
+		if(Robot.isVerbose()) {
+			System.out.println("Stopping SetShooterSpeed");
+		}
 	}
 
 	protected void interrupted() {

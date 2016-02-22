@@ -15,6 +15,9 @@ public class StreamCamera extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	if(Robot.isVerbose()) {
+    		System.out.println("Starting StreamCamera");
+    	}
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -29,6 +32,9 @@ public class StreamCamera extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
+    	if(Robot.isVerbose()) {
+    		System.out.println("Stopping StreamCamera");
+    	}
     }
 
     // Called when another command which requires one or more of the same
