@@ -24,7 +24,7 @@ public class RaiseArms extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if(!Robot.arm.topLimitSwitch.get()) {
+    	if(!Robot.arm.bottomLimitSwitch.get()) {
     		System.out.println("no power up");
     		Robot.arm.leftMotor.set(0);
         	Robot.arm.rightMotor.set(0);

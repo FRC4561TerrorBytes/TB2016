@@ -7,6 +7,8 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
+import org.usfirst.frc.team4561.robot.automodes.AutoDoNothing;
+import org.usfirst.frc.team4561.robot.automodes.AutoNeutralSelectable;
 import org.usfirst.frc.team4561.robot.commands.ArcadeDrive;
 import org.usfirst.frc.team4561.robot.subsystems.Arm;
 import org.usfirst.frc.team4561.robot.subsystems.Camera;
@@ -97,9 +99,92 @@ public class Robot extends IterativeRobot {
 			autonomousCommand = new ExampleCommand();
 			break;
 		} */
-    	
-    	// schedule the autonomous command (example)
-        if (autonomousCommand != null) autonomousCommand.start();
+        
+        int autoChoosen = 0;
+		try {
+			int slider1 = (int)SmartDashboard.getNumber("DB/Slider 0");
+			int slider2 = (int)SmartDashboard.getNumber("DB/Slider 1");
+			int slider3 = (int)SmartDashboard.getNumber("DB/Slider 2");
+			switch (slider1) {
+				case 0:
+					autonomousCommand = new AutoDoNothing();
+					break;
+				case 1:
+					if(slider3 > 0) {
+						autonomousCommand = new AutoNeutralSelectable(1, slider2, true);
+					} else {
+						autonomousCommand = new AutoNeutralSelectable(1, slider2, false);
+					}
+					break;
+				case 2:
+					if(slider3 > 0) {
+						autonomousCommand = new AutoNeutralSelectable(2, slider2, true);
+					} else {
+						autonomousCommand = new AutoNeutralSelectable(2, slider2, false);
+					}
+					break;
+				case 3:
+					if(slider3 > 0) {
+						autonomousCommand = new AutoNeutralSelectable(3, slider2, true);
+					} else {
+						autonomousCommand = new AutoNeutralSelectable(3, slider2, false);
+					}
+					break;
+				case 4:
+					if(slider3 > 0) {
+						autonomousCommand = new AutoNeutralSelectable(4, slider2, true);
+					} else {
+						autonomousCommand = new AutoNeutralSelectable(4, slider2, false);
+					}
+					break;
+				case 5:
+					if(slider3 > 0) {
+						autonomousCommand = new AutoNeutralSelectable(5, slider2, true);
+					} else {
+						autonomousCommand = new AutoNeutralSelectable(5, slider2, false);
+					}
+					break;
+				case 6:
+					if(slider3 > 0) {
+						autonomousCommand = new AutoNeutralSelectable(6, slider2, true);
+					} else {
+						autonomousCommand = new AutoNeutralSelectable(6, slider2, false);
+					}
+					break;
+				case 7:
+					if(slider3 > 0) {
+						autonomousCommand = new AutoNeutralSelectable(7, slider2, true);
+					} else {
+						autonomousCommand = new AutoNeutralSelectable(7, slider2, false);
+					}
+					break;
+				case 8:
+					if(slider3 > 0) {
+						autonomousCommand = new AutoNeutralSelectable(8, slider2, true);
+					} else {
+						autonomousCommand = new AutoNeutralSelectable(8, slider2, false);
+					}
+					break;
+				case 9:
+					if(slider3 > 0) {
+						autonomousCommand = new AutoNeutralSelectable(9, slider2, true);
+					} else {
+						autonomousCommand = new AutoNeutralSelectable(9, slider2, false);
+					}
+					break;
+				default:
+					autonomousCommand = new AutoDoNothing();
+					break;
+			}
+		} catch(Throwable t) {
+			System.out.println("Autonomous Picking Failed.");
+		}
+		
+		if (autonomousCommand != null) {
+			//Start automode
+			autonomousCommand.start();
+		}
+		
         arm.getPIDController().enable();
         shooter.getPIDController().enable();
     }

@@ -29,6 +29,7 @@ public class Rollers extends Subsystem {
 	}
 	
 	public void setRollers(double power) {
+		System.out.println("setting rollers");
 		rollerMotor.set(power);
 	}
 	

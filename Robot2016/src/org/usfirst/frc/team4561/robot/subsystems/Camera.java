@@ -5,7 +5,6 @@ import org.usfirst.frc.team4561.robot.commands.StreamCamera;
 
 import com.ni.vision.NIVision;
 import com.ni.vision.NIVision.Image;
-import com.ni.vision.NIVision.RGBValue;
 
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -37,8 +36,6 @@ public class Camera extends Subsystem {
     // Holds the frame to send to the DS.
 	private Image frame;
 	
-	private RGBValue crosshairColor = new RGBValue(0, 0, 255, 255);
-	
 	private CameraServer server;
 	
 	private NetworkTable contours;
@@ -59,7 +56,7 @@ public class Camera extends Subsystem {
     						 + "to make sure cameras are properly installed.");
     	}
     	try {
-    		cam2 = NIVision.IMAQdxOpenCamera("cam2", NIVision.IMAQdxCameraControlMode.CameraControlModeController);
+    		cam2 = NIVision.IMAQdxOpenCamera("cam1", NIVision.IMAQdxCameraControlMode.CameraControlModeController);
     		camList.add(cam2);
     		noCamerasInitialized = false;
     	}

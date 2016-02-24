@@ -6,7 +6,6 @@ import org.usfirst.frc.team4561.robot.commands.SetShooterSpeed;
 
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 
 import java.lang.Math;
@@ -19,12 +18,12 @@ public class Shooter extends PIDSubsystem {
 	private static Encoder shooterEncoder = new Encoder(RobotMap.SHOOTER_ENCODER_A_SOURCE,
 												 RobotMap.SHOOTER_ENCODER_B_SOURCE);
 	
-	private static final double PERIOD = 0.05;
-	
 	private final double WHEEL_RADIUS = 2; // Inches
 	private final double WHEEL_CIRCUMFERENCE = 2 * Math.PI * WHEEL_RADIUS; // Inches
+	
+	
 	private final double ENCODER_TICKS = 1024; // TODO: Verify
-	private final double DISTANCE_PER_PULSE = WHEEL_CIRCUMFERENCE / ENCODER_TICKS; // Inches per tick
+	private final double DISTANCE_PER_PULSE = 1.0 / ENCODER_TICKS; // Revolutions per tick
 	
 	private boolean usePID = false;
 	
@@ -41,7 +40,7 @@ public class Shooter extends PIDSubsystem {
 		leftMotor.enableBrakeMode(false);
 		rightMotor.enableBrakeMode(false);
 		
-		shooterEncoder.setDistancePerPulse(1/1024);
+		shooterEncoder.setDistancePerPulse(DISTANCE_PER_PULSE);
 	}
 
 	protected void initDefaultCommand() {
@@ -54,36 +53,32 @@ public class Shooter extends PIDSubsystem {
 	}
 
 	public void setInchesPerSecond(double inchesPerSecond) {
-		setSetpoint(inchesPerSecond);
+		setSetpoint(inchesPerSecond/WHEEL_CIRCUMFERENCE);
 	}
 	
 	public void setRPM(double rpm) {
-		double inchesPerSecond = (rpm * WHEEL_CIRCUMFERENCE) / 60;
-		setSetpoint(inchesPerSecond);
+		setSetpoint(rpm/60.0);
 	}
 	
 	public void setRPS(double rps) {
-		double inchesPerSecond = rps * WHEEL_CIRCUMFERENCE;
-		setSetpoint(inchesPerSecond);
+		setSetpoint(rps);
 	}
 	
 	public double getRPM() {
-		//double rpm = (shooterEncoder.getRate() / WHEEL_CIRCUMFERENCE) * 60;
 		double rpm = shooterEncoder.getRate();
-		return rpm;
+		return shooterEncoder.getRate() * 60;
 	}
 	
 	public double getRPS() {
-		double rps = shooterEncoder.getRate() * WHEEL_CIRCUMFERENCE;
-		return rps;
-	}
-	
-	public double getInchesPerSecond() {
 		return shooterEncoder.getRate();
 	}
 	
+	public double getInchesPerSecond() {
+		return shooterEncoder.getRate() * WHEEL_CIRCUMFERENCE;
+	}
+	
 	protected double returnPIDInput() {
-		return shooterEncoder.getRate(); //TODO: Test to see if this is the correct method.
+		return shooterEncoder.getRate();
 	}
 	
 	protected void usePIDOutput(double output) {
@@ -93,10 +88,12 @@ public class Shooter extends PIDSubsystem {
 		}
 		else {
 			double correctedThrottle = (Robot.oi.getCorrectedLeftStickThrottle());
-			leftMotor.set(correctedThrottle); 
+			leftMotor.set(correctedThrottle);
 			rightMotor.set(correctedThrottle);
+			//System.out.println(correctedThrottle);
 		}
-		System.out.println(shooterEncoder.getRate());
+		
+		
 	}
 	public void togglePID(){
 		usePID = !usePID;

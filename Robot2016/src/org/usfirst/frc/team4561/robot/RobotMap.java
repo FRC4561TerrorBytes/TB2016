@@ -13,13 +13,13 @@ public class RobotMap {
     public static final int REAR_LEFT_MOTOR_CAN = 6;
     public static final int REAR_RIGHT_MOTOR_CAN = 2;
     // Shooter
-    public static final int LEFT_SHOOTER_MOTOR = 3; // TODO: Verify
-    public static final int RIGHT_SHOOTER_MOTOR = 4; // TODO: Verify
+    public static final int LEFT_SHOOTER_MOTOR = 3;
+    public static final int RIGHT_SHOOTER_MOTOR = 4;
     // Arm
-    public static final int LEFT_ARM_MOTOR = 8; // TODO: Verify
-    public static final int RIGHT_ARM_MOTOR = 9; // TODO: Verify
+    public static final int LEFT_ARM_MOTOR = 8;
+    public static final int RIGHT_ARM_MOTOR = 9;
     // Roller
-    public static final int ROLLER_MOTOR = 1; //TODO: Verify
+    public static final int ROLLER_MOTOR = 1;
     
     // Joystick ports (USB)
     public static final int LEFT_JOYSTICK = 0;
@@ -33,7 +33,7 @@ public class RobotMap {
     public static final int SHOOTER_PID_FLIP_BUTTON = 2; // TODO: Verify
     
     // Shooter buttons (Controller)
-    public static final int FIRE_BUTTON = 3; // TODO: Verify
+    public static final int FIRE_BUTTON = 10; // TODO: Verify
     
     // Roller buttons (Left Stick)
     public static final int ROLL_OUT_BUTTON = 1; // TODO: Optimize
@@ -54,7 +54,19 @@ public class RobotMap {
     public static final int ARM_PRESET_2 = 2;
     public static final int ARM_PRESET_3 = 3;
     public static final int ARM_PRESET_4 = 4;
+    public static final int ARM_PRESET_5 = 5;
     
+    
+    public static final int ARM_PRESET_1_LOWER = -1;
+    public static final int ARM_PRESET_1_UPPER = 1;
+    public static final int ARM_PRESET_2_LOWER = 2;
+    public static final int ARM_PRESET_2_UPPER = 2;
+    public static final int ARM_PRESET_3_LOWER = 3;
+    public static final int ARM_PRESET_3_UPPER = 2;
+    public static final int ARM_PRESET_4_LOWER = 4;
+    public static final int ARM_PRESET_4_UPPER = 2;
+    public static final int ARM_PRESET_5_LOWER = 5;
+    public static final int ARM_PRESET_5_UPPER = 1;
     
     // DriveTrain buttons (Left Stick)
     public static final int REVERSE_DIRECTION_BUTTON = 7; // TODO: Optimize

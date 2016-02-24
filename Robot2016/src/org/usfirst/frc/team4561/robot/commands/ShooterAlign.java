@@ -63,8 +63,7 @@ public class ShooterAlign extends Command {
 	    	desiredSpeed = velocityTable.floorEntry(new Double(directDistance)).getValue().doubleValue();
 	    	System.out.println(desiredSpeed);
 	    	SmartDashboard.putString("DB/String 7", "S: " + (int)desiredSpeed);
-	    	
-//	    	Robot.shooter.setInchesPerSecond(desiredSpeed);
+	    	Robot.shooter.setInchesPerSecond(desiredSpeed);
     	}
     	
     	else {

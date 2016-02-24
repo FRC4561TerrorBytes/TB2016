@@ -31,7 +31,7 @@ public class AlignGoalLeft extends Command {
     	}
     	if (Robot.camera.goalsBeingSeen() < 1) {
     		System.out.println("No target found");
-    		Robot.driveTrain.driveArcade(0, -45); //TODO: verify
+    		Robot.driveTrain.driveArcade(0, 2); //TODO: test
     		rots++;
     	}
     	else {

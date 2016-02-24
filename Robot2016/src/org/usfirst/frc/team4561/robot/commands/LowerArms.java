@@ -24,7 +24,7 @@ public class LowerArms extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if(!Robot.arm.bottomLimitSwitch.get()) {
+    	if(!Robot.arm.topLimitSwitch.get()) {
     		System.out.println("no power down");
     		Robot.arm.leftMotor.set(0);
         	Robot.arm.rightMotor.set(0);

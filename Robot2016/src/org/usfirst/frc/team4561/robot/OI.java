@@ -100,10 +100,10 @@ public class OI {
 		moveArmDeltaUpButton.whenPressed(new MoveArmDelta(true));
 		raiseArmsButton.whileHeld(new RaiseArms());
 		lowerArmsButton.whileHeld(new LowerArms());
-		armPreset1.whileHeld(new MoveArmTo(Robot.arm.presets.get("Bottom")));
-		armPreset2.whileHeld(new MoveArmTo(Robot.arm.presets.get("Intake")));
-		armPreset3.whileHeld(new MoveArmTo(Robot.arm.presets.get("Middle")));
-		armPreset4.whileHeld(new MoveArmTo(Robot.arm.presets.get("Top")));
+		armPreset1.whenPressed(new MoveArmTo(Robot.arm.presets.get("Bottom")));
+		armPreset2.whenPressed(new MoveArmTo(Robot.arm.presets.get("Intake")));
+		armPreset3.whenPressed(new MoveArmTo(Robot.arm.presets.get("Middle")));
+		armPreset4.whenPressed(new MoveArmTo(Robot.arm.presets.get("Top")));
 		
 		// Roller button command assignment
 		rollInButton.whileHeld(new RollersIn());
@@ -135,11 +135,11 @@ public class OI {
 	
 	// Joystick config
 	// Right stick config
-	public static double RIGHT_STICK_DEAD_ZONE = 0.15; //TODO: Change based on tests
+	public static double RIGHT_STICK_DEAD_ZONE = 0.15;
     public static double RIGHT_STICK_REDUCTION = 0;
     
     // Left stick config
-    public static double LEFT_STICK_DEAD_ZONE = 0.15; //TODO: Change based on tests
+    public static double LEFT_STICK_DEAD_ZONE = 0.15;
     public static double LEFT_STICK_REDUCTION = 0;
     
     /**

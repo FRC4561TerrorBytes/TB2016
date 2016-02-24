@@ -27,7 +27,7 @@ public class DriveTrain extends Subsystem {
 	private static String MOTOR_TYPE = "cantalon";
 	
 	// Squares the input values, such that 0.5 power becomes 0.25, etc.
-	private static boolean squaredInputs = true;
+	private static boolean squaredInputs = false;
 	
 	private SpeedController leftFront;
 	private SpeedController leftRear;
