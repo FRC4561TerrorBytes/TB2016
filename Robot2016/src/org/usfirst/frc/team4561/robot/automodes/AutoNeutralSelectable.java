@@ -1,11 +1,10 @@
 package org.usfirst.frc.team4561.robot.automodes;
 
 import org.usfirst.frc.team4561.robot.Robot;
-import org.usfirst.frc.team4561.robot.commands.AlignGoalLeft;
-import org.usfirst.frc.team4561.robot.commands.AlignGoalRight;
 import org.usfirst.frc.team4561.robot.commands.DriveArcadeTimed;
 import org.usfirst.frc.team4561.robot.commands.Fire;
 import org.usfirst.frc.team4561.robot.commands.MoveArmTo;
+import org.usfirst.frc.team4561.robot.commands.PIDGoalAlign;
 import org.usfirst.frc.team4561.robot.commands.ShooterAlign;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -64,11 +63,11 @@ public class AutoNeutralSelectable extends CommandGroup {
         if(shoot) {
         	if(pos <= 3) {
         		// Find goal preferring right
-        		addSequential(new AlignGoalRight());
+        		addSequential(new PIDGoalAlign(false));
         	}
         	else if(pos >= 4) {
         		// Find goal preferring left
-        		addSequential(new AlignGoalLeft());
+        		addSequential(new PIDGoalAlign(true));
         	}
         	// Spin up shooter
         	addSequential(new ShooterAlign());

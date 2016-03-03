@@ -1,10 +1,10 @@
 package org.usfirst.frc.team4561.robot.automodes;
 
 import org.usfirst.frc.team4561.robot.Robot;
-import org.usfirst.frc.team4561.robot.commands.AlignGoalRight;
 import org.usfirst.frc.team4561.robot.commands.DriveArcadeTimed;
 import org.usfirst.frc.team4561.robot.commands.Fire;
 import org.usfirst.frc.team4561.robot.commands.MoveArmTo;
+import org.usfirst.frc.team4561.robot.commands.PIDGoalAlign;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
@@ -15,7 +15,7 @@ public class AutoSpyPortcullis extends CommandGroup {
     
     public  AutoSpyPortcullis() {
     	// Aligns to goal prefer right
-    	addSequential(new AlignGoalRight());
+    	addSequential(new PIDGoalAlign(false));
     	// fire
     	addSequential(new Fire());
     	// Start in courtyard, rotates to face defence, drives to defence, arm manipulates defence, drives under defence.

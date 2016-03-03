@@ -1,8 +1,8 @@
 package org.usfirst.frc.team4561.robot.automodes;
 
-import org.usfirst.frc.team4561.robot.commands.AlignGoalLeft;
 import org.usfirst.frc.team4561.robot.commands.DriveArcadeTimed;
 import org.usfirst.frc.team4561.robot.commands.Fire;
+import org.usfirst.frc.team4561.robot.commands.PIDGoalAlign;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
@@ -13,7 +13,7 @@ public class AutoSpyMoat extends CommandGroup {
     
     public  AutoSpyMoat() {
     	// Align to goal prefer left
-    	addSequential(new AlignGoalLeft());
+    	addSequential(new PIDGoalAlign(true));
     	// Fire
     	addSequential(new Fire());
     	// Realign to drive backwards through defence.

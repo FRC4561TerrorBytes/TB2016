@@ -151,5 +151,63 @@ public class DriveTrain extends Subsystem {
 		rightFront.set(0);
 		rightRear.set(0);
 	}
+	
+	public void putDebugInfo() {
+		Robot.getDebugTable().putNumber("DriveTrain/leftFront/Status", ((CANTalon)leftFront).get());
+		Robot.getDebugTable().putNumber("DriveTrain/leftFront/BusVoltage", ((CANTalon)leftFront).getBusVoltage());
+		Robot.getDebugTable().putNumber("DriveTrain/leftFront/OutputCurrent", ((CANTalon)leftFront).getOutputCurrent());
+		Robot.getDebugTable().putNumber("DriveTrain/leftFront/OutputVoltage", ((CANTalon)leftFront).getOutputVoltage());
+		Robot.getDebugTable().putNumber("DriveTrain/leftFront/Temperature", ((CANTalon)leftFront).getTemperature());
+		Robot.getDebugTable().putNumber("DriveTrain/leftFront/DeviceID", ((CANTalon)leftFront).getDeviceID());
+		Robot.getDebugTable().putNumber("DriveTrain/leftFront/FirmwareVersion", ((CANTalon)leftFront).GetFirmwareVersion());
+		Robot.getDebugTable().putBoolean("DriveTrain/leftFront/IsInverted", ((CANTalon)leftFront).getInverted());
+		Robot.getDebugTable().putBoolean("DriveTrain/leftFront/IsAlive", ((CANTalon)leftFront).isAlive());
+		Robot.getDebugTable().putBoolean("DriveTrain/leftFront/ControlEnabled", ((CANTalon)leftFront).isControlEnabled());
+		Robot.getDebugTable().putBoolean("DriveTrain/leftFront/IsEnabled", ((CANTalon)leftFront).isEnabled());
+		
+		Robot.getDebugTable().putNumber("DriveTrain/leftRear/Status", ((CANTalon)leftRear).get());
+		Robot.getDebugTable().putNumber("DriveTrain/leftRear/BusVoltage", ((CANTalon)leftRear).getBusVoltage());
+		Robot.getDebugTable().putNumber("DriveTrain/leftRear/OutputCurrent", ((CANTalon)leftRear).getOutputCurrent());
+		Robot.getDebugTable().putNumber("DriveTrain/leftRear/OutputVoltage", ((CANTalon)leftRear).getOutputVoltage());
+		Robot.getDebugTable().putNumber("DriveTrain/leftRear/Temperature", ((CANTalon)leftRear).getTemperature());
+		Robot.getDebugTable().putNumber("DriveTrain/leftRear/DeviceID", ((CANTalon)leftRear).getDeviceID());
+		Robot.getDebugTable().putNumber("DriveTrain/leftRear/FirmwareVersion", ((CANTalon)leftRear).GetFirmwareVersion());
+		Robot.getDebugTable().putBoolean("DriveTrain/leftRear/IsInverted", ((CANTalon)leftRear).getInverted());
+		Robot.getDebugTable().putBoolean("DriveTrain/leftRear/IsAlive", ((CANTalon)leftRear).isAlive());
+		Robot.getDebugTable().putBoolean("DriveTrain/leftRear/ControlEnabled", ((CANTalon)leftRear).isControlEnabled());
+		Robot.getDebugTable().putBoolean("DriveTrain/leftRear/IsEnabled", ((CANTalon)leftRear).isEnabled());
+		
+		Robot.getDebugTable().putNumber("DriveTrain/rightFront/Status", ((CANTalon)rightFront).get());
+		Robot.getDebugTable().putNumber("DriveTrain/rightFront/BusVoltage", ((CANTalon)rightFront).getBusVoltage());
+		Robot.getDebugTable().putNumber("DriveTrain/rightFront/OutputCurrent", ((CANTalon)rightFront).getOutputCurrent());
+		Robot.getDebugTable().putNumber("DriveTrain/rightFront/OutputVoltage", ((CANTalon)rightFront).getOutputVoltage());
+		Robot.getDebugTable().putNumber("DriveTrain/rightFront/Temperature", ((CANTalon)rightFront).getTemperature());
+		Robot.getDebugTable().putNumber("DriveTrain/rightFront/DeviceID", ((CANTalon)rightFront).getDeviceID());
+		Robot.getDebugTable().putNumber("DriveTrain/rightFront/FirmwareVersion", ((CANTalon)rightFront).GetFirmwareVersion());
+		Robot.getDebugTable().putBoolean("DriveTrain/rightFront/IsInverted", ((CANTalon)rightFront).getInverted());
+		Robot.getDebugTable().putBoolean("DriveTrain/rightFront/IsAlive", ((CANTalon)rightFront).isAlive());
+		Robot.getDebugTable().putBoolean("DriveTrain/rightFront/ControlEnabled", ((CANTalon)rightFront).isControlEnabled());
+		Robot.getDebugTable().putBoolean("DriveTrain/rightFront/IsEnabled", ((CANTalon)rightFront).isEnabled());
+	
+		Robot.getDebugTable().putNumber("DriveTrain/rightRear/Status", ((CANTalon)rightRear).get());
+		Robot.getDebugTable().putNumber("DriveTrain/rightRear/BusVoltage", ((CANTalon)rightRear).getBusVoltage());
+		Robot.getDebugTable().putNumber("DriveTrain/rightRear/OutputCurrent", ((CANTalon)rightRear).getOutputCurrent());
+		Robot.getDebugTable().putNumber("DriveTrain/rightRear/OutputVoltage", ((CANTalon)rightRear).getOutputVoltage());
+		Robot.getDebugTable().putNumber("DriveTrain/rightRear/Temperature", ((CANTalon)rightRear).getTemperature());
+		Robot.getDebugTable().putNumber("DriveTrain/rightRear/DeviceID", ((CANTalon)rightRear).getDeviceID());
+		Robot.getDebugTable().putNumber("DriveTrain/rightRear/FirmwareVersion", ((CANTalon)rightRear).GetFirmwareVersion());
+		Robot.getDebugTable().putBoolean("DriveTrain/rightRear/IsInverted", ((CANTalon)rightRear).getInverted());
+		Robot.getDebugTable().putBoolean("DriveTrain/rightRear/IsAlive", ((CANTalon)rightRear).isAlive());
+		Robot.getDebugTable().putBoolean("DriveTrain/rightRear/ControlEnabled", ((CANTalon)rightRear).isControlEnabled());
+		Robot.getDebugTable().putBoolean("DriveTrain/rightRear/IsEnabled", ((CANTalon)rightRear).isEnabled());
+		
+		Robot.getDebugTable().putBoolean("DriveTrain/robotDrive/IsAlive", robotDrive.isAlive());
+		Robot.getDebugTable().putBoolean("DriveTrain/robotDrive/IsSafetyEnabled", robotDrive.isSafetyEnabled());
+		
+		Robot.getDebugTable().putString("DriveTrain/motorType", MOTOR_TYPE);
+		Robot.getDebugTable().putString("DriveTrain/motorType", DRIVE_TYPE);
+		Robot.getDebugTable().putBoolean("DriveTrain/squaredInputs", squaredInputs);
+		Robot.getDebugTable().putBoolean("DriveTrain/reversed", reversed);
+	}
 }
 

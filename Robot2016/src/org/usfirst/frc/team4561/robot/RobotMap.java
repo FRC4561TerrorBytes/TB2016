@@ -26,20 +26,132 @@ public class RobotMap {
     public static final int RIGHT_JOYSTICK = 1;
     public static final int CONTROLLER = 2;
     
-    // Camera buttons (Left Stick)
-    public static final int CAMERA_TOGGLE_BUTTON = 8; // TODO: Optimize
+    // Declarations
+    public static int CAMERA_TOGGLE_BUTTON = 11;
+    public static int ROLL_OUT_BUTTON_1 = 5;
+    public static int ROLL_OUT_BUTTON_2 = 6;
+    public static int ROLL_OUT_BUTTON_3 = 5;
+    public static int ROLL_OUT_BUTTON_4 = 6;
+    public static int ROLL_IN_BUTTON_1 = 3;
+    public static int ROLL_IN_BUTTON_2 = 4;
+    public static int ROLL_IN_BUTTON_3 = 3;
+    public static int ROLL_IN_BUTTON_4 = 4;
+    public static int REVERSE_DIRECTION_BUTTON = 2;
+    public static int TOURING_MODE_BUTTON = 2;
+    
+	public static int SHOOTER_FULL_BUTTON = 9;
+    public static int SHOOTER_LOW_BUTTON_1 = 13;
+    public static int SHOOTER_LOW_BUTTON_2 = 10;
+    public static int SHOOTER_OFF_BUTTON = 4;
+    public static int ARM_TOURING_BUTTON_1 = 5;
+    public static int ARM_TOURING_BUTTON_2 = 7;
+    public static int ALIGN_LEFT_BUTTON = 9;
+    public static int ALIGN_RIGHT_BUTTON = 10;
+    public static int ARM_PID_BUTTON = 1;
+    
+    // Preset 1 = -0.67
+    public static final double ARM_PRESET_1_LOWER = -1.0;
+    public static final double ARM_PRESET_1_UPPER = -0.505;
+    // Preset 2 = -0.34
+    public static final double ARM_PRESET_2_LOWER = -0.505;
+    public static final double ARM_PRESET_2_UPPER = -0.17;
+    // Default Value = 0
+    public static final double ARM_PRESET_DEFAULT_LOWER = -0.17;
+    public static final double ARM_PRESET_DEFAULT_UPPER = 0.155;
+    // Preset 3 = 0.31
+    public static final double ARM_PRESET_3_LOWER = 0.155;
+    public static final double ARM_PRESET_3_UPPER = 0.475;
+    // Preset 4 = 0.64
+    public static final double ARM_PRESET_4_LOWER = 0.475;
+    public static final double ARM_PRESET_4_UPPER = 0.805;
+    // Preset 5 = 0.97
+    public static final double ARM_PRESET_5_LOWER = 0.805;
+    public static final double ARM_PRESET_5_UPPER = 1.0;
+    
+ 
+    public RobotMap() {
+    	if(Robot.useSecondaryController()) {
+/*--------------------------------------------------------------------------------------------------------------*/
+/*			  *//*								 *//*						   *//*					 			*/
+/*			  *//*			Left Stick			 *//*		Right Stick		   *//*			Controller			*/
+/*			  *//*								 *//*						   *//*							    */
+/*--------------------------------------------------------------------------------------------------------------*/
+/*				*/						         /**/						   /**/ 						  /**/
+/*	  			*/ REVERSE_DIRECTION_BUTTON = 2; /**/ TOURING_MODE_BUTTON = 2; /**/  ALIGN_LEFT_BUTTON = 9;   /**/
+/*	   Drive	*/								 /**/		 				   /**/  ALIGN_RIGHT_BUTTON = 10; /**/
+/*	   Train	*/								 /**/		 				   /**/  						  /**/
+/*--------------------------------------------------------------------------------------------------------------*/
+/*				*/	   							 /**/						   /**/ 						  /**/
+/*	  			*/	   							 /**/						   /**/ SHOOTER_OFF_BUTTON = 4;  /**/
+/*	  Shooter	*/	   							 /**/						   /**/ SHOOTER_LOW_BUTTON_1 = 10;/**/
+/*				*/	   							 /**/						   /**/ SHOOTER_LOW_BUTTON_2 = 13;/**/
+/*				*/	   							 /**/						   /**/ SHOOTER_FULL_BUTTON = 9; /**/
+/*				*/	   							 /**/						   /**/ 						  /**/
+/*--------------------------------------------------------------------------------------------------------------*/
+/*				*/	   							 /**/						   /**/ 						  /**/
+/*				*/	   							 /**/						   /**//*ALIGN_LEFT = DPad Left*/ /**/
+/*		Arm		*/	   							 /**/						   /**//*ALIGN_RIGHT = DPad Right*//**/
+/*				*/	   							 /**/						   /**/ ARM_TOURING_BUTTON_1 = 5; /**/
+/*				*/	   							 /**/						   /**/ ARM_TOURING_BUTTON_2 = 7; /**/
+/*				*/	   							 /**/						   /**/ 	ARM_PID_BUTTON = 1;   /**/
+/*				*/	   							 /**/						   /**/ 						  /**/
+/*--------------------------------------------------------------------------------------------------------------*/
+/*				*/	   							 /**/						   /**/ 						  /**/
+/*	 			*/	   ROLL_IN_BUTTON_1 = 3;	 /**/	ROLL_IN_BUTTON_3 = 3;  /**/ 						  /**/
+/*	 Rollers	*/	   ROLL_IN_BUTTON_2 = 4;	 /**/	ROLL_IN_BUTTON_4 = 4;  /**/ 						  /**/
+/*				*/	   ROLL_OUT_BUTTON_1 = 5;	 /**/	ROLL_OUT_BUTTON_3 = 5; /**/ 						  /**/
+/*				*/	   ROLL_OUT_BUTTON_2 = 6;	 /**/	ROLL_OUT_BUTTON_4 = 6; /**/ 						  /**/
+/*				*/	   							 /**/						   /**/ 						  /**/
+/*--------------------------------------------------------------------------------------------------------------*/
+/*				*/	   							 /**/						   /**/ 						  /**/
+/*	  Camera	*/	 CAMERA_TOGGLE_BUTTON = 11;  /**/						   /**/ 						  /**/
+/*				*/	   							 /**/						   /**/ 						  /**/
+/*--------------------------------------------------------------------------------------------------------------*/    
+    	}
+    	else {
+/*--------------------------------------------------------------------------------------------------------------*/
+/*			  *//*								 *//*						   *//*					 			*/
+/*			  *//*			Left Stick			 *//*		Right Stick		   *//*			Controller			*/
+/*			  *//*								 *//*						   *//*							    */
+/*--------------------------------------------------------------------------------------------------------------*/
+/*				*/						         /**/						   /**/ 						  /**/
+/*	  			*/ REVERSE_DIRECTION_BUTTON = 2; /**/ TOURING_MODE_BUTTON = 2; /**/  ALIGN_LEFT_BUTTON = 9;   /**/
+/*	   Drive	*/								 /**/		 				   /**/  ALIGN_RIGHT_BUTTON = 10; /**/
+/*	   Train	*/								 /**/		 				   /**/  						  /**/
+/*--------------------------------------------------------------------------------------------------------------*/
+/*				*/	   							 /**/						   /**/ 						  /**/
+/*	  			*/	   							 /**/						   /**/ SHOOTER_OFF_BUTTON = 11;  /**/
+/*	  Shooter	*/	   							 /**/						   /**/ SHOOTER_LOW_BUTTON_1 = 11;/**/
+/*				*/	   							 /**/						   /**/ SHOOTER_LOW_BUTTON_2 = 11;/**/
+/*				*/	   							 /**/						   /**/ SHOOTER_FULL_BUTTON = 11; /**/
+/*				*/	   							 /**/						   /**/ 						  /**/
+/*--------------------------------------------------------------------------------------------------------------*/
+/*				*/	   							 /**/						   /**/ 						  /**/
+/*				*/	   							 /**/						   /**/    /*ARM_UP = DPad Up*/	  /**/
+/*		Arm		*/	   							 /**/						   /**/ /*ARM_DOWN = DPad Down */ /**/
+/*				*/	   							 /**/						   /**/ ARM_TOURING_BUTTON_1 = 5; /**/
+/*				*/	   							 /**/						   /**/ ARM_TOURING_BUTTON_2 = 7; /**/
+/*				*/	   							 /**/						   /**/ 						  /**/
+/*--------------------------------------------------------------------------------------------------------------*/
+/*				*/	   							 /**/						   /**/ 						  /**/
+/*	 			*/	   ROLL_IN_BUTTON_1 = 3;	 /**/	ROLL_IN_BUTTON_3 = 3;  /**/ 						  /**/
+/*	 Rollers	*/	   ROLL_IN_BUTTON_2 = 4;	 /**/	ROLL_IN_BUTTON_4 = 4;  /**/ 						  /**/
+/*				*/	   ROLL_OUT_BUTTON_1 = 5;	 /**/	ROLL_OUT_BUTTON_3 = 5; /**/ 						  /**/
+/*				*/	   ROLL_OUT_BUTTON_2 = 6;	 /**/	ROLL_OUT_BUTTON_4 = 6; /**/ 						  /**/
+/*				*/	   							 /**/						   /**/ 						  /**/
+/*--------------------------------------------------------------------------------------------------------------*/
+/*				*/	   							 /**/						   /**/ 						  /**/
+/*	  Camera	*/	 CAMERA_TOGGLE_BUTTON = 11;  /**/						   /**/ 						  /**/
+/*				*/	   							 /**/						   /**/ 						  /**/
+/*--------------------------------------------------------------------------------------------------------------*/    
+    	}    
+    }
     
     // Shooter buttons (Left Stick)
-    public static final int SHOOTER_PID_FLIP_BUTTON = 2; // TODO: Verify
+    public static final int SHOOTER_PID_FLIP_BUTTON = 3; // TODO: Verify
     
     // Shooter buttons (Controller)
     public static final int FIRE_BUTTON = 10; // TODO: Verify
-    
-    // Roller buttons (Left Stick)
-    public static final int ROLL_OUT_BUTTON = 1; // TODO: Optimize
-    
-    // Roller button (Right Stick)
-    public static final int ROLL_IN_BUTTON = 1; // TODO: Optimize
     
     // Arm buttons (Left Stick)
     public static final int LOADER_BUTTON = 6; // TODO: Verify
@@ -49,40 +161,6 @@ public class RobotMap {
     public static final int LOWER_ARMS_BUTTON = 10; // TODO: Verify
     public static final int RAISE_ARMS_BUTTON = 9; // TODO: Verify
     public static final int MOVE_ARM_DELTA_UP = 6; // TODO: Verify
-    public static final int MOVE_ARM_DELTA_DOWN = 5; // TODO: Verify
-    public static final int ARM_PRESET_1 = 1;
-    public static final int ARM_PRESET_2 = 2;
-    public static final int ARM_PRESET_3 = 3;
-    public static final int ARM_PRESET_4 = 4;
-    public static final int ARM_PRESET_5 = 5;
-    
-    
-    public static final int ARM_PRESET_1_LOWER = -1;
-    public static final int ARM_PRESET_1_UPPER = 1;
-    public static final int ARM_PRESET_2_LOWER = 2;
-    public static final int ARM_PRESET_2_UPPER = 2;
-    public static final int ARM_PRESET_3_LOWER = 3;
-    public static final int ARM_PRESET_3_UPPER = 2;
-    public static final int ARM_PRESET_4_LOWER = 4;
-    public static final int ARM_PRESET_4_UPPER = 2;
-    public static final int ARM_PRESET_5_LOWER = 5;
-    public static final int ARM_PRESET_5_UPPER = 1;
-    
-    // DriveTrain buttons (Left Stick)
-    public static final int REVERSE_DIRECTION_BUTTON = 7; // TODO: Optimize
-    
-    // DriveTrain buttons (Right Stick)
-    public static final int TOURING_MODE_BUTTON = 2; // TODO: Optimize
-    
-    // DriveTrain buttons (Controller)
-    public static final int ALIGN_RIGHT_BUTTON = 1; // TODO: Verify
-    public static final int ALIGN_LEFT_BUTTON = 2; // TODO: Verify
-    
-    // Individual Motor Drive buttons (Left Stick)
-//    public static final int FRONT_LEFT_MOTOR_BUTTON = 9;
-//    public static final int FRONT_RIGHT_MOTOR_BUTTON = 10;
-//    public static final int REAR_LEFT_MOTOR_BUTTON = 11;
-//    public static final int REAR_RIGHT_MOTOR_BUTTON = 12;
     
     // Encoders (DIO)
     public static final int SHOOTER_ENCODER_A_SOURCE = 0; // TODO: Verify

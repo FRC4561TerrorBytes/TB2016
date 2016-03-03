@@ -45,6 +45,10 @@ public class TankDrive extends Command {
     			Robot.driveTrain.driveTank(Robot.oi.getLeftStickY(), Robot.oi.getRightStickY());
     		}
     	}
+    	
+    	if(Robot.isInDebugMode()) {
+    		Robot.driveTrain.putDebugInfo();
+    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()

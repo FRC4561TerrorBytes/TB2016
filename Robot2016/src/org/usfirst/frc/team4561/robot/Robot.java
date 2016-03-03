@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
 
 import org.usfirst.frc.team4561.robot.automodes.AutoDoNothing;
 import org.usfirst.frc.team4561.robot.automodes.AutoNeutralSelectable;
@@ -28,17 +29,21 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends IterativeRobot {
 
+	
 	public static OI oi;
 	public static DriveTrain driveTrain;
 	public static Rollers rollers;
 	public static Arm arm;
 	public static Camera camera;
 	public static Shooter shooter;
+	static NetworkTable debugTable;
 
     Command autonomousCommand;
     SendableChooser chooser;
     
     private static Robot robotSingleton;
+    
+    private static boolean useSecondaryController = false;
 	
 	public static Robot getInstance() {
 		return robotSingleton;
@@ -61,6 +66,9 @@ public class Robot extends IterativeRobot {
 //        chooser.addObject("My Auto", new MyAutoCommand());
         SmartDashboard.putData("Auto mode", chooser);
         SmartDashboard.putData("loadFinishedSwitch", rollers.loadFinishedSwitch);
+        if(isInDebugMode()) { 
+			debugTable = NetworkTable.getTable("Debugging");
+		}
     }
 	
 	/**
@@ -75,6 +83,23 @@ public class Robot extends IterativeRobot {
 	
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
+		if(Robot.isInDebugMode()) {
+			getDebugTable().putNumber("Left Joy X", oi.getLeftStickX());
+			getDebugTable().putNumber("Left Joy Y", oi.getLeftStickY());
+			getDebugTable().putNumber("Right Joy X", oi.getRightStickX());
+			getDebugTable().putNumber("Right Joy Y", oi.getRightStickY());
+			getDebugTable().putNumber("Left Joy Throttle", oi.getLeftStickThrottle());
+			getDebugTable().putNumber("Corrected Left Joy Throttle", oi.getCorrectedLeftStickThrottle());
+			getDebugTable().putBoolean("Touring Mode", oi.isTouringMode());
+        	getDebugTable().putBoolean("Robot/IsAutonomous", this.isAutonomous());
+        	getDebugTable().putBoolean("Robot/IsDisabled", this.isDisabled());
+        	getDebugTable().putBoolean("Robot/IsEnabled", this.isEnabled());
+        	getDebugTable().putBoolean("Robot/IsOperatorControl", this.isOperatorControl());
+        	getDebugTable().putBoolean("Robot/IsTest", this.isTest());
+        	getDebugTable().putBoolean("Robot/IsReal", Robot.isReal());
+        	getDebugTable().putBoolean("Robot/IsSimulation", Robot.isSimulation());
+        	getDebugTable().putBoolean("Robot/IsVerbose", Robot.isVerbose());
+		}
 	}
 
 	/**
@@ -100,7 +125,6 @@ public class Robot extends IterativeRobot {
 			break;
 		} */
         
-        int autoChoosen = 0;
 		try {
 			int slider1 = (int)SmartDashboard.getNumber("DB/Slider 0");
 			int slider2 = (int)SmartDashboard.getNumber("DB/Slider 1");
@@ -194,6 +218,23 @@ public class Robot extends IterativeRobot {
      */
     public void autonomousPeriodic() {
         Scheduler.getInstance().run();
+        if(Robot.isInDebugMode()) {
+			getDebugTable().putNumber("Left Joy X", oi.getLeftStickX());
+			getDebugTable().putNumber("Left Joy Y", oi.getLeftStickY());
+			getDebugTable().putNumber("Right Joy X", oi.getRightStickX());
+			getDebugTable().putNumber("Right Joy Y", oi.getRightStickY());
+			getDebugTable().putNumber("Left Joy Throttle", oi.getLeftStickThrottle());
+			getDebugTable().putNumber("Corrected Left Joy Throttle", oi.getCorrectedLeftStickThrottle());
+			getDebugTable().putBoolean("Touring Mode", oi.isTouringMode());
+        	getDebugTable().putBoolean("Robot/IsAutonomous", this.isAutonomous());
+        	getDebugTable().putBoolean("Robot/IsDisabled", this.isDisabled());
+        	getDebugTable().putBoolean("Robot/IsEnabled", this.isEnabled());
+        	getDebugTable().putBoolean("Robot/IsOperatorControl", this.isOperatorControl());
+        	getDebugTable().putBoolean("Robot/IsTest", this.isTest());
+        	getDebugTable().putBoolean("Robot/IsReal", Robot.isReal());
+        	getDebugTable().putBoolean("Robot/IsSimulation", Robot.isSimulation());
+        	getDebugTable().putBoolean("Robot/IsVerbose", Robot.isVerbose());
+		}
     }
 
     public void teleopInit() {
@@ -215,9 +256,23 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putString("DB/String 1", "RPM: " + Integer.toString((int)shooter.getRPM()));
         SmartDashboard.putString("DB/String 2", "RPS: " + Integer.toString((int)shooter.getRPS()));
         SmartDashboard.putString("DB/String 3", "in/s: " + Integer.toString((int)shooter.getInchesPerSecond()));
-        if(DriverStation.getInstance().isBrownedOut()) {
-        	System.out.println("HALP ME IM BROWNED OUT PLS HALP");
-        }
+        if(Robot.isInDebugMode()) {
+			getDebugTable().putNumber("Left Joy X", oi.getLeftStickX());
+			getDebugTable().putNumber("Left Joy Y", oi.getLeftStickY());
+			getDebugTable().putNumber("Right Joy X", oi.getRightStickX());
+			getDebugTable().putNumber("Right Joy Y", oi.getRightStickY());
+			getDebugTable().putNumber("Left Joy Throttle", oi.getLeftStickThrottle());
+			getDebugTable().putNumber("Corrected Left Joy Throttle", oi.getCorrectedLeftStickThrottle());
+			getDebugTable().putBoolean("Touring Mode", oi.isTouringMode());
+        	getDebugTable().putBoolean("Robot/IsAutonomous", this.isAutonomous());
+        	getDebugTable().putBoolean("Robot/IsDisabled", this.isDisabled());
+        	getDebugTable().putBoolean("Robot/IsEnabled", this.isEnabled());
+        	getDebugTable().putBoolean("Robot/IsOperatorControl", this.isOperatorControl());
+        	getDebugTable().putBoolean("Robot/IsTest", this.isTest());
+        	getDebugTable().putBoolean("Robot/IsReal", Robot.isReal());
+        	getDebugTable().putBoolean("Robot/IsSimulation", Robot.isSimulation());
+        	getDebugTable().putBoolean("Robot/IsVerbose", Robot.isVerbose());
+		}
     }
     
     /**
@@ -225,14 +280,41 @@ public class Robot extends IterativeRobot {
      */
     public void testPeriodic() {
         LiveWindow.run();
+        if(Robot.isInDebugMode()) {
+			getDebugTable().putNumber("Left Joy X", oi.getLeftStickX());
+			getDebugTable().putNumber("Left Joy Y", oi.getLeftStickY());
+			getDebugTable().putNumber("Right Joy X", oi.getRightStickX());
+			getDebugTable().putNumber("Right Joy Y", oi.getRightStickY());
+			getDebugTable().putNumber("Left Joy Throttle", oi.getLeftStickThrottle());
+			getDebugTable().putNumber("Corrected Left Joy Throttle", oi.getCorrectedLeftStickThrottle());
+			getDebugTable().putBoolean("Touring Mode", oi.isTouringMode());
+        	getDebugTable().putBoolean("Robot/IsAutonomous", this.isAutonomous());
+        	getDebugTable().putBoolean("Robot/IsDisabled", this.isDisabled());
+        	getDebugTable().putBoolean("Robot/IsEnabled", this.isEnabled());
+        	getDebugTable().putBoolean("Robot/IsOperatorControl", this.isOperatorControl());
+        	getDebugTable().putBoolean("Robot/IsTest", this.isTest());
+        	getDebugTable().putBoolean("Robot/IsReal", Robot.isReal());
+        	getDebugTable().putBoolean("Robot/IsSimulation", Robot.isSimulation());
+        	getDebugTable().putBoolean("Robot/IsVerbose", Robot.isVerbose());
+		}
     }
     
-	private static boolean verbose = true;
+	private static final boolean verbose = true;
 	
-	public static void setVerbose(boolean verboseness) {
-		verbose = verboseness;
-	}
 	public static boolean isVerbose() {
 		return verbose;
+	}
+	
+	private static final boolean debug = true;
+	
+	public static boolean isInDebugMode() {
+		return debug;
+	}
+	public static NetworkTable getDebugTable() {
+		return debugTable;
+	}
+	
+	public static boolean useSecondaryController() {
+		return useSecondaryController;
 	}
 }

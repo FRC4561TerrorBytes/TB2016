@@ -1,8 +1,8 @@
 package org.usfirst.frc.team4561.robot.automodes;
 
-import org.usfirst.frc.team4561.robot.commands.AlignGoalRight;
 import org.usfirst.frc.team4561.robot.commands.DriveArcadeTimed;
 import org.usfirst.frc.team4561.robot.commands.Fire;
+import org.usfirst.frc.team4561.robot.commands.PIDGoalAlign;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
@@ -13,7 +13,7 @@ public class AutoSpyCheval extends CommandGroup {
     
     public  AutoSpyCheval() {
     	// Align to goal prefer right
-    	addSequential(new AlignGoalRight());
+    	addSequential(new PIDGoalAlign(false));
     	// Fire
     	addSequential(new Fire());
     	// Realign to drive backwards through defence.

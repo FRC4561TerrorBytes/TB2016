@@ -1,30 +1,34 @@
 package org.usfirst.frc.team4561.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.buttons.Button;
+import edu.wpi.first.wpilibj.Joystick.AxisType;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import org.usfirst.frc.team4561.robot.commands.ArcadeDrive;
-import org.usfirst.frc.team4561.robot.commands.Fire;
-import org.usfirst.frc.team4561.robot.commands.IndividualMotorDrive;
+import org.usfirst.frc.team4561.robot.commands.EnableArmDoubleTouringMode;
+import org.usfirst.frc.team4561.robot.commands.EnableArmTouringMode;
 import org.usfirst.frc.team4561.robot.commands.LowerArms;
-import org.usfirst.frc.team4561.robot.commands.MoveArmDelta;
 import org.usfirst.frc.team4561.robot.commands.MoveArmTo;
 import org.usfirst.frc.team4561.robot.commands.PIDGoalAlign;
 import org.usfirst.frc.team4561.robot.commands.RaiseArms;
 import org.usfirst.frc.team4561.robot.commands.ReverseDriveDirection;
-import org.usfirst.frc.team4561.robot.commands.LoadBall;
 import org.usfirst.frc.team4561.robot.commands.RollersIn;
 import org.usfirst.frc.team4561.robot.commands.RollersOut;
-import org.usfirst.frc.team4561.robot.commands.ToggleShooterPID;
-import org.usfirst.frc.team4561.robot.commands.SwitchToCamera1;
-import org.usfirst.frc.team4561.robot.commands.SwitchToCamera2;
+import org.usfirst.frc.team4561.robot.commands.SetShooterSpeed;
 import org.usfirst.frc.team4561.robot.commands.ToggleCamera;
-import org.usfirst.frc.team4561.robot.triggers.DSButton0Trigger;
-import org.usfirst.frc.team4561.robot.triggers.DSButton1Trigger;
-import org.usfirst.frc.team4561.robot.triggers.DSButton2Trigger;
-import org.usfirst.frc.team4561.robot.commands.ShootLow;
+import org.usfirst.frc.team4561.robot.triggers.ArmDownTrigger;
+import org.usfirst.frc.team4561.robot.triggers.ArmPreset1Trigger;
+import org.usfirst.frc.team4561.robot.triggers.ArmPreset2Trigger;
+import org.usfirst.frc.team4561.robot.triggers.ArmPreset3Trigger;
+import org.usfirst.frc.team4561.robot.triggers.ArmPreset4Trigger;
+import org.usfirst.frc.team4561.robot.triggers.ArmPreset5Trigger;
+import org.usfirst.frc.team4561.robot.triggers.ArmUpTrigger;
+import org.usfirst.frc.team4561.robot.triggers.DPadDownTrigger;
+import org.usfirst.frc.team4561.robot.triggers.DPadLeftTrigger;
+import org.usfirst.frc.team4561.robot.triggers.DPadRightTrigger;
+import org.usfirst.frc.team4561.robot.triggers.DPadUpTrigger;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -49,88 +53,156 @@ public class OI {
 	
 	// Right Stick Buttons
 	private JoystickButton touringModeButton = new JoystickButton(rightStick, RobotMap.TOURING_MODE_BUTTON);
-	private JoystickButton shooterPIDFlipButton = new JoystickButton(rightStick, 
-												  RobotMap.SHOOTER_PID_FLIP_BUTTON);
+//	private JoystickButton shooterPIDFlipButton = new JoystickButton(rightStick, 
+//												  RobotMap.SHOOTER_PID_FLIP_BUTTON);
 	
 	// Left Stick Buttons
 	private JoystickButton reverseDirectionButton = new JoystickButton(leftStick,
 			RobotMap.REVERSE_DIRECTION_BUTTON);
-	private JoystickButton loaderButton = new JoystickButton(leftStick,
-			RobotMap.LOADER_BUTTON);
-	private JoystickButton lowShotButton = new JoystickButton(leftStick,
-			RobotMap.LOWSHOT_BUTTON);
-	private JoystickButton rollInButton = new JoystickButton(rightStick, RobotMap.ROLL_IN_BUTTON);
-	private JoystickButton rollOutButton = new JoystickButton(leftStick, RobotMap.ROLL_OUT_BUTTON);
+//	private JoystickButton loaderButton = new JoystickButton(leftStick,
+//			RobotMap.LOADER_BUTTON);
+//	private JoystickButton lowShotButton = new JoystickButton(leftStick,
+//			RobotMap.LOWSHOT_BUTTON);
+	private JoystickButton rollInButton1 = new JoystickButton(rightStick, RobotMap.ROLL_IN_BUTTON_1);
+	private JoystickButton rollInButton2 = new JoystickButton(rightStick, RobotMap.ROLL_IN_BUTTON_2);
+	private JoystickButton rollInButton3 = new JoystickButton(rightStick, RobotMap.ROLL_IN_BUTTON_3);
+	private JoystickButton rollInButton4 = new JoystickButton(rightStick, RobotMap.ROLL_IN_BUTTON_4);
+	private JoystickButton rollOutButton1 = new JoystickButton(leftStick, RobotMap.ROLL_OUT_BUTTON_1);
+	private JoystickButton rollOutButton2 = new JoystickButton(leftStick, RobotMap.ROLL_OUT_BUTTON_2);
+	private JoystickButton rollOutButton3 = new JoystickButton(leftStick, RobotMap.ROLL_OUT_BUTTON_3);
+	private JoystickButton rollOutButton4 = new JoystickButton(leftStick, RobotMap.ROLL_OUT_BUTTON_4);
+	
 	private JoystickButton cameraToggleButton = new JoystickButton(leftStick, RobotMap.CAMERA_TOGGLE_BUTTON);
 	
 	// Controller Buttons
 //	private JoystickButton alignLeftButton = new JoystickButton(controller, RobotMap.ALIGN_LEFT_BUTTON);
 //	private JoystickButton alignRightButton = new JoystickButton(controller, RobotMap.ALIGN_RIGHT_BUTTON);
 //	private JoystickButton fireButton = new JoystickButton(controller, RobotMap.FIRE_BUTTON);
-	private JoystickButton moveArmDeltaUpButton = new JoystickButton(controller, RobotMap.MOVE_ARM_DELTA_UP);
-	private JoystickButton moveArmDeltaDownButton = new JoystickButton(controller, RobotMap.MOVE_ARM_DELTA_DOWN);
+//	private JoystickButton moveArmDeltaUpButton = new JoystickButton(controller, RobotMap.MOVE_ARM_DELTA_UP);
+//	private JoystickButton moveArmDeltaDownButton = new JoystickButton(controller, RobotMap.MOVE_ARM_DELTA_DOWN);
+	
+	// GamePad Buttons
 	private JoystickButton raiseArmsButton = new JoystickButton(controller, RobotMap.RAISE_ARMS_BUTTON);
 	private JoystickButton lowerArmsButton = new JoystickButton(controller, RobotMap.LOWER_ARMS_BUTTON);
-	private JoystickButton armPreset1 = new JoystickButton(controller, RobotMap.ARM_PRESET_1);
-	private JoystickButton armPreset2 = new JoystickButton(controller, RobotMap.ARM_PRESET_2);
-	private JoystickButton armPreset3 = new JoystickButton(controller, RobotMap.ARM_PRESET_3);
-	private JoystickButton armPreset4 = new JoystickButton(controller, RobotMap.ARM_PRESET_4);
+	private JoystickButton armSingleTouringButton = new JoystickButton(controller, RobotMap.ARM_TOURING_BUTTON_1);
+	private JoystickButton armDoubleTouringButton = new JoystickButton(controller, RobotMap.ARM_TOURING_BUTTON_2);
+	
+	// Secondary Controller Buttons
+	private JoystickButton shooterFullButton = new JoystickButton(controller, RobotMap.SHOOTER_FULL_BUTTON);
+	private JoystickButton shooterLowButton1 = new JoystickButton(controller, RobotMap.SHOOTER_LOW_BUTTON_1);
+	private JoystickButton shooterLowButton2 = new JoystickButton(controller, RobotMap.SHOOTER_LOW_BUTTON_2);
+	private JoystickButton shooterOffButton = new JoystickButton(controller, RobotMap.SHOOTER_OFF_BUTTON);
+	
+	// Controller Buttons
+	private JoystickButton alignLeftButton = new JoystickButton(controller, RobotMap.ALIGN_LEFT_BUTTON);
+	private JoystickButton alignRightButton = new JoystickButton(controller, RobotMap.ALIGN_RIGHT_BUTTON);
+	private ArmPreset1Trigger armPreset1Trigger = new ArmPreset1Trigger();
+	private ArmPreset2Trigger armPreset2Trigger = new ArmPreset2Trigger();
+	private ArmPreset3Trigger armPreset3Trigger = new ArmPreset3Trigger();
+	private ArmPreset4Trigger armPreset4Trigger = new ArmPreset4Trigger();
+	private ArmPreset5Trigger armPreset5Trigger = new ArmPreset5Trigger();
+	
+	private ArmUpTrigger armUpTrigger = new ArmUpTrigger();
+	private ArmDownTrigger armDownTrigger = new ArmDownTrigger();
+	
+	private DPadDownTrigger dPadDownTrigger = new DPadDownTrigger();
+	private DPadUpTrigger dPadUpTrigger = new DPadUpTrigger();
+	private DPadRightTrigger dPadRightTrigger = new DPadRightTrigger();
+	private DPadLeftTrigger dPadLeftTrigger = new DPadLeftTrigger();
+	
+//	private JoystickButton armPreset1 = new JoystickButton(controller, RobotMap.ARM_PRESET_1);
+//	private JoystickButton armPreset2 = new JoystickButton(controller, RobotMap.ARM_PRESET_2);
+//	private JoystickButton armPreset3 = new JoystickButton(controller, RobotMap.ARM_PRESET_3);
+//	private JoystickButton armPreset4 = new JoystickButton(controller, RobotMap.ARM_PRESET_4);
 	
 	// SmartDashboard triggers
-	private DSButton0Trigger dsButton0 = new DSButton0Trigger();
-	private DSButton1Trigger dsButton1 = new DSButton1Trigger();
-	private DSButton2Trigger dsButton2 = new DSButton2Trigger();
+//	private DSButton0Trigger dsButton0 = new DSButton0Trigger();
+//	private DSButton1Trigger dsButton1 = new DSButton1Trigger();
+//	private DSButton2Trigger dsButton2 = new DSButton2Trigger();
 	
 	public OI() {
-		
+		System.out.println("hi");
 		// DriveTrain button command assignments
 		reverseDirectionButton.whenPressed(new ReverseDriveDirection());
-//		alignLeftButton.whileHeld(new PIDGoalAlign(true));
-//		alignRightButton.whileHeld(new PIDGoalAlign(false));
-		
-		// Loader button command assignment
-		loaderButton.whileHeld(new LoadBall());
-		lowShotButton.whileHeld(new ShootLow());
-		
-		// Shooter button command assignment
-//		fireButton.whileHeld(new Fire());
 		
 		// Arm button command assignment
-		moveArmDeltaDownButton.whenPressed(new MoveArmDelta(false));
-		moveArmDeltaUpButton.whenPressed(new MoveArmDelta(true));
+
 		raiseArmsButton.whileHeld(new RaiseArms());
 		lowerArmsButton.whileHeld(new LowerArms());
-		armPreset1.whenPressed(new MoveArmTo(Robot.arm.presets.get("Bottom")));
-		armPreset2.whenPressed(new MoveArmTo(Robot.arm.presets.get("Intake")));
-		armPreset3.whenPressed(new MoveArmTo(Robot.arm.presets.get("Middle")));
-		armPreset4.whenPressed(new MoveArmTo(Robot.arm.presets.get("Top")));
+		armDoubleTouringButton.whileHeld(new EnableArmDoubleTouringMode());
+		armSingleTouringButton.whileHeld(new EnableArmTouringMode());
 		
 		// Roller button command assignment
-		rollInButton.whileHeld(new RollersIn());
-		rollInButton.whenPressed(new RollersIn());
-		rollOutButton.whileHeld(new RollersOut());
+		rollInButton1.whileHeld(new RollersIn());
+		rollInButton2.whileHeld(new RollersIn());
+		rollInButton3.whileHeld(new RollersIn());
+		rollInButton4.whileHeld(new RollersIn());
+		rollOutButton1.whileHeld(new RollersOut());
+		rollOutButton2.whileHeld(new RollersOut());
+		rollOutButton3.whileHeld(new RollersOut());
+		rollOutButton4.whileHeld(new RollersOut());
 		
 		// SmartDashboard trigger preparation
 		SmartDashboard.putBoolean("DB/Button 0", false);
 		SmartDashboard.putBoolean("DB/Button 1", false);
 		SmartDashboard.putBoolean("DB/Button 2", false);
 		
-		// SmartDashboard trigger command assignments
-//		dsButton0.whenActive(new SwitchToCamera1());
-//		dsButton1.whenActive(new SwitchToCamera2());
-//		dsButton2.whenActive(new ToggleCamera());
 		
 		// Camera button command assignments
 		cameraToggleButton.whenPressed(new ToggleCamera());
 		
+		// Secondary Controller
+		if(Robot.useSecondaryController()) {
+			armPreset1Trigger.whenActive(new MoveArmTo(Robot.arm.presets.get("Top")));
+			armPreset2Trigger.whenActive(new MoveArmTo(Robot.arm.presets.get("Top")));
+			armPreset3Trigger.whenActive(new MoveArmTo(Robot.arm.presets.get("Middle")));
+			armPreset4Trigger.whenActive(new MoveArmTo(Robot.arm.presets.get("Intake")));
+			armPreset5Trigger.whenActive(new MoveArmTo(Robot.arm.presets.get("Bottom")));
+			
+			armUpTrigger.whileActive(new RaiseArms());
+			armDownTrigger.whileActive(new LowerArms());
+			
+			armUpTrigger.whenInactive(new MoveArmTo(Robot.arm.getCorrectedLeftEncoder()));
+			armDownTrigger.whenInactive(new MoveArmTo(Robot.arm.getCorrectedLeftEncoder()));
+			
+			shooterFullButton.whenPressed(new SetShooterSpeed(1.0));
+			shooterLowButton1.whenPressed(new SetShooterSpeed(0.5));
+			shooterLowButton2.whenPressed(new SetShooterSpeed(0.5));
+			shooterOffButton.whenPressed(new SetShooterSpeed(0.0));
+			
+			dPadLeftTrigger.whenActive(new PIDGoalAlign(true));
+			dPadRightTrigger.whenActive(new PIDGoalAlign(false));
+		}
+		else {
+			alignLeftButton.whenPressed(new PIDGoalAlign(true));
+			alignRightButton.whenPressed(new PIDGoalAlign(false));
+		}
+		
+		// Unused
+		// Shooter button command assignment
+//		shooterPIDFlipButton.whenActive(new ToggleShooterPID());
 		// Individual Motor Drive command assignments
 //		driveFrontLeft.whileHeld(new IndividualMotorDrive(RobotMap.FRONT_LEFT_MOTOR_CAN));
 //		driveRearLeft.whileHeld(new IndividualMotorDrive(RobotMap.REAR_LEFT_MOTOR_CAN));
 //		driveRearRight.whileHeld(new IndividualMotorDrive(RobotMap.REAR_RIGHT_MOTOR_CAN));
 //		driveFrontRight.whileHeld(new IndividualMotorDrive(RobotMap.FRONT_RIGHT_MOTOR_CAN));
-		
-		// Shooter button comand assignment
-		shooterPIDFlipButton.whenActive(new ToggleShooterPID());
+		// SmartDashboard trigger command assignments
+//		dsButton0.whenActive(new SwitchToCamera1());
+//		dsButton1.whenActive(new SwitchToCamera2());
+//		dsButton2.whenActive(new ToggleCamera());
+//		armPreset1.whenPressed(new MoveArmTo(Robot.arm.presets.get("Bottom")));
+//		armPreset2.whenPressed(new MoveArmTo(Robot.arm.presets.get("Intake")));
+//		armPreset3.whenPressed(new MoveArmTo(Robot.arm.presets.get("Middle")));
+//		armPreset4.whenPressed(new MoveArmTo(Robot.arm.presets.get("Top")));
+//		moveArmDeltaDownButton.whenPressed(new MoveArmDelta(false));
+//		moveArmDeltaUpButton.whenPressed(new MoveArmDelta(true));
+		// Shooter button command assignment
+//		fireButton.whileHeld(new Fire());
+//		alignLeftButton.whileHeld(new PIDGoalAlign(true));
+//		alignRightButton.whileHeld(new PIDGoalAlign(false));
+		// Loader button command assignment
+//		loaderButton.whileHeld(new LoadBall());
+//		lowShotButton.whileHeld(new ShootLow());
 	}
 	
 	// Joystick config
@@ -253,6 +325,13 @@ public class OI {
 		return (-getLeftStickThrottle() + 1) * 0.5;
 	}
 	
+	public double getRightStickThrottle() {
+		return rightStick.getThrottle();
+	}
+	public double getCorrectedRightStickThrottle() {
+		return (-getRightStickThrottle() + 1) * 0.5;
+	}
+	
 	public boolean isTouringMode() {
 		return touringModeButton.get();
 	}
@@ -269,6 +348,26 @@ public class OI {
 	public boolean getDashboardButton3() {
 		return SmartDashboard.getBoolean("DB/Button 3", false);
 	}
-	
+	public double getDashboardSlider0() {
+		return SmartDashboard.getNumber("DB/Slider 0");
+	}
+	public double getDashboardSlider1() {
+		return SmartDashboard.getNumber("DB/Slider 1");
+	}
+	public double getDashboardSlider2() {
+		return SmartDashboard.getNumber("DB/Slider 2");
+	}
+	public double getDashboardSlider3() {
+		return SmartDashboard.getNumber("DB/Slider 3");
+	}
+	public int getControllerDpad() {
+		return controller.getPOV();
+	}
+	public double getArmPIDAxis() {
+		return controller.getZ(); // TODO: Find axis
+	}
+	public double getArmNonPIDAxis() {
+		return controller.getX();
+	}
 }
 

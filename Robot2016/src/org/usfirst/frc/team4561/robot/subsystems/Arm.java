@@ -3,15 +3,12 @@ package org.usfirst.frc.team4561.robot.subsystems;
 import org.usfirst.frc.team4561.robot.Robot;
 import org.usfirst.frc.team4561.robot.RobotMap;
 
-import com.ni.vision.NIVision.GetPerpendicularLineResult;
-
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import java.util.HashMap;
 
@@ -40,11 +37,11 @@ public class Arm extends PIDSubsystem {
 	
 	public double armMotorOutput;
 	
-	private final double ACCELERATION = 0.001; //TODO
-	
 	public HashMap<String, Double> presets = new HashMap<String, Double>();
 	
 	public boolean pidMode = false;
+	
+	public int touringModeLevel = 0;
 	
 	/**
 	 * 0 = left<br>
@@ -132,9 +129,9 @@ public class Arm extends PIDSubsystem {
 			
 			
 			
-			getPIDController().setPID(SmartDashboard.getNumber("DB/Slider 0"), 
-										SmartDashboard.getNumber("DB/Slider 1"),
-										SmartDashboard.getNumber("DB/Slider 2"));
+			getPIDController().setPID(Robot.oi.getDashboardSlider0(), 
+										Robot.oi.getDashboardSlider1(),
+										Robot.oi.getDashboardSlider2());
 			
 
 			
@@ -165,8 +162,6 @@ public class Arm extends PIDSubsystem {
 			rightMotor.setVoltageRampRate(10.23);
 		}
 		
-		System.out.println(getCorrectedLeftEncoder());
-		
 		// Not using PID output
 		if(Robot.oi.getDashboardButton0()) {
 			encoderToUse = 0;
@@ -180,12 +175,79 @@ public class Arm extends PIDSubsystem {
 			rightEncoder.reset();
 			leftEncoderError = 0;
 			rightEncoderError = 0;
-			System.out.println("top is pressed");
 		}
 		if(!bottomLimitSwitch.get()) {
 //			leftEncoderError = /* real bottom limit switch value  - */ leftEncoder.getDistance();
 //			rightEncoderError = /* real bottom limit switch value  - */ rightEncoder.getDistance();
-			System.out.println("bottom is pressed");
+		}
+		
+		if(Robot.isInDebugMode()) {
+			if(encoderToUse == 0) {
+				Robot.getDebugTable().putString("Arm/encoderToUse", "left");
+			} else if(encoderToUse == 1){
+				Robot.getDebugTable().putString("Arm/encoderToUse", "right");
+			} else {
+				Robot.getDebugTable().putString("Arm/encoderToUse", "not identifiable");
+			}
+			Robot.getDebugTable().putNumber("Arm/leftMotor/Status", leftMotor.get());
+			Robot.getDebugTable().putNumber("Arm/leftMotor/BusVoltage", leftMotor.getBusVoltage());
+			Robot.getDebugTable().putNumber("Arm/leftMotor/OutputCurrent", leftMotor.getOutputCurrent());
+			Robot.getDebugTable().putNumber("Arm/leftMotor/OutputVoltage", leftMotor.getOutputVoltage());
+			Robot.getDebugTable().putNumber("Arm/leftMotor/Temperature", leftMotor.getTemperature());
+			Robot.getDebugTable().putNumber("Arm/leftMotor/DeviceID", leftMotor.getDeviceID());
+			Robot.getDebugTable().putNumber("Arm/leftMotor/FirmwareVersion", leftMotor.GetFirmwareVersion());
+			Robot.getDebugTable().putBoolean("Arm/leftMotor/IsInverted", leftMotor.getInverted());
+			Robot.getDebugTable().putBoolean("Arm/leftMotor/IsAlive", leftMotor.isAlive());
+			Robot.getDebugTable().putBoolean("Arm/leftMotor/ControlEnabled", leftMotor.isControlEnabled());
+			Robot.getDebugTable().putBoolean("Arm/leftMotor/IsEnabled", leftMotor.isEnabled());
+			Robot.getDebugTable().putNumber("Arm/rightMotor/Status", rightMotor.get());
+			Robot.getDebugTable().putNumber("Arm/rightMotor/BusVoltage", rightMotor.getBusVoltage());
+			Robot.getDebugTable().putNumber("Arm/rightMotor/OutputCurrent", rightMotor.getOutputCurrent());
+			Robot.getDebugTable().putNumber("Arm/rightMotor/OutputVoltage", rightMotor.getOutputVoltage());
+			Robot.getDebugTable().putNumber("Arm/rightMotor/Temperature", rightMotor.getTemperature());
+			Robot.getDebugTable().putNumber("Arm/rightMotor/DeviceID", rightMotor.getDeviceID());
+			Robot.getDebugTable().putNumber("Arm/rightMotor/FirmwareVersion", rightMotor.GetFirmwareVersion());
+			Robot.getDebugTable().putBoolean("Arm/rightMotor/IsInverted", rightMotor.getInverted());
+			Robot.getDebugTable().putBoolean("Arm/rightMotor/IsAlive", rightMotor.isAlive());
+			Robot.getDebugTable().putBoolean("Arm/rightMotor/ControlEnabled", rightMotor.isControlEnabled());
+			Robot.getDebugTable().putBoolean("Arm/rightMotor/IsEnabled", rightMotor.isEnabled());
+			Robot.getDebugTable().putBoolean("Arm/leftEncoder/Direction", leftEncoder.getDirection());
+			Robot.getDebugTable().putBoolean("Arm/leftEncoder/Stopped", leftEncoder.getStopped());
+			Robot.getDebugTable().putNumber("Arm/leftEncoder/CurrentCount", leftEncoder.get());
+			Robot.getDebugTable().putNumber("Arm/leftEncoder/Distance", leftEncoder.getDistance());
+			Robot.getDebugTable().putNumber("Arm/leftEncoder/Rate", leftEncoder.getRate());
+			Robot.getDebugTable().putNumber("Arm/leftEncoder/encodingScale", leftEncoder.getEncodingScale());
+			Robot.getDebugTable().putNumber("Arm/leftEncoder/FPGAIndex", leftEncoder.getFPGAIndex());
+			Robot.getDebugTable().putNumber("Arm/leftEncoder/RawCount", leftEncoder.getRaw());
+			Robot.getDebugTable().putNumber("Arm/leftEncoder/CorrectedCount", getCorrectedLeftEncoder());
+			Robot.getDebugTable().putNumber("Arm/leftEncoder/SamplesToAverage", leftEncoder.getSamplesToAverage());
+			Robot.getDebugTable().putNumber("Arm/leftEncoder/Error", leftEncoderError);
+			Robot.getDebugTable().putBoolean("Arm/rightEncoder/Direction", rightEncoder.getDirection());
+			Robot.getDebugTable().putBoolean("Arm/rightEncoder/Stopped", rightEncoder.getStopped());
+			Robot.getDebugTable().putNumber("Arm/rightEncoder/CurrentCount", rightEncoder.get());
+			Robot.getDebugTable().putNumber("Arm/rightEncoder/Distance", rightEncoder.getDistance());
+			Robot.getDebugTable().putNumber("Arm/rightEncoder/Rate", rightEncoder.getRate());
+			Robot.getDebugTable().putNumber("Arm/rightEncoder/encodingScale", rightEncoder.getEncodingScale());
+			Robot.getDebugTable().putNumber("Arm/rightEncoder/FPGAIndex", rightEncoder.getFPGAIndex());
+			Robot.getDebugTable().putNumber("Arm/rightEncoder/RawCount", rightEncoder.getRaw());
+			Robot.getDebugTable().putNumber("Arm/rightEncoder/CorrectedCount", getCorrectedRightEncoder());
+			Robot.getDebugTable().putNumber("Arm/rightEncoder/SamplesToAverage", rightEncoder.getSamplesToAverage());
+			Robot.getDebugTable().putNumber("Arm/rightEncoder/Error", rightEncoderError);
+			Robot.getDebugTable().putBoolean("Arm/topLimitSwitch/isNotPressed", topLimitSwitch.get());
+			Robot.getDebugTable().putBoolean("Arm/bottomLimitSwitch/isNotPressed", bottomLimitSwitch.get());
+			Robot.getDebugTable().putNumber("Arm/armMotorOutput", armMotorOutput);
+			Robot.getDebugTable().putBoolean("Arm/pidMode", pidMode);
+			Robot.getDebugTable().putNumber("Arm/PIDController/Output", getPIDController().get());
+			Robot.getDebugTable().putNumber("Arm/PIDController/AverageError", getPIDController().getAvgError());
+			Robot.getDebugTable().putNumber("Arm/PIDController/P", getPIDController().getP());
+			Robot.getDebugTable().putNumber("Arm/PIDController/I", getPIDController().getI());
+			Robot.getDebugTable().putNumber("Arm/PIDController/D", getPIDController().getD());
+			Robot.getDebugTable().putNumber("Arm/PIDController/F", getPIDController().getF());
+			Robot.getDebugTable().putNumber("Arm/PIDController/DeltaSetpoint", getPIDController().getDeltaSetpoint());
+			Robot.getDebugTable().putNumber("Arm/PIDController/Error", getPIDController().getError());
+			Robot.getDebugTable().putNumber("Arm/PIDController/Setpoint", getPIDController().getSetpoint());
+			Robot.getDebugTable().putBoolean("Arm/PIDController/IsEnabled", getPIDController().isEnabled());
+			Robot.getDebugTable().putBoolean("Arm/PIDController/OnTarget", getPIDController().onTarget());
 		}
 	}
 }

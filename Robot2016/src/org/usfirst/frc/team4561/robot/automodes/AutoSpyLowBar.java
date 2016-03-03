@@ -1,8 +1,8 @@
 package org.usfirst.frc.team4561.robot.automodes;
 
-import org.usfirst.frc.team4561.robot.commands.AlignGoalRight;
 import org.usfirst.frc.team4561.robot.commands.DriveArcadeTimed;
 import org.usfirst.frc.team4561.robot.commands.Fire;
+import org.usfirst.frc.team4561.robot.commands.PIDGoalAlign;
 import org.usfirst.frc.team4561.robot.commands.ShooterAlign;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -14,7 +14,7 @@ public class AutoSpyLowBar extends CommandGroup {
     
     public  AutoSpyLowBar() {
     	// Align to goal prefer right
-    	addSequential(new AlignGoalRight());
+    	addSequential(new PIDGoalAlign(false));
     	// Spin up shooter
     	addSequential(new ShooterAlign());
     	// Fire

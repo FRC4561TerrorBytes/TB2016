@@ -7,16 +7,16 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class RaiseArms extends Command {
+public class StopArms extends Command {
 
-    public RaiseArms() {
+    public StopArms() {
     	requires(Robot.arm);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
     	if(Robot.isVerbose()) {
-    		System.out.println("Starting RaiseArms");
+    		System.out.println("Starting StopArms");
     	}
     	Robot.arm.pidMode = false;
     	Robot.arm.armMotorOutput = 0;

@@ -2,7 +2,7 @@ package org.usfirst.frc.team4561.robot.commands;
 
 import org.usfirst.frc.team4561.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.DigitalInput;
+
 /**
  *
  */
@@ -31,7 +31,9 @@ public class RollersIn extends Command {
     	} else {
     		Robot.rollers.setRollers(1.0);
     	}
-    	
+    	if(Robot.isInDebugMode()) {
+    		Robot.rollers.putDebugInfo();
+    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()

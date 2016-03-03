@@ -33,16 +33,6 @@ public class MonitorPiHeartbeat extends Command {
     protected void execute() {
     	coolLookingNumber = visionTable.getNumber("coolLookingNumber", 0);
     	coolLookingNumbers.add(0, coolLookingNumber);
-    	if(coolLookingNumbers.size() > 50) {
-    		for(int i = 50; i < coolLookingNumbers.size(); i++) {
-    			try {
-    				coolLookingNumbers.remove(i);
-    			}
-    			catch(Exception e) {
-    				break;
-    			}
-    		}
-    	}
 	    alive = isAlive();
 	    if(alive) {
 	    	SmartDashboard.putString("DB/String 4", "Pi Online");
@@ -70,8 +60,12 @@ public class MonitorPiHeartbeat extends Command {
     private boolean isAlive() {
     	for(int i = 1; i < coolLookingNumbers.size(); i++)
 	    {
-	        if(coolLookingNumbers.get(i) != coolLookingNumbers.get(0))
-	            return true;
+    		try {
+		        if(coolLookingNumbers.get(i) != coolLookingNumbers.get(i-50))
+		            return true;
+    		} catch(Exception e) {
+    			return false;
+    		}
 	    }
 	    return false;
     }

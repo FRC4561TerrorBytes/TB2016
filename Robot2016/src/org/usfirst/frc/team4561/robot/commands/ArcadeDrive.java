@@ -46,6 +46,10 @@ public class ArcadeDrive extends Command {
     			Robot.driveTrain.driveArcade(Robot.oi.getLeftStickY(), Robot.oi.getRightStickX());
     		}
     	}
+    	
+    	if(Robot.isInDebugMode()) {
+    		Robot.driveTrain.putDebugInfo();
+    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()

@@ -5,11 +5,12 @@ import org.usfirst.frc.team4561.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class SetShooterSpeed extends Command {
-
-	private final double MAXIMUM_RPM = 7500;
-
-	public SetShooterSpeed() {
+	
+	double speed;
+	
+	public SetShooterSpeed(double speed) {
 		requires(Robot.shooter);
+		this.speed = speed;
 	}
 
 	protected void initialize() {
@@ -19,8 +20,7 @@ public class SetShooterSpeed extends Command {
 	}
 
 	protected void execute() {
-		double rpm = Robot.oi.getCorrectedLeftStickThrottle() * MAXIMUM_RPM;
-		Robot.shooter.setRPM(rpm);
+		Robot.shooter.setPower(speed);
 	}
 
 	protected boolean isFinished() {

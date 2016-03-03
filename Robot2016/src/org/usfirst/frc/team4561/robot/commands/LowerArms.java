@@ -32,9 +32,21 @@ public class LowerArms extends Command {
     	}
     	else {
     		System.out.println("yes power down");
-    		Robot.arm.leftMotor.set(-0.5); //TODO: Find speed values
-        	Robot.arm.rightMotor.set(-0.5); //TODO: Find speed values
-        	Robot.arm.armMotorOutput = -0.5;
+    		if(Robot.arm.touringModeLevel == 0) {
+    			Robot.arm.leftMotor.set(-0.9);
+            	Robot.arm.rightMotor.set(-0.9);
+            	Robot.arm.armMotorOutput = -0.9;
+            }
+    		else if(Robot.arm.touringModeLevel == 1) {
+    			Robot.arm.leftMotor.set(-0.5);
+            	Robot.arm.rightMotor.set(-0.5);
+            	Robot.arm.armMotorOutput = -0.5;
+            }
+    		else if(Robot.arm.touringModeLevel == 2) {
+    			Robot.arm.leftMotor.set(-0.2);
+            	Robot.arm.rightMotor.set(-0.2);
+            	Robot.arm.armMotorOutput = -0.2;
+            }
     	}
     }
 

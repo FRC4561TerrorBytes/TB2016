@@ -243,6 +243,12 @@ public class Camera extends Subsystem {
 	    	}
 	        server.setImage(frame);
     	}
+    	if(Robot.isInDebugMode()) {
+    		Robot.getDebugTable().putNumber("Camera/cam0", cam0);
+    		Robot.getDebugTable().putNumber("Camera/cam2", cam2);
+    		Robot.getDebugTable().putNumber("Camera/currentCam", currentCam);
+    		Robot.getDebugTable().putBoolean("Camera/noCamerasInitialized", noCamerasInitialized);
+    	}
     }
     
     public int goalsBeingSeen() {

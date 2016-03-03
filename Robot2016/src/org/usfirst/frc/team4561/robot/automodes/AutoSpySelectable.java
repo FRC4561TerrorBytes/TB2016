@@ -1,8 +1,6 @@
 package org.usfirst.frc.team4561.robot.automodes;
 
 import org.usfirst.frc.team4561.robot.Robot;
-import org.usfirst.frc.team4561.robot.commands.AlignGoalLeft;
-import org.usfirst.frc.team4561.robot.commands.AlignGoalRight;
 import org.usfirst.frc.team4561.robot.commands.DriveArcadeTimed;
 import org.usfirst.frc.team4561.robot.commands.Fire;
 import org.usfirst.frc.team4561.robot.commands.MoveArmTo;
