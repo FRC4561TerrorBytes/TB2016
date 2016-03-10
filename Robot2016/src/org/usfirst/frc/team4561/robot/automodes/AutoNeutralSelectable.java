@@ -3,11 +3,13 @@ package org.usfirst.frc.team4561.robot.automodes;
 import org.usfirst.frc.team4561.robot.Robot;
 import org.usfirst.frc.team4561.robot.commands.DriveArcadeTimed;
 import org.usfirst.frc.team4561.robot.commands.Fire;
+import org.usfirst.frc.team4561.robot.commands.LowerArms;
 import org.usfirst.frc.team4561.robot.commands.MoveArmTo;
 import org.usfirst.frc.team4561.robot.commands.PIDGoalAlign;
 import org.usfirst.frc.team4561.robot.commands.ShooterAlign;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.command.WaitCommand;
 
 /**
  *
@@ -36,9 +38,14 @@ public class AutoNeutralSelectable extends CommandGroup {
         || defence == 4		// Ramparts
         || defence == 7 	// Rock Wall
         || defence == 8		// Rough Terrain
-        || defence == 9) {	// Low Bar
+        ) {
         	// Drive over defence
-        	addSequential(new DriveArcadeTimed(1, 0, 3));
+        	addSequential(new DriveArcadeTimed(-1, 0, 2));
+        }
+        else if (defence == 9) {	// Low Bar
+        	addSequential(new LowerArms(), 0.5);
+        	addSequential(new WaitCommand(3));
+        	addSequential(new DriveArcadeTimed(-0.5, 0, 3));
         }
         else if (defence == 1) { // Portcullis
         	// Drive to portcullis

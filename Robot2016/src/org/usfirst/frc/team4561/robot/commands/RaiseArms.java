@@ -24,7 +24,7 @@ public class RaiseArms extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if(!Robot.arm.bottomLimitSwitch.get()) {
+    	if(!Robot.arm.topLimitSwitch.get()) {
     		System.out.println("no power up");
     		Robot.arm.leftMotor.set(0);
         	Robot.arm.rightMotor.set(0);
@@ -33,9 +33,10 @@ public class RaiseArms extends Command {
     	else {
     		System.out.println("yes power up");
     		if(Robot.arm.touringModeLevel == 0) {
-    			Robot.arm.leftMotor.set(0.9);
-            	Robot.arm.rightMotor.set(0.9);
-            	Robot.arm.armMotorOutput = 0.9;
+    			Robot.arm.leftMotor.set(0.6);
+            	Robot.arm.rightMotor.set(0.6);
+            	Robot.arm.armMotorOutput = 0.6;
+            	
             }
     		else if(Robot.arm.touringModeLevel == 1) {
     			Robot.arm.leftMotor.set(0.5);

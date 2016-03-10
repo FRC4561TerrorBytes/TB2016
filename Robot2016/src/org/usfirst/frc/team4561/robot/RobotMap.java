@@ -27,7 +27,7 @@ public class RobotMap {
     public static final int CONTROLLER = 2;
     
     // Declarations
-    public static int CAMERA_TOGGLE_BUTTON = 11;
+    public static int CAMERA_TOGGLE_BUTTON = 1;
     public static int ROLL_OUT_BUTTON_1 = 5;
     public static int ROLL_OUT_BUTTON_2 = 6;
     public static int ROLL_OUT_BUTTON_3 = 5;

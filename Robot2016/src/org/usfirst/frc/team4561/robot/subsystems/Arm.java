@@ -58,9 +58,7 @@ public class Arm extends PIDSubsystem {
     	if(Robot.isVerbose()) {
     		System.out.println("Initializing Arm Subsystem");
     	}
-		getPIDController().setOutputRange(-0.9, 0.9);
-		
-		leftEncoder.setPIDSourceType(PIDSourceType.kDisplacement);
+		getPIDController().setOutputRange(-0.6, 0.6);
     	
     	LiveWindow.addActuator("Arm", "PIDController", getPIDController());
     	
@@ -71,8 +69,8 @@ public class Arm extends PIDSubsystem {
     	
     	getPIDController().setAbsoluteTolerance(1);
     	
-    	leftMotor.setVoltageRampRate(10.23);
-    	rightMotor.setVoltageRampRate(10.23);
+//    	leftMotor.setVoltageRampRate(2.5);
+//    	rightMotor.setVoltageRampRate(2.5);
     	
     	leftEncoder.setDistancePerPulse(DISTANCE_PER_PULSE); // Sets the encoder to measure in degrees
     	rightEncoder.setDistancePerPulse(DISTANCE_PER_PULSE); // Sets the encoder to measure in degrees
@@ -99,10 +97,10 @@ public class Arm extends PIDSubsystem {
     }
     
     public double getCorrectedLeftEncoder() {
-    	return leftEncoder.getDistance() + leftEncoderError;
+    	return leftEncoder.getDistance();
     }
     public double getCorrectedRightEncoder() {
-    	return rightEncoder.getDistance() + rightEncoderError;
+    	return rightEncoder.getDistance();
     }
 
     protected double returnPIDInput() {
@@ -117,13 +115,13 @@ public class Arm extends PIDSubsystem {
 	protected void usePIDOutput(double output) {
 		if(pidMode) {
 			if(!bottomLimitSwitch.get() && output > 0) {
-				leftMotor.setVoltageRampRate(0);
-				rightMotor.setVoltageRampRate(0);
+				//leftMotor.setVoltageRampRate(0);
+				//rightMotor.setVoltageRampRate(0);
 				output = 0;
 			}
 			else if(!topLimitSwitch.get() && output < 0) {
-				leftMotor.setVoltageRampRate(0);
-				rightMotor.setVoltageRampRate(0);
+				//leftMotor.setVoltageRampRate(0);
+				//rightMotor.setVoltageRampRate(0);
 				output = 0;
 			}
 			
@@ -137,12 +135,12 @@ public class Arm extends PIDSubsystem {
 			
 			if(getPIDController().getError() > 20 || getPIDController().getError() < -20) {
 				getPIDController().setPID(getPIDController().getP(), 0, getPIDController().getD());
-				leftMotor.setVoltageRampRate(10.23);
-				rightMotor.setVoltageRampRate(10.23);
+//				leftMotor.setVoltageRampRate(10.23);
+//				rightMotor.setVoltageRampRate(10.23);
 			}
 			else {
-				leftMotor.setVoltageRampRate(0);
-				rightMotor.setVoltageRampRate(0);
+//				leftMotor.setVoltageRampRate(0);
+//				rightMotor.setVoltageRampRate(0);
 			}
 			
 			
@@ -155,11 +153,11 @@ public class Arm extends PIDSubsystem {
 		}
 		
 		if(!topLimitSwitch.get() || !bottomLimitSwitch.get()) {
-			leftMotor.setVoltageRampRate(0);
-			rightMotor.setVoltageRampRate(0);
+//			leftMotor.setVoltageRampRate(0);
+//			rightMotor.setVoltageRampRate(0);
 		} else {
-			leftMotor.setVoltageRampRate(10.23);
-			rightMotor.setVoltageRampRate(10.23);
+//			leftMotor.setVoltageRampRate(10.23);
+//			rightMotor.setVoltageRampRate(10.23);
 		}
 		
 		// Not using PID output

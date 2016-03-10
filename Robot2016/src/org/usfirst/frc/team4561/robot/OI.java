@@ -65,10 +65,10 @@ public class OI {
 //			RobotMap.LOWSHOT_BUTTON);
 	private JoystickButton rollInButton1 = new JoystickButton(rightStick, RobotMap.ROLL_IN_BUTTON_1);
 	private JoystickButton rollInButton2 = new JoystickButton(rightStick, RobotMap.ROLL_IN_BUTTON_2);
-	private JoystickButton rollInButton3 = new JoystickButton(rightStick, RobotMap.ROLL_IN_BUTTON_3);
-	private JoystickButton rollInButton4 = new JoystickButton(rightStick, RobotMap.ROLL_IN_BUTTON_4);
-	private JoystickButton rollOutButton1 = new JoystickButton(leftStick, RobotMap.ROLL_OUT_BUTTON_1);
-	private JoystickButton rollOutButton2 = new JoystickButton(leftStick, RobotMap.ROLL_OUT_BUTTON_2);
+	private JoystickButton rollInButton3 = new JoystickButton(leftStick, RobotMap.ROLL_IN_BUTTON_3);
+	private JoystickButton rollInButton4 = new JoystickButton(leftStick, RobotMap.ROLL_IN_BUTTON_4);
+	private JoystickButton rollOutButton1 = new JoystickButton(rightStick, RobotMap.ROLL_OUT_BUTTON_1);
+	private JoystickButton rollOutButton2 = new JoystickButton(rightStick, RobotMap.ROLL_OUT_BUTTON_2);
 	private JoystickButton rollOutButton3 = new JoystickButton(leftStick, RobotMap.ROLL_OUT_BUTTON_3);
 	private JoystickButton rollOutButton4 = new JoystickButton(leftStick, RobotMap.ROLL_OUT_BUTTON_4);
 	
@@ -102,7 +102,7 @@ public class OI {
 	private ArmPreset4Trigger armPreset4Trigger = new ArmPreset4Trigger();
 	private ArmPreset5Trigger armPreset5Trigger = new ArmPreset5Trigger();
 	
-	private ArmUpTrigger armUpTrigger = new ArmUpTrigger();
+	public ArmUpTrigger armUpTrigger = new ArmUpTrigger();
 	private ArmDownTrigger armDownTrigger = new ArmDownTrigger();
 	
 	private DPadDownTrigger dPadDownTrigger = new DPadDownTrigger();
@@ -161,9 +161,8 @@ public class OI {
 			
 			armUpTrigger.whileActive(new RaiseArms());
 			armDownTrigger.whileActive(new LowerArms());
-			
-			armUpTrigger.whenInactive(new MoveArmTo(Robot.arm.getCorrectedLeftEncoder()));
-			armDownTrigger.whenInactive(new MoveArmTo(Robot.arm.getCorrectedLeftEncoder()));
+			//armUpTrigger.whenInactive(new MoveArmTo(Robot.arm.getCorrectedLeftEncoder()));
+			//armDownTrigger.whenInactive(new MoveArmTo(Robot.arm.getCorrectedLeftEncoder()));
 			
 			shooterFullButton.whenPressed(new SetShooterSpeed(1.0));
 			shooterLowButton1.whenPressed(new SetShooterSpeed(0.5));

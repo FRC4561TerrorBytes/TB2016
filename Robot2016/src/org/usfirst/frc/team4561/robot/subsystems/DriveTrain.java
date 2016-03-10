@@ -21,7 +21,7 @@ public class DriveTrain extends Subsystem {
     // here. Call these from Commands.
 	
 	// "tank" for TankDrive, "arcade" for ArcadeDrive
-	private static String DRIVE_TYPE = "arcade";
+	private static String DRIVE_TYPE = "tank";
 	
 	// "talon" for TalonSRs, "victor" for Victors, "cantalon" for CANTalons or CANTalonSRXs
 	private static String MOTOR_TYPE = "cantalon";

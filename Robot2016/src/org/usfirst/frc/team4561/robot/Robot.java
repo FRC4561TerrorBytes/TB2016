@@ -37,13 +37,14 @@ public class Robot extends IterativeRobot {
 	public static Camera camera;
 	public static Shooter shooter;
 	static NetworkTable debugTable;
+	NetworkTable visionTable = NetworkTable.getTable("Vision");
 
     Command autonomousCommand;
     SendableChooser chooser;
     
     private static Robot robotSingleton;
     
-    private static boolean useSecondaryController = false;
+    private static boolean useSecondaryController = true;
 	
 	public static Robot getInstance() {
 		return robotSingleton;
@@ -256,6 +257,7 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putString("DB/String 1", "RPM: " + Integer.toString((int)shooter.getRPM()));
         SmartDashboard.putString("DB/String 2", "RPS: " + Integer.toString((int)shooter.getRPS()));
         SmartDashboard.putString("DB/String 3", "in/s: " + Integer.toString((int)shooter.getInchesPerSecond()));
+        SmartDashboard.putString("DB/String 5", "Kool: " + Integer.toString((int)visionTable.getNumber("coolLookingNumber", -12345)));
         if(Robot.isInDebugMode()) {
 			getDebugTable().putNumber("Left Joy X", oi.getLeftStickX());
 			getDebugTable().putNumber("Left Joy Y", oi.getLeftStickY());
@@ -299,13 +301,13 @@ public class Robot extends IterativeRobot {
 		}
     }
     
-	private static final boolean verbose = true;
+	private static final boolean verbose = false;
 	
 	public static boolean isVerbose() {
 		return verbose;
 	}
 	
-	private static final boolean debug = true;
+	private static final boolean debug = false;
 	
 	public static boolean isInDebugMode() {
 		return debug;
