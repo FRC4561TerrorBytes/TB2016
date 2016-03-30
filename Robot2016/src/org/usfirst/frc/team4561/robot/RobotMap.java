@@ -8,16 +8,18 @@ package org.usfirst.frc.team4561.robot;
 public class RobotMap {
 	// Motors (PWM)
 	// DriveTrain
-    public static final int FRONT_LEFT_MOTOR_CAN = 7;
+    public static final int FRONT_LEFT_MOTOR_CAN = 8;
     public static final int FRONT_RIGHT_MOTOR_CAN = 5;
     public static final int REAR_LEFT_MOTOR_CAN = 6;
     public static final int REAR_RIGHT_MOTOR_CAN = 2;
     // Shooter
     public static final int LEFT_SHOOTER_MOTOR = 3;
     public static final int RIGHT_SHOOTER_MOTOR = 4;
+    // Flashlight
+    public static final int FLASHLIGHT_MOTOR = 7;
     // Arm
-    public static final int LEFT_ARM_MOTOR = 8;
-    public static final int RIGHT_ARM_MOTOR = 9;
+    public static final int LEFT_ARM_MOTOR = 9;
+    public static final int RIGHT_ARM_MOTOR = 10;
     // Roller
     public static final int ROLLER_MOTOR = 1;
     

@@ -1,7 +1,6 @@
 
 package org.usfirst.frc.team4561.robot;
 
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -9,8 +8,11 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 
 import org.usfirst.frc.team4561.robot.automodes.AutoDoNothing;
+import org.usfirst.frc.team4561.robot.automodes.AutoLowBarHighGoalNonVision;
 import org.usfirst.frc.team4561.robot.automodes.AutoNeutralSelectable;
+import org.usfirst.frc.team4561.robot.automodes.AutoReach;
 import org.usfirst.frc.team4561.robot.commands.ArcadeDrive;
+import org.usfirst.frc.team4561.robot.commands.MonitorPiHeartbeat;
 import org.usfirst.frc.team4561.robot.subsystems.Arm;
 import org.usfirst.frc.team4561.robot.subsystems.Camera;
 import org.usfirst.frc.team4561.robot.subsystems.DriveTrain;
@@ -135,20 +137,11 @@ public class Robot extends IterativeRobot {
 					autonomousCommand = new AutoDoNothing();
 					break;
 				case 1:
-					if(slider3 > 0) {
-						autonomousCommand = new AutoNeutralSelectable(1, slider2, true);
-					} else {
-						autonomousCommand = new AutoNeutralSelectable(1, slider2, false);
-					}
-					break;
+					autonomousCommand = new AutoLowBarHighGoalNonVision();
 				case 2:
-					if(slider3 > 0) {
-						autonomousCommand = new AutoNeutralSelectable(2, slider2, true);
-					} else {
-						autonomousCommand = new AutoNeutralSelectable(2, slider2, false);
-					}
-					break;
+					autonomousCommand = new AutoReach();
 				case 3:
+					// Rock Wall etc. Auto
 					if(slider3 > 0) {
 						autonomousCommand = new AutoNeutralSelectable(3, slider2, true);
 					} else {
@@ -191,6 +184,7 @@ public class Robot extends IterativeRobot {
 					}
 					break;
 				case 9:
+					// Low Bar auto
 					if(slider3 > 0) {
 						autonomousCommand = new AutoNeutralSelectable(9, slider2, true);
 					} else {
@@ -246,6 +240,7 @@ public class Robot extends IterativeRobot {
         if (autonomousCommand != null) autonomousCommand.cancel();
         arm.getPIDController().enable();
         shooter.getPIDController().enable();
+        Scheduler.getInstance().add(new MonitorPiHeartbeat());
     }
 
     /**
@@ -253,11 +248,6 @@ public class Robot extends IterativeRobot {
      */
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
-        SmartDashboard.putString("DB/String 0", "Goals: " + Integer.toString(camera.goalsBeingSeen()));
-        SmartDashboard.putString("DB/String 1", "RPM: " + Integer.toString((int)shooter.getRPM()));
-        SmartDashboard.putString("DB/String 2", "RPS: " + Integer.toString((int)shooter.getRPS()));
-        SmartDashboard.putString("DB/String 3", "in/s: " + Integer.toString((int)shooter.getInchesPerSecond()));
-        SmartDashboard.putString("DB/String 5", "Kool: " + Integer.toString((int)visionTable.getNumber("coolLookingNumber", -12345)));
         if(Robot.isInDebugMode()) {
 			getDebugTable().putNumber("Left Joy X", oi.getLeftStickX());
 			getDebugTable().putNumber("Left Joy Y", oi.getLeftStickY());

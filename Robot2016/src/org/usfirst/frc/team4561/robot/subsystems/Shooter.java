@@ -2,13 +2,11 @@ package org.usfirst.frc.team4561.robot.subsystems;
 
 import org.usfirst.frc.team4561.robot.Robot;
 import org.usfirst.frc.team4561.robot.RobotMap;
-import org.usfirst.frc.team4561.robot.commands.SetShooterSpeed;
+import org.usfirst.frc.team4561.robot.commands.ShooterAlign;
 
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
-import edu.wpi.first.wpilibj.networktables.NetworkTable;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import java.lang.Math;
 
@@ -16,6 +14,8 @@ public class Shooter extends PIDSubsystem {
 	
 	private CANTalon leftMotor = new CANTalon(RobotMap.LEFT_SHOOTER_MOTOR);
 	private CANTalon rightMotor = new CANTalon(RobotMap.RIGHT_SHOOTER_MOTOR);
+	
+	private CANTalon flashlight = new CANTalon(RobotMap.FLASHLIGHT_MOTOR);
 	
 	private static Encoder shooterEncoder = new Encoder(RobotMap.SHOOTER_ENCODER_A_SOURCE,
 												 RobotMap.SHOOTER_ENCODER_B_SOURCE);
@@ -50,6 +50,7 @@ public class Shooter extends PIDSubsystem {
 	}
 
 	protected void initDefaultCommand() {
+		setDefaultCommand(new ShooterAlign());
 	}
 
 	public void stop(){
@@ -95,10 +96,13 @@ public class Shooter extends PIDSubsystem {
 			rightMotor.set(output);
 		}
 		else {
-			double correctedThrottle = (Robot.oi.getCorrectedLeftStickThrottle());
 			leftMotor.set(speed);
 			rightMotor.set(speed);
-			
+			if(speed != 0) {
+				flashlight.set(1);
+			} else {
+				flashlight.set(0);
+			}
 		}
 		
 		if(Robot.isInDebugMode()) {

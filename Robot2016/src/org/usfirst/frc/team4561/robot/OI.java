@@ -1,10 +1,7 @@
 package org.usfirst.frc.team4561.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.Joystick.AxisType;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team4561.robot.commands.EnableArmDoubleTouringMode;
@@ -96,6 +93,7 @@ public class OI {
 	// Controller Buttons
 	private JoystickButton alignLeftButton = new JoystickButton(controller, RobotMap.ALIGN_LEFT_BUTTON);
 	private JoystickButton alignRightButton = new JoystickButton(controller, RobotMap.ALIGN_RIGHT_BUTTON);
+	private JoystickButton armPIDButton = new JoystickButton(controller, RobotMap.ARM_PID_BUTTON);
 	private ArmPreset1Trigger armPreset1Trigger = new ArmPreset1Trigger();
 	private ArmPreset2Trigger armPreset2Trigger = new ArmPreset2Trigger();
 	private ArmPreset3Trigger armPreset3Trigger = new ArmPreset3Trigger();
@@ -109,11 +107,6 @@ public class OI {
 	private DPadUpTrigger dPadUpTrigger = new DPadUpTrigger();
 	private DPadRightTrigger dPadRightTrigger = new DPadRightTrigger();
 	private DPadLeftTrigger dPadLeftTrigger = new DPadLeftTrigger();
-	
-//	private JoystickButton armPreset1 = new JoystickButton(controller, RobotMap.ARM_PRESET_1);
-//	private JoystickButton armPreset2 = new JoystickButton(controller, RobotMap.ARM_PRESET_2);
-//	private JoystickButton armPreset3 = new JoystickButton(controller, RobotMap.ARM_PRESET_3);
-//	private JoystickButton armPreset4 = new JoystickButton(controller, RobotMap.ARM_PRESET_4);
 	
 	// SmartDashboard triggers
 //	private DSButton0Trigger dsButton0 = new DSButton0Trigger();
@@ -189,10 +182,7 @@ public class OI {
 //		dsButton0.whenActive(new SwitchToCamera1());
 //		dsButton1.whenActive(new SwitchToCamera2());
 //		dsButton2.whenActive(new ToggleCamera());
-//		armPreset1.whenPressed(new MoveArmTo(Robot.arm.presets.get("Bottom")));
-//		armPreset2.whenPressed(new MoveArmTo(Robot.arm.presets.get("Intake")));
-//		armPreset3.whenPressed(new MoveArmTo(Robot.arm.presets.get("Middle")));
-//		armPreset4.whenPressed(new MoveArmTo(Robot.arm.presets.get("Top")));
+		
 //		moveArmDeltaDownButton.whenPressed(new MoveArmDelta(false));
 //		moveArmDeltaUpButton.whenPressed(new MoveArmDelta(true));
 		// Shooter button command assignment
@@ -367,6 +357,15 @@ public class OI {
 	}
 	public double getArmNonPIDAxis() {
 		return controller.getX();
+	}
+	public boolean getDPadDownPressed() {
+		return dPadDownTrigger.get();
+	}
+	public boolean getDPadUpPressed() {
+		return dPadUpTrigger.get();
+	}
+	public boolean getArmPIDButton() {
+		return armPIDButton.get();
 	}
 }
 

@@ -31,25 +31,24 @@ public class RaiseArms extends Command {
         	Robot.arm.armMotorOutput = 0;
     	}
     	else {
-    		System.out.println("yes power up");
-    		if(Robot.arm.touringModeLevel == 0) {
-    			Robot.arm.leftMotor.set(0.6);
-            	Robot.arm.rightMotor.set(0.6);
-            	Robot.arm.armMotorOutput = 0.6;
-            	
-            }
-    		else if(Robot.arm.touringModeLevel == 1) {
-    			Robot.arm.leftMotor.set(0.5);
-            	Robot.arm.rightMotor.set(0.5);
-            	Robot.arm.armMotorOutput = 0.5;
-            }
-    		else if(Robot.arm.touringModeLevel == 2) {
-    			Robot.arm.leftMotor.set(0.2);
-            	Robot.arm.rightMotor.set(0.2);
-            	Robot.arm.armMotorOutput = 0.2;
-            }
+//    		if(Robot.oi.getArmPIDButton()) {
+//	    		double max = 0.6;
+//	    		if(Robot.arm.getCorrectedLeftEncoder() < -45) {
+//					if(Robot.arm.getCorrectedLeftEncoder() > -60) {
+//						max = (0.01333333333 * Robot.arm.getCorrectedLeftEncoder()) + 1.2;
+//					} else {
+//						max = 0.4;
+//					}
+//				}
+//				Robot.arm.leftMotor.set(max);
+//	        	Robot.arm.rightMotor.set(max);
+//	        	Robot.arm.armMotorOutput = max;
+//    		} else {
+    			Robot.arm.leftMotor.set(0.4);
+	        	Robot.arm.rightMotor.set(0.4);
+	        	Robot.arm.armMotorOutput = 0.4;
+//    		}
     	}
-    	
     }
 
     // Make this return true when this Command no longer needs to run execute()

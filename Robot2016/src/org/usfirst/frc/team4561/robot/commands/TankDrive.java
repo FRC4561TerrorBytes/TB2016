@@ -12,7 +12,7 @@ import org.usfirst.frc.team4561.robot.RobotMap;
  */
 public class TankDrive extends Command {
 
-	private static final double TOURING_MODE_MULTIPLIER = RobotMap.TOURING_MODE_MULTIPLIER; // TODO: Put in
+	private static final double TOURING_MODE_MULTIPLIER = RobotMap.TOURING_MODE_MULTIPLIER;
 	
     public TankDrive() {
         requires(Robot.driveTrain);
@@ -29,11 +29,11 @@ public class TankDrive extends Command {
     protected void execute() {
     	if(Robot.driveTrain.isReversed()) {
     		if(Robot.driveTrain.isTouringMode()) {
-    			Robot.driveTrain.driveTank(-Robot.oi.getLeftStickY() * TOURING_MODE_MULTIPLIER, 
-    					 				   -Robot.oi.getRightStickY() * TOURING_MODE_MULTIPLIER);
+    			Robot.driveTrain.driveTank(-Robot.oi.getRightStickY() * TOURING_MODE_MULTIPLIER, 
+    					 				   -Robot.oi.getLeftStickY() * TOURING_MODE_MULTIPLIER);
     		}
     		else {
-    			Robot.driveTrain.driveTank(-Robot.oi.getLeftStickY(), -Robot.oi.getRightStickY());
+    			Robot.driveTrain.driveTank(-Robot.oi.getRightStickY(), -Robot.oi.getLeftStickY()); // TODO: Apparently something is wrong with reverse direction.
     		}
     	}
     	else  {

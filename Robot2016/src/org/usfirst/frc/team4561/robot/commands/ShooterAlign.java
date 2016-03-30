@@ -54,28 +54,21 @@ public class ShooterAlign extends Command {
     	width = visionTable.getNumber("width", -12345);
     	
     	if(width != -12345) {
-    		SmartDashboard.putString("DB/String 5", "W: " + width);
 	    	percent = width/CAMERA_RESOLUTION_X;
 	    	inches = GOAL_WIDTH/percent;
 	    	directDistance = inches/(2*Math.tan((CAMERA_HORIZONTAL_FOV/2)*(Math.PI/180)));
 	    	directDistance = directDistance * 1.4; // Fudge factor
-	    	SmartDashboard.putString("DB/String 6", "D: " + directDistance);
-	    	desiredSpeed = velocityTable.floorEntry(new Double(directDistance)).getValue().doubleValue();
-	    	System.out.println(desiredSpeed);
-	    	SmartDashboard.putString("DB/String 7", "S: " + (int)desiredSpeed);
-	    	Robot.shooter.setInchesPerSecond(desiredSpeed);
+	    	SmartDashboard.putString("DB/String 6", "Dist: " + directDistance);
     	}
     	
     	else {
-    		SmartDashboard.putString("DB/String 5", "W: Goal not found");
-    		SmartDashboard.putString("DB/String 6", "D: Goal not found");
-    		SmartDashboard.putString("DB/String 7", "S: Goal not found");
+    		SmartDashboard.putString("DB/String 6", "Dist: Goal not found");
     	}
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return Robot.shooter.getPIDController().onTarget();
+        return false;
     }
 
     // Called once after isFinished returns true

@@ -4,9 +4,9 @@ import org.usfirst.frc.team4561.robot.Robot;
 import org.usfirst.frc.team4561.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.CANTalon;
+import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
@@ -21,7 +21,7 @@ public class Arm extends PIDSubsystem {
 	public CANTalon rightMotor  = new CANTalon(RobotMap.RIGHT_ARM_MOTOR);
 	
 	private Encoder leftEncoder = new Encoder(RobotMap.ARM_LEFT_ENCODER_A_SOURCE, 
-											RobotMap.ARM_LEFT_ENCODER_B_SOURCE);
+											RobotMap.ARM_LEFT_ENCODER_B_SOURCE, false, EncodingType.k1X);
 	private Encoder rightEncoder = new Encoder(RobotMap.ARM_RIGHT_ENCODER_A_SOURCE, 
 											RobotMap.ARM_RIGHT_ENCODER_B_SOURCE);
 	
@@ -33,7 +33,7 @@ public class Arm extends PIDSubsystem {
 	
 	private final double ENCODER_TICKS = 2048;
 	private final double ARM_REDUCTION = 0.2777777;
-	private final double DISTANCE_PER_PULSE = (360/ENCODER_TICKS) * ARM_REDUCTION; // Degrees per tick
+	private final double DISTANCE_PER_PULSE = -((360/ENCODER_TICKS) * ARM_REDUCTION); // Degrees per tick
 	
 	public double armMotorOutput;
 	
@@ -52,13 +52,13 @@ public class Arm extends PIDSubsystem {
     // Initialize your subsystem here
     public Arm() {
     	super(0.03, // P
-    		  0.03, // I
-    		  0.04); // D
+      		  0.0, // I
+      		  0.04); // D
     	
     	if(Robot.isVerbose()) {
     		System.out.println("Initializing Arm Subsystem");
     	}
-		getPIDController().setOutputRange(-0.6, 0.6);
+		getPIDController().setOutputRange(-0.3, 0.3);
     	
     	LiveWindow.addActuator("Arm", "PIDController", getPIDController());
     	
@@ -75,10 +75,11 @@ public class Arm extends PIDSubsystem {
     	leftEncoder.setDistancePerPulse(DISTANCE_PER_PULSE); // Sets the encoder to measure in degrees
     	rightEncoder.setDistancePerPulse(DISTANCE_PER_PULSE); // Sets the encoder to measure in degrees
     	
-    	presets.put("Bottom", 155.0);
-    	presets.put("Intake", 141.0);
+    	presets.put("Bottom", 125.0);
+    	presets.put("Intake", 103.0);
+    	presets.put("Cheval", 70.0);
     	presets.put("Middle", 41.0);
-    	presets.put("Top", 4.0);
+    	presets.put("Top", 0.0);
     	
     	setSetpoint(presets.get("Top"));
     }
@@ -100,7 +101,7 @@ public class Arm extends PIDSubsystem {
     	return leftEncoder.getDistance();
     }
     public double getCorrectedRightEncoder() {
-    	return rightEncoder.getDistance();
+    	return leftEncoder.getDistance();
     }
 
     protected double returnPIDInput() {
@@ -127,9 +128,9 @@ public class Arm extends PIDSubsystem {
 			
 			
 			
-			getPIDController().setPID(Robot.oi.getDashboardSlider0(), 
-										Robot.oi.getDashboardSlider1(),
-										Robot.oi.getDashboardSlider2());
+//			getPIDController().setPID(Robot.oi.getDashboardSlider0(), 
+//										Robot.oi.getDashboardSlider1(),
+//										Robot.oi.getDashboardSlider2());
 			
 
 			
@@ -139,16 +140,35 @@ public class Arm extends PIDSubsystem {
 //				rightMotor.setVoltageRampRate(10.23);
 			}
 			else {
+				getPIDController().setPID(getPIDController().getP(), 0.0, getPIDController().getD());
 //				leftMotor.setVoltageRampRate(0);
 //				rightMotor.setVoltageRampRate(0);
 			}
 			
+//			if(getCorrectedLeftEncoder() < -45) {
+//				double min = 0;
+//				if(getCorrectedLeftEncoder() > -60) {
+//					min = (-0.01333333333 * getCorrectedLeftEncoder()) - 1.2;
+//				} else {
+//					min = -0.4;
+//				}
+//				
+////				if(output > 0 && output > -min) {
+////					output = -min;
+////				} else if (output < 0 && output < min) {
+////					output = min;
+////				}
+//				
+//				if(output < min) {
+//					output = min;
+//				}
+//			}
 			
+			leftMotor.set(-output);
+			rightMotor.set(-output);
 			
-			leftMotor.set(output);
-			rightMotor.set(output);
+			System.out.println(-output);
 			
-		
 			armMotorOutput = -output;
 		}
 		

@@ -23,7 +23,6 @@ public class RollersCompensate extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	Robot.rollers.setRollers(Robot.arm.armMotorOutput * 0.359);
-    	
     	if(Robot.isInDebugMode()) {
     		Robot.rollers.putDebugInfo();
     	}

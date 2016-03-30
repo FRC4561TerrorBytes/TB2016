@@ -43,7 +43,7 @@ public class AutoNeutralSelectable extends CommandGroup {
         	addSequential(new DriveArcadeTimed(-1, 0, 2));
         }
         else if (defence == 9) {	// Low Bar
-        	addSequential(new LowerArms(), 0.5);
+        	addSequential(new LowerArms(), 1.2);
         	addSequential(new WaitCommand(3));
         	addSequential(new DriveArcadeTimed(-0.5, 0, 3));
         }

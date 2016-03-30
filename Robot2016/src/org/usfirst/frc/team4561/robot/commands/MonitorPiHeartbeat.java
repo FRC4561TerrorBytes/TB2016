@@ -15,7 +15,7 @@ public class MonitorPiHeartbeat extends Command {
 
 	NetworkTable visionTable;
 	double coolLookingNumber;
-	ArrayList<Double> coolLookingNumbers = new ArrayList<Double>();
+	static ArrayList<Integer> coolLookingNumbers = new ArrayList<Integer>();
 	boolean alive = false;
 	
     public MonitorPiHeartbeat() {
@@ -32,12 +32,17 @@ public class MonitorPiHeartbeat extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	coolLookingNumber = visionTable.getNumber("coolLookingNumber", 0);
-    	coolLookingNumbers.add(0, coolLookingNumber);
+    	coolLookingNumbers.add(0, (int)coolLookingNumber);
+    	try {
+    		coolLookingNumbers.remove(12);
+    	} catch(Exception e) {
+    		
+    	}
 	    alive = isAlive();
 	    if(alive) {
-	    	SmartDashboard.putString("DB/String 4", "Pi Online");
+	    	SmartDashboard.putString("DB/String 5", "Pi Online");
 	    } else {
-	    	SmartDashboard.putString("DB/String 4", "Pi Offline");
+	    	SmartDashboard.putString("DB/String 5", "Pi Offline");
 	    }
     }
 
@@ -58,15 +63,13 @@ public class MonitorPiHeartbeat extends Command {
     }
     
     private boolean isAlive() {
-    	for(int i = 1; i < coolLookingNumbers.size(); i++)
-	    {
-    		try {
-		        if(coolLookingNumbers.get(i) != coolLookingNumbers.get(i-50))
-		            return true;
-    		} catch(Exception e) {
-    			return false;
-    		}
-	    }
+		try {
+	        if(!coolLookingNumbers.get(0).equals(coolLookingNumbers.get(10))) {
+	        	return true;
+	        }
+		} catch(Exception e) {
+			return false;
+		}
 	    return false;
     }
 }
