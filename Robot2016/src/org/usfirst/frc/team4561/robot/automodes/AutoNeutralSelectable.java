@@ -81,5 +81,7 @@ public class AutoNeutralSelectable extends CommandGroup {
         	// Fire
         	addSequential(new Fire());
         }
+        
+        addSequential(new WaitCommand(20.0));
     }
 }

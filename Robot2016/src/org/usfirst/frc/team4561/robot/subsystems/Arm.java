@@ -75,8 +75,8 @@ public class Arm extends PIDSubsystem {
     	leftEncoder.setDistancePerPulse(DISTANCE_PER_PULSE); // Sets the encoder to measure in degrees
     	rightEncoder.setDistancePerPulse(DISTANCE_PER_PULSE); // Sets the encoder to measure in degrees
     	
-    	presets.put("Bottom", 125.0);
-    	presets.put("Intake", 103.0);
+    	presets.put("Bottom", 126.0);
+    	presets.put("Intake", 116.0);
     	presets.put("Cheval", 70.0);
     	presets.put("Middle", 41.0);
     	presets.put("Top", 0.0);

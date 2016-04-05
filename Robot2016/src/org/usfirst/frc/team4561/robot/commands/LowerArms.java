@@ -43,9 +43,9 @@ public class LowerArms extends Command {
 //	        	Robot.arm.rightMotor.set(min);
 //	        	Robot.arm.armMotorOutput = min;
 //    		} else {
-    			Robot.arm.leftMotor.set(-0.4);
-	        	Robot.arm.rightMotor.set(-0.4);
-	        	Robot.arm.armMotorOutput = -0.4;
+    			Robot.arm.leftMotor.set(-0.43);
+	        	Robot.arm.rightMotor.set(-0.43);
+	        	Robot.arm.armMotorOutput = -0.43;
 //    		}
     	}
     }

@@ -147,8 +147,8 @@ public class OI {
 		// Secondary Controller
 		if(Robot.useSecondaryController()) {
 			armPreset1Trigger.whenActive(new MoveArmTo(Robot.arm.presets.get("Top")));
-			armPreset2Trigger.whenActive(new MoveArmTo(Robot.arm.presets.get("Top")));
-			armPreset3Trigger.whenActive(new MoveArmTo(Robot.arm.presets.get("Middle")));
+			armPreset2Trigger.whenActive(new MoveArmTo(Robot.arm.presets.get("Middle")));
+			armPreset3Trigger.whenActive(new MoveArmTo(Robot.arm.presets.get("Cheval")));
 			armPreset4Trigger.whenActive(new MoveArmTo(Robot.arm.presets.get("Intake")));
 			armPreset5Trigger.whenActive(new MoveArmTo(Robot.arm.presets.get("Bottom")));
 			
@@ -158,8 +158,8 @@ public class OI {
 			//armDownTrigger.whenInactive(new MoveArmTo(Robot.arm.getCorrectedLeftEncoder()));
 			
 			shooterFullButton.whenPressed(new SetShooterSpeed(1.0));
-			shooterLowButton1.whenPressed(new SetShooterSpeed(0.5));
-			shooterLowButton2.whenPressed(new SetShooterSpeed(0.5));
+			shooterLowButton1.whenPressed(new SetShooterSpeed(0.4));
+			shooterLowButton2.whenPressed(new SetShooterSpeed(0.4));
 			shooterOffButton.whenPressed(new SetShooterSpeed(0.0));
 			
 			dPadLeftTrigger.whenActive(new PIDGoalAlign(true));
@@ -196,12 +196,12 @@ public class OI {
 	
 	// Joystick config
 	// Right stick config
-	public static double RIGHT_STICK_DEAD_ZONE = 0.15;
-    public static double RIGHT_STICK_REDUCTION = 0;
+	public static double RIGHT_STICK_DEAD_ZONE = 0.25;
+    public static double RIGHT_STICK_REDUCTION = 0.25;
     
     // Left stick config
-    public static double LEFT_STICK_DEAD_ZONE = 0.15;
-    public static double LEFT_STICK_REDUCTION = 0;
+    public static double LEFT_STICK_DEAD_ZONE = 0.25;
+    public static double LEFT_STICK_REDUCTION = 0.25;
     
     /**
      * Get the value given by the right stick's Y-axis. Applies dead zone and reduction.
@@ -215,13 +215,13 @@ public class OI {
 		}
 		// Reductions
 		if(rightStickY > 0) {
-			rightStickY = rightStickY - RIGHT_STICK_REDUCTION;
+			rightStickY = (rightStickY - RIGHT_STICK_REDUCTION) * (4.0/3.0);
 			if(rightStickY < 0) {
 				rightStickY = 0;
 			}
 		}
 		else if(rightStickY < 0) {
-			rightStickY = rightStickY + RIGHT_STICK_REDUCTION;
+			rightStickY = (rightStickY + RIGHT_STICK_REDUCTION) * (4.0/3.0);
 			if(rightStickY > 0) {
 				rightStickY = 0;
 			}
@@ -241,13 +241,13 @@ public class OI {
 		}
 		// Reductions
 		if(rightStickX > 0) {
-			rightStickX = rightStickX - RIGHT_STICK_REDUCTION;
+			rightStickX = (rightStickX - RIGHT_STICK_REDUCTION) * (4.0/3.0);
 			if(rightStickX < 0) {
 				rightStickX = 0;
 			}
 		}
 		else if(rightStickX < 0) {
-			rightStickX = rightStickX + RIGHT_STICK_REDUCTION;
+			rightStickX = (rightStickX + RIGHT_STICK_REDUCTION) * (4.0/3.0);
 			if(rightStickX > 0) {
 				rightStickX = 0;
 			}
@@ -267,13 +267,13 @@ public class OI {
 		}
 		// Reductions
 		if(leftStickY > 0) {
-			leftStickY = leftStickY - LEFT_STICK_REDUCTION;
+			leftStickY = (leftStickY - LEFT_STICK_REDUCTION) * (4.0/3.0);
 			if(leftStickY < 0) {
 				leftStickY = 0;
 			}
 		}
 		else if(leftStickY < 0) {
-			leftStickY = leftStickY + LEFT_STICK_REDUCTION;
+			leftStickY = (leftStickY + LEFT_STICK_REDUCTION) * (4.0/3.0);
 			if(leftStickY > 0) {
 				leftStickY = 0;
 			}
@@ -293,13 +293,13 @@ public class OI {
 		}
 		// Reductions
 		if(leftStickX > 0) {
-			leftStickX = leftStickX - LEFT_STICK_REDUCTION;
+			leftStickX = (leftStickX - LEFT_STICK_REDUCTION) * (4.0/3.0);
 			if(leftStickX < 0) {
 				leftStickX = 0;
 			}
 		}
 		else if(leftStickX < 0) {
-			leftStickX = leftStickX + LEFT_STICK_REDUCTION;
+			leftStickX = (leftStickX + LEFT_STICK_REDUCTION) * (4.0/3.0);
 			if(leftStickX > 0) {
 				leftStickX = 0;
 			}
