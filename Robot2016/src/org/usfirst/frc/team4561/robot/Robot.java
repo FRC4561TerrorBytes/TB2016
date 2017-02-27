@@ -14,7 +14,7 @@ import org.usfirst.frc.team4561.robot.automodes.AutoReach;
 import org.usfirst.frc.team4561.robot.commands.ArcadeDrive;
 import org.usfirst.frc.team4561.robot.commands.MonitorPiHeartbeat;
 import org.usfirst.frc.team4561.robot.subsystems.Arm;
-import org.usfirst.frc.team4561.robot.subsystems.Camera;
+//import org.usfirst.frc.team4561.robot.subsystems.Camera;
 import org.usfirst.frc.team4561.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team4561.robot.subsystems.Rollers;
 import org.usfirst.frc.team4561.robot.subsystems.Shooter;
@@ -36,7 +36,7 @@ public class Robot extends IterativeRobot {
 	public static DriveTrain driveTrain;
 	public static Rollers rollers;
 	public static Arm arm;
-	public static Camera camera;
+	//public static Camera camera;
 	public static Shooter shooter;
 	static NetworkTable debugTable;
 	NetworkTable visionTable = NetworkTable.getTable("Vision");
@@ -60,7 +60,7 @@ public class Robot extends IterativeRobot {
     	driveTrain = new DriveTrain();
     	rollers = new Rollers();
     	arm = new Arm();
-    	camera = new Camera();
+    	//camera = new Camera();
     	shooter = new Shooter();
     	oi = new OI();
     	robotSingleton = this;

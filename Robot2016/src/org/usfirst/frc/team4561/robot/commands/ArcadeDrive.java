@@ -31,19 +31,19 @@ public class ArcadeDrive extends Command {
     	if(Robot.driveTrain.isReversed()) {
     		if(Robot.driveTrain.isTouringMode()) {
     			Robot.driveTrain.driveArcade(-Robot.oi.getLeftStickY() * TOURING_MODE_MULTIPLIER, 
-    										 Robot.oi.getRightStickX() * TOURING_MODE_MULTIPLIER);
+    										 Robot.oi.getLeftStickX() * TOURING_MODE_MULTIPLIER);
     		}
     		else {
-    			Robot.driveTrain.driveArcade(-Robot.oi.getLeftStickY(), Robot.oi.getRightStickX());
+    			Robot.driveTrain.driveArcade(-Robot.oi.getLeftStickY(), Robot.oi.getLeftStickX());
     		}
     	}
     	else {
     		if(Robot.driveTrain.isTouringMode()) {
     			Robot.driveTrain.driveArcade(Robot.oi.getLeftStickY() * TOURING_MODE_MULTIPLIER, 
-    										 Robot.oi.getRightStickX() * TOURING_MODE_MULTIPLIER);
+    										 Robot.oi.getLeftStickX() * TOURING_MODE_MULTIPLIER);
     		}
     		else {
-    			Robot.driveTrain.driveArcade(Robot.oi.getLeftStickY(), Robot.oi.getRightStickX());
+    			Robot.driveTrain.driveArcade(Robot.oi.getLeftStickY(), Robot.oi.getLeftStickX());
     		}
     	}
     	

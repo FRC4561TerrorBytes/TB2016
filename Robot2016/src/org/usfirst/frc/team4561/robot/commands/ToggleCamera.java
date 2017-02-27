@@ -17,7 +17,7 @@ public class ToggleCamera extends Command {
     	if(Robot.isVerbose()) {
     		System.out.println("Starting ToggleCamera");
     	}
-    	Robot.camera.switchCam();
+    	//Robot.camera.switchCam();
     }
 
     // Called repeatedly when this Command is scheduled to run

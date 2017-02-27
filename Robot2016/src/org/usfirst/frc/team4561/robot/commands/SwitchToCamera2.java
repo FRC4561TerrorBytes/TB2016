@@ -17,7 +17,7 @@ public class SwitchToCamera2 extends Command {
     	if(Robot.isVerbose()) {
     		System.out.println("Starting SwitchToCamera2");
     	}
-    	Robot.camera.switchCam(Robot.camera.cam2);
+    	//Robot.camera.switchCam(Robot.camera.cam2);
     }
 
     // Called repeatedly when this Command is scheduled to run
